@@ -203,6 +203,16 @@
     .chat-bubble-wrap.user .cbubble{background:var(--blue);color:var(--white);border-bottom-right-radius:4px}
     .chat-bubble-wrap.admin .cbubble{background:var(--sand2);color:var(--ink);border-bottom-left-radius:4px}
     .chat-system{text-align:center;font-size:.72rem;color:var(--mid);padding:.3rem 0;font-style:italic}
+    .cbubble-outer{display:flex;flex-direction:column}
+    .chat-bubble-wrap.user .cbubble-outer{align-items:flex-end}
+    .chat-bubble-wrap.admin .cbubble-outer{align-items:flex-start}
+    .cbubble-time{font-size:.62rem;color:var(--mid);margin-top:2px;padding:0 2px}
+    /* typing dots */
+    .typing-bubble{display:flex;align-items:center;gap:4px;padding:.6rem .85rem}
+    .typing-bubble span{width:7px;height:7px;border-radius:50%;background:var(--mid);display:inline-block;animation:typingDot 1.2s infinite ease-in-out}
+    .typing-bubble span:nth-child(2){animation-delay:.2s}
+    .typing-bubble span:nth-child(3){animation-delay:.4s}
+    @keyframes typingDot{0%,80%,100%{transform:scale(.8);opacity:.5}40%{transform:scale(1.1);opacity:1}}
     /* input row — always at bottom, never hidden */
     .chat-input-row{display:flex;gap:.5rem;padding:.65rem .75rem;border-top:1px solid var(--border);flex-shrink:0;background:var(--white)}
     .chat-input{flex:1;font-family:'DM Sans',sans-serif;font-size:16px;padding:.5rem .75rem;border-radius:var(--pill);border:1.5px solid var(--border);outline:none;transition:border-color .15s;min-width:0;background:var(--sand)}
@@ -815,14 +825,26 @@ function initChat() {
       chatSessionId = msg.sessionId;
       localStorage.setItem('lw_chat_sid', chatSessionId);
       chatReady = true;
-      // clear loading state
       const msgs = document.getElementById('chatMsgs');
       if (msgs) msgs.innerHTML = '';
       if (msg.history && msg.history.length > 0) {
+        // returning user — show history
         msg.history.forEach(m => appendChatBubble(m.from, m.text, false));
         scrollMsgs();
       } else {
-        appendChatSystem('👋 Hi! How can we help you today?');
+        // new chat — show welcome messages with typing indicator
+        showTypingIndicator();
+        setTimeout(() => {
+          hideTypingIndicator();
+          appendChatBubble('admin', "👋 Hey! Thanks for reaching out to Liam's Websites.", true);
+          setTimeout(() => {
+            showTypingIndicator();
+            setTimeout(() => {
+              hideTypingIndicator();
+              appendChatBubble('admin', "Someone will be with you shortly. Responses usually take a few minutes to a few hours — but can occasionally take up to 15 hours. We'll get back to you as soon as possible! 🙂", true);
+            }, 1200);
+          }, 500);
+        }, 900);
       }
       showChatMessages();
       return;
@@ -918,10 +940,27 @@ function appendChatBubble(from, text, scroll) {
   if (from === 'system') { appendChatSystem(text); return; }
   const wrap = document.createElement('div');
   wrap.className = 'chat-bubble-wrap ' + (from === 'user' ? 'user' : 'admin');
-  const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  wrap.innerHTML = `<div class="cbubble">${safe}</div>`;
+  const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  const now  = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  wrap.innerHTML = `<div class="cbubble-outer"><div class="cbubble">${safe}</div><div class="cbubble-time">${now}</div></div>`;
   msgs.appendChild(wrap);
   if (scroll) setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 30);
+}
+
+function showTypingIndicator() {
+  const msgs = document.getElementById('chatMsgs');
+  if (!msgs || document.getElementById('typingIndicator')) return;
+  const div = document.createElement('div');
+  div.id = 'typingIndicator';
+  div.className = 'chat-bubble-wrap admin';
+  div.innerHTML = '<div class="cbubble-outer"><div class="cbubble typing-bubble"><span></span><span></span><span></span></div></div>';
+  msgs.appendChild(div);
+  setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 30);
+}
+
+function hideTypingIndicator() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
 }
 
 function appendChatSystem(text) {
