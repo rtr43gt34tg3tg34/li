@@ -1,0 +1,14 @@
+{
+  "name": "Liam's Websites",
+  "short_name": "Liam's Sites",
+  "description": "Professional websites for any business under $200",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf9f7",
+  "theme_color": "#0c0c0b",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
