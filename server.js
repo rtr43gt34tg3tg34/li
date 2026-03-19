@@ -32,7 +32,13 @@ wss.on('connection', (ws) => {
     // User joins chat
     if (msg.type === 'user_join') {
       const sid = msg.sessionId || genId();
-      if (!chats[sid]) chats[sid] = { id: sid, name: msg.name||'Visitor', email: msg.email||'', messages: [], unread: 0, status: 'open', claimedBy: null };
+      const isNew = !chats[sid];
+      if (isNew) {
+        chats[sid] = { id: sid, name: msg.name||'Visitor', email: msg.email||'', messages: [], unread: 0, status: 'open', claimedBy: null };
+        // Save auto-welcome messages to history so they persist
+        chats[sid].messages.push({ from: 'admin', text: "👋 Hey! Thanks for reaching out to Liam's Websites.", ts: Date.now() });
+        chats[sid].messages.push({ from: 'admin', text: "Someone will be with you shortly. Response times are usually a few minutes to a few hours — but can occasionally take up to 15 hours depending on how busy we are. We'll get back to you as soon as possible! 🙂", ts: Date.now() + 1 });
+      }
       clients.set(ws, { type: 'user', sessionId: sid });
       ws.send(JSON.stringify({ type: 'joined', sessionId: sid, history: chats[sid].messages, status: chats[sid].status }));
       broadcastAdmins({ type: 'chat_list', chats: chatList() });
