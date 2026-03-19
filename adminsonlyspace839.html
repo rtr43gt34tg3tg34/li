@@ -236,6 +236,7 @@
     if (msg.type === 'new_msg')       { handleNewMsg(msg); return; }
     if (msg.type === 'chat_history')  { renderChatHistory(msg); return; }
     if (msg.type === 'ticket_updated'){ handleTicketUpdate(msg.chatMeta); return; }
+      if (msg.type === 'ticket_deleted'){ handleTicketDeleted(msg.sessionId); return; }
   }
 
   /* ── CHAT LIST ── */
@@ -332,6 +333,26 @@
     }
     if (betterUpBtn) {
       betterUpBtn.addEventListener('click', function() { betterUp(); });
+    }
+  }
+
+  /* ── TICKET DELETED (closed + wiped from server) ── */
+  function handleTicketDeleted(sid) {
+    delete chatMetas[sid];
+    // Remove from list UI
+    const item = document.getElementById('ci_'+sid);
+    if (item) item.remove();
+    const count = document.getElementById('chatCount');
+    if (count) count.textContent = Object.keys(chatMetas).length;
+    // If this was the open chat, show empty state
+    if (activeSession === sid) {
+      activeSession = null;
+      document.getElementById('chatWindow').innerHTML = '<div class="no-chat"><span>💬</span>Select a conversation to get started</div>';
+    }
+    // Update count
+    const inner = document.getElementById('chatListInner');
+    if (inner && inner.children.length === 0) {
+      inner.innerHTML = '<div class="empty-list">No chats yet.<br/>They'll appear here when visitors open the chat.</div>';
     }
   }
 
