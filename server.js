@@ -83,6 +83,18 @@ wss.on('connection', (ws) => {
       return;
     }
 
+    // ── User typing indicator ──
+    if (msg.type === 'user_typing' && meta.type === 'user') {
+      broadcastAdmins({ type: 'user_typing', sessionId: meta.sessionId, typing: msg.typing });
+      return;
+    }
+
+    // ── Admin typing indicator ──
+    if (msg.type === 'admin_typing' && meta.type === 'admin') {
+      broadcastUser(msg.sessionId, { type: 'admin_typing', typing: msg.typing });
+      return;
+    }
+
     // ── User sends message ──
     if (msg.type === 'user_msg' && meta.type === 'user') {
       const chat = chats[meta.sessionId];
