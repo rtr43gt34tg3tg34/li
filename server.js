@@ -9,17 +9,18 @@ const wss    = new WebSocketServer({ server });
 const PORT   = process.env.PORT || 3000;
 
 const GOOGLE_CLIENT_ID = '881748752116-e7khbn7cuij84hg5c1ss8m0j7q3bsn55.apps.googleusercontent.com';
-const ADMIN_PASSWORD   = 'liamsadmin2025'; // change this to whatever you want
+const ADMIN_PASSWORD   = 'liamsadmin2025';
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
-// ── In-memory chat store ─────────────────────────────────────────────────────
+// ── Chat store ───────────────────────────────────────────────────────────────
+// status: 'open' | 'claimed' | 'closed'
 const chats = {};
 function genId() { return Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
 
 // ── WebSocket ────────────────────────────────────────────────────────────────
-const clients = new Map(); // ws -> { type, sessionId }
+const clients = new Map();
 
 wss.on('connection', (ws) => {
   clients.set(ws, { type: null, sessionId: null });
@@ -28,15 +29,17 @@ wss.on('connection', (ws) => {
     let msg; try { msg = JSON.parse(raw); } catch { return; }
     const meta = clients.get(ws);
 
+    // User joins chat
     if (msg.type === 'user_join') {
       const sid = msg.sessionId || genId();
-      if (!chats[sid]) chats[sid] = { id: sid, name: msg.name || 'Visitor', email: msg.email || '', messages: [], unread: 0 };
+      if (!chats[sid]) chats[sid] = { id: sid, name: msg.name||'Visitor', email: msg.email||'', messages: [], unread: 0, status: 'open', claimedBy: null };
       clients.set(ws, { type: 'user', sessionId: sid });
-      ws.send(JSON.stringify({ type: 'joined', sessionId: sid, history: chats[sid].messages }));
+      ws.send(JSON.stringify({ type: 'joined', sessionId: sid, history: chats[sid].messages, status: chats[sid].status }));
       broadcastAdmins({ type: 'chat_list', chats: chatList() });
       return;
     }
 
+    // Admin joins
     if (msg.type === 'admin_join') {
       if (msg.password !== ADMIN_PASSWORD) { ws.send(JSON.stringify({ type: 'auth_fail' })); return; }
       clients.set(ws, { type: 'admin', sessionId: null });
@@ -44,8 +47,9 @@ wss.on('connection', (ws) => {
       return;
     }
 
+    // User sends message
     if (msg.type === 'user_msg' && meta.type === 'user') {
-      const chat = chats[meta.sessionId]; if (!chat) return;
+      const chat = chats[meta.sessionId]; if (!chat || chat.status === 'closed') return;
       const entry = { from: 'user', text: msg.text, ts: Date.now() };
       chat.messages.push(entry); chat.unread++;
       ws.send(JSON.stringify({ type: 'msg', ...entry }));
@@ -53,8 +57,9 @@ wss.on('connection', (ws) => {
       return;
     }
 
+    // Admin sends message
     if (msg.type === 'admin_msg' && meta.type === 'admin') {
-      const chat = chats[msg.sessionId]; if (!chat) return;
+      const chat = chats[msg.sessionId]; if (!chat || chat.status === 'closed') return;
       const entry = { from: 'admin', text: msg.text, ts: Date.now() };
       chat.messages.push(entry); chat.unread = 0;
       broadcastUser(msg.sessionId, { type: 'msg', ...entry });
@@ -62,10 +67,37 @@ wss.on('connection', (ws) => {
       return;
     }
 
+    // Admin opens a chat
     if (msg.type === 'admin_open' && meta.type === 'admin') {
       const chat = chats[msg.sessionId]; if (!chat) return;
       chat.unread = 0;
       ws.send(JSON.stringify({ type: 'chat_history', sessionId: msg.sessionId, history: chat.messages, chatMeta: chatMeta(msg.sessionId) }));
+      broadcastAdmins({ type: 'chat_list', chats: chatList() });
+      return;
+    }
+
+    // Admin claims a ticket
+    if (msg.type === 'admin_claim' && meta.type === 'admin') {
+      const chat = chats[msg.sessionId]; if (!chat) return;
+      chat.status    = 'claimed';
+      chat.claimedBy = msg.claimedBy || 'Admin';
+      const sysEntry = { from: 'system', text: `✅ Ticket claimed by ${chat.claimedBy}`, ts: Date.now() };
+      chat.messages.push(sysEntry);
+      broadcastUser(msg.sessionId, { type: 'msg', ...sysEntry });
+      broadcastAdmins({ type: 'ticket_updated', chatMeta: chatMeta(msg.sessionId) });
+      broadcastAdmins({ type: 'chat_list', chats: chatList() });
+      return;
+    }
+
+    // Admin closes a ticket
+    if (msg.type === 'admin_close' && meta.type === 'admin') {
+      const chat = chats[msg.sessionId]; if (!chat) return;
+      chat.status = 'closed';
+      const sysEntry = { from: 'system', text: '🔒 This ticket has been closed. Thanks for reaching out!', ts: Date.now() };
+      chat.messages.push(sysEntry);
+      broadcastUser(msg.sessionId, { type: 'msg', ...sysEntry });
+      broadcastUser(msg.sessionId, { type: 'ticket_closed' });
+      broadcastAdmins({ type: 'ticket_updated', chatMeta: chatMeta(msg.sessionId) });
       broadcastAdmins({ type: 'chat_list', chats: chatList() });
       return;
     }
@@ -76,18 +108,18 @@ wss.on('connection', (ws) => {
 
 function broadcastAdmins(p) {
   const s = JSON.stringify(p);
-  for (const [ws, m] of clients) if (m.type === 'admin' && ws.readyState === 1) ws.send(s);
+  for (const [ws, m] of clients) if (m.type==='admin' && ws.readyState===1) ws.send(s);
 }
 function broadcastUser(sid, p) {
   const s = JSON.stringify(p);
-  for (const [ws, m] of clients) if (m.type === 'user' && m.sessionId === sid && ws.readyState === 1) ws.send(s);
+  for (const [ws, m] of clients) if (m.type==='user' && m.sessionId===sid && ws.readyState===1) ws.send(s);
 }
 function chatMeta(sid) {
   const c = chats[sid]; if (!c) return null;
-  return { id: c.id, name: c.name, email: c.email, unread: c.unread, lastMsg: c.messages[c.messages.length-1] || null };
+  return { id: c.id, name: c.name, email: c.email, unread: c.unread, status: c.status, claimedBy: c.claimedBy, lastMsg: c.messages[c.messages.length-1]||null };
 }
 function chatList() {
-  return Object.values(chats).map(c => chatMeta(c.id)).sort((a,b) => ((b.lastMsg?.ts||0)-(a.lastMsg?.ts||0)));
+  return Object.values(chats).map(c => chatMeta(c.id)).sort((a,b)=>((b.lastMsg?.ts||0)-(a.lastMsg?.ts||0)));
 }
 
 // ── Routes ───────────────────────────────────────────────────────────────────
