@@ -122,6 +122,39 @@ function chatList() {
   return Object.values(chats).map(c => chatMeta(c.id)).sort((a,b)=>((b.lastMsg?.ts||0)-(a.lastMsg?.ts||0)));
 }
 
+// ── Better Up — rewrites admin message via OpenRouter ────────────────────────
+const OPENROUTER_KEY = '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'; // regenerate at openrouter.ai
+
+app.post('/better-up', async (req, res) => {
+  const { text } = req.body;
+  if (!text || typeof text !== 'string') return res.status(400).json({ error: 'No text provided' });
+  try {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + OPENROUTER_KEY,
+        'Content-Type':  'application/json',
+        'HTTP-Referer':  'https://liamswebsites.store',
+        'X-Title':       "Liam's Websites Admin",
+      },
+      body: JSON.stringify({
+        model: 'openai/gpt-4o-mini',
+        messages: [{
+          role: 'user',
+          content: `You are a professional customer support assistant for "Liam's Websites", a web design service.\nRewrite the following support message to be more professional, clear, friendly and polished — while keeping the exact same meaning and intent.\nKeep it concise. Return ONLY the rewritten message with no explanation, quotes, or preamble.\n\nMessage to improve: ${text}`
+        }]
+      })
+    });
+    const data = await response.json();
+    const improved = data?.choices?.[0]?.message?.content?.trim();
+    if (!improved) return res.status(500).json({ error: 'No response from AI' });
+    res.json({ improved });
+  } catch (err) {
+    console.error('Better Up error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── Routes ───────────────────────────────────────────────────────────────────
 app.get('/google-client-id', (req, res) => res.json({ clientId: GOOGLE_CLIENT_ID }));
 app.get('/oauth-callback',   (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
