@@ -104,7 +104,7 @@ wss.on('connection', (ws) => {
       // Cancel any auto messages
       if (chat.autoTimer) { clearTimeout(chat.autoTimer); chat.autoTimer = null; }
       chat.status = 'closed';
-      const sysEntry = { from: 'system', text: '🔒 This chat has been closed by our team. Thanks for reaching out! If you need further help, please email LiamsSites@proton.me — we're happy to assist 😊', ts: Date.now() };
+      const sysEntry = { from: 'system', text: '🔒 This chat has been closed by our team. Thanks for reaching out! If you need further help, please email LiamsSites@proton.me — we are happy to assist 😊', ts: Date.now() };
       chat.messages.push(sysEntry);
       broadcastUser(msg.sessionId, { type: 'msg', ...sysEntry });
       // Tell client to clear and reset after a short delay
