@@ -299,11 +299,11 @@
         ? `<div class="closed-banner">🔒 This ticket is closed — no more messages can be sent.</div>`
         : `<div class="chat-input-area">
             <div class="input-toolbar">
-              <button class="better-up-btn" id="betterUpBtn" onclick="betterUp()" title="Make your message more professional">✨ Better Up!</button>
+              <button class="better-up-btn" id="betterUpBtn" title="Make your message more professional">✨ Better Up!</button>
             </div>
             <div class="input-row">
-              <input class="admin-input" id="adminInput" placeholder="Reply to ${esc(meta.name||'visitor')}…" maxlength="500" onkeydown="if(event.key==='Enter'&&!event.shiftKey)adminSend()"/>
-              <button class="admin-send" onclick="adminSend()">➤</button>
+              <input class="admin-input" id="adminInput" placeholder="Reply to ${esc(meta.name||'visitor')}…" maxlength="500"/>
+              <button class="admin-send" id="adminSendBtn">➤</button>
             </div>
           </div>`
       }`;
@@ -315,7 +315,24 @@
       msg.history.forEach(m => appendBubble(m.from, m.text, m.ts, false));
     }
     area.scrollTop = area.scrollHeight;
-    document.getElementById('adminInput')?.focus();
+
+    // Wire up input buttons after they're injected into DOM
+    const adminInput = document.getElementById('adminInput');
+    const adminSendBtn = document.getElementById('adminSendBtn');
+    const betterUpBtn = document.getElementById('betterUpBtn');
+
+    if (adminInput) {
+      adminInput.focus();
+      adminInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); adminSend(); }
+      });
+    }
+    if (adminSendBtn) {
+      adminSendBtn.addEventListener('click', function() { adminSend(); });
+    }
+    if (betterUpBtn) {
+      betterUpBtn.addEventListener('click', function() { betterUp(); });
+    }
   }
 
   /* ── TICKET UPDATE (claim/close from another admin) ── */
@@ -382,12 +399,17 @@
   /* ── SEND MESSAGE ── */
   function adminSend() {
     const input = document.getElementById('adminInput');
-    if (!input) return;
+    if (!input) { console.warn('adminSend: no input found'); return; }
     const text = input.value.trim();
-    if (!text || !activeSession || !ws || ws.readyState !== 1) return;
+    if (!text) return;
+    if (!activeSession) { console.warn('adminSend: no activeSession'); return; }
+    if (!ws) { console.warn('adminSend: no ws'); return; }
+    if (ws.readyState !== WebSocket.OPEN) { console.warn('adminSend: ws not open, state=', ws.readyState); return; }
     ws.send(JSON.stringify({ type: 'admin_msg', sessionId: activeSession, text }));
     input.value = '';
     input.focus();
+    // Optimistically add the bubble so it feels instant
+    appendBubble('admin', text, Date.now(), true);
   }
 
   /* ── BETTER UP ── */
