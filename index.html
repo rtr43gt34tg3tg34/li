@@ -872,6 +872,41 @@ async function openEmailThread(id, subj) {
     if (t) t.remove();
   }
 
+  // Admin typing indicator shown to user
+  function showAdminTyping() {
+    var msgs = el('chatMsgs');
+    if (!msgs || el('adminTypingDots')) return;
+    var wrap = document.createElement('div');
+    wrap.id = 'adminTypingDots';
+    wrap.className = 'chat-bubble-wrap admin';
+    wrap.innerHTML = '<div class="cbubble-outer"><div class="cbubble typing-bubble"><span></span><span></span><span></span></div></div>';
+    msgs.appendChild(wrap);
+    setTimeout(function() { msgs.scrollTop = msgs.scrollHeight; }, 30);
+  }
+
+  function removeAdminTyping() {
+    var t = el('adminTypingDots');
+    if (t) t.remove();
+  }
+
+  // Send typing state to server
+  var typingTimer = null;
+  var isTyping = false;
+  function onUserTyping() {
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+    if (!isTyping) {
+      isTyping = true;
+      ws.send(JSON.stringify({ type: 'user_typing', typing: true }));
+    }
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(function() {
+      isTyping = false;
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: 'user_typing', typing: false }));
+      }
+    }, 1500);
+  }
+
   /* ── WebSocket connection ── */
   function connect() {
     if (ws && ws.readyState === WebSocket.OPEN) return;
@@ -919,11 +954,17 @@ async function openEmailThread(id, subj) {
       }
 
       if (msg.type === 'msg') {
+        removeAdminTyping();
         addBubble(msg.from, msg.text);
         if (msg.from === 'admin' && !panelOpen) {
           unread++;
           updateBadge();
         }
+        return;
+      }
+
+      if (msg.type === 'admin_typing') {
+        if (msg.typing) showAdminTyping(); else removeAdminTyping();
         return;
       }
 
@@ -1021,6 +1062,10 @@ async function openEmailThread(id, subj) {
       if (chatState !== 'CONNECTING') connect();
       return;
     }
+    // Clear typing state
+    clearTimeout(typingTimer);
+    isTyping = false;
+    ws.send(JSON.stringify({ type: 'user_typing', typing: false }));
     ws.send(JSON.stringify({ type: 'user_msg', text: text }));
     input.value = '';
     input.focus();
@@ -1039,9 +1084,13 @@ async function openEmailThread(id, subj) {
     if (closeBtn)  closeBtn.addEventListener('click', window.toggleChat);
     if (startBtn)  startBtn.addEventListener('click', window.startChat);
     if (sendBtn)   sendBtn.addEventListener('click', window.sendChatMsg);
-    if (chatInput) chatInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); window.sendChatMsg(); }
-    });
+    if (chatInput) {
+      chatInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); window.sendChatMsg(); }
+        else onUserTyping();
+      });
+      chatInput.addEventListener('input', onUserTyping);
+    }
     if (nameInput) nameInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') { e.preventDefault(); window.startChat(); }
     });
