@@ -7,96 +7,72 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --ink:       #111110;
+      --ink:       #0f0f0e;
       --white:     #ffffff;
-      --cream:     #f9f8f6;
-      --mist:      #f2f1ee;
-      --border:    #e8e6e1;
-      --mid:       #9b9890;
-      --dim:       #6b6966;
+      --cream:     #f8f7f5;
+      --mist:      #f1f0ed;
+      --border:    #e5e3de;
+      --mid:       #9a9792;
+      --dim:       #6a6763;
       --blue:      #1d4ed8;
-      --blue-soft: #eff4ff;
+      --blue-soft: #eef2ff;
       --green:     #16a34a;
       --red:       #dc2626;
-      --r:         12px;
+      --r:         10px;
       --pill:      999px;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: var(--white);
-      color: var(--ink);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
+    body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--cream); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-    /* ─────────────────────────── NAV */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: 62px;
-      display: flex; align-items: center; justify-content: space-between;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
       padding: 0 clamp(1.25rem, 5vw, 4rem);
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(18px) saturate(180%);
+      background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(20px) saturate(180%);
       border-bottom: 1px solid var(--border);
     }
-    .logo {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic; font-size: 1.3rem;
-      color: var(--ink); text-decoration: none;
-    }
+    .logo { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.3rem; color: var(--ink); text-decoration: none; }
     .logo b { color: var(--blue); font-style: normal; font-weight: 400; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.875rem; font-weight: 500; color: var(--dim);
-      text-decoration: none; transition: color .18s;
-    }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: var(--dim); text-decoration: none; transition: color .18s; }
     .nav-links a:hover { color: var(--ink); }
     .nav-cta {
       background: var(--ink); color: var(--white);
-      padding: .52rem 1.3rem; border-radius: var(--pill);
-      font-size: .875rem; font-weight: 600;
-      text-decoration: none; border: none; cursor: pointer;
-      font-family: 'Outfit', sans-serif;
+      padding: .5rem 1.25rem; border-radius: var(--pill);
+      font-size: .875rem; font-weight: 600; text-decoration: none;
+      font-family: 'Outfit', sans-serif; border: none; cursor: pointer;
       transition: background .18s, transform .14s;
     }
     .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
 
-    /* ─────────────────────────── HERO */
+    /* ── HERO ── */
     .hero {
       min-height: 100svh;
-      padding: 105px clamp(1.25rem, 5vw, 4rem) 80px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 4rem;
+      padding: 100px clamp(1.25rem, 6vw, 6rem) 80px;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      align-items: center; gap: 5rem;
       position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0;
+      content: ''; position: absolute; inset: 0; z-index: 0;
       background:
-        radial-gradient(ellipse 60% 60% at 80% 40%, #dce8ff 0%, transparent 65%),
-        radial-gradient(ellipse 30% 40% at 10% 90%, #eef4ff 0%, transparent 60%);
+        radial-gradient(ellipse 55% 65% at 85% 35%, #dde8ff 0%, transparent 60%),
+        radial-gradient(ellipse 35% 40% at 5% 85%, #eef3ff 0%, transparent 55%);
     }
     .hero::after {
-      content: '';
-      position: absolute; inset: 0; z-index: 0; opacity: .5;
-      background-image: radial-gradient(circle, #ccc8c0 1px, transparent 1px);
-      background-size: 28px 28px;
-      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 80% 50%, black 0%, transparent 70%);
-      mask-image: radial-gradient(ellipse 70% 80% at 80% 50%, black 0%, transparent 70%);
+      content: ''; position: absolute; inset: 0; z-index: 0; opacity: .4;
+      background-image: radial-gradient(circle, #c8c4bc 1px, transparent 1px);
+      background-size: 30px 30px;
+      -webkit-mask-image: radial-gradient(ellipse 60% 80% at 85% 45%, black 0%, transparent 65%);
+      mask-image: radial-gradient(ellipse 60% 80% at 85% 45%, black 0%, transparent 65%);
     }
     .hero-left, .hero-right { position: relative; z-index: 1; }
 
@@ -104,280 +80,191 @@
       display: inline-flex; align-items: center; gap: 7px;
       border: 1px solid var(--border); border-radius: var(--pill);
       background: var(--white); padding: 5px 14px;
-      font-size: .775rem; font-weight: 600; color: var(--blue);
-      margin-bottom: 1.75rem;
-      animation: rise .7s ease both;
+      font-size: .75rem; font-weight: 600; color: var(--blue);
+      margin-bottom: 1.75rem; animation: rise .6s ease both;
     }
-    .badge-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--green);
-      animation: glow 2s infinite;
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 2px rgba(22,163,74,.2); }
+      50%      { box-shadow: 0 0 0 5px rgba(22,163,74,.08); }
     }
-    @keyframes glow {
-      0%,100% { box-shadow: 0 0 0 2px rgba(22,163,74,.25); }
-      50%      { box-shadow: 0 0 0 5px rgba(22,163,74,.1); }
-    }
-
     h1 {
       font-family: 'Instrument Serif', serif;
-      font-size: clamp(2.8rem, 5.5vw, 5rem);
-      line-height: 1.07; letter-spacing: -.02em;
-      margin-bottom: 1.5rem;
-      animation: rise .7s .1s ease both;
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      line-height: 1.06; letter-spacing: -.02em; margin-bottom: 1.4rem;
+      animation: rise .6s .1s ease both;
     }
-    h1 .accent { font-style: italic; color: var(--blue); }
-
+    h1 .it { font-style: italic; color: var(--blue); }
     .hero-sub {
-      font-size: 1.05rem; color: var(--dim); max-width: 440px;
-      line-height: 1.72; margin-bottom: 2.25rem;
-      animation: rise .7s .2s ease both;
+      font-size: 1rem; color: var(--dim); max-width: 420px;
+      line-height: 1.75; margin-bottom: 2rem;
+      animation: rise .6s .2s ease both;
     }
-    .hero-actions {
-      display: flex; gap: .875rem; flex-wrap: wrap;
-      animation: rise .7s .3s ease both;
-    }
+    .hero-btns { display: flex; gap: .75rem; flex-wrap: wrap; animation: rise .6s .3s ease both; }
     .btn {
-      padding: .8rem 1.85rem; border-radius: var(--pill);
-      font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 600;
+      padding: .75rem 1.75rem; border-radius: var(--pill);
+      font-family: 'Outfit', sans-serif; font-size: .875rem; font-weight: 600;
       text-decoration: none; border: none; cursor: pointer;
       display: inline-flex; align-items: center; gap: 6px;
       transition: background .18s, border-color .18s, transform .14s, box-shadow .18s;
     }
     .btn-solid { background: var(--ink); color: var(--white); }
-    .btn-solid:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(29,78,216,.22); }
+    .btn-solid:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(29,78,216,.2); }
     .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
     .btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
 
-    .hero-stats {
-      display: flex; gap: 2.5rem; margin-top: 3.5rem;
-      animation: rise .7s .4s ease both;
-    }
-    .hstat-v {
-      font-family: 'Instrument Serif', serif;
-      font-size: 2.2rem; line-height: 1;
-    }
-    .hstat-l { font-size: .775rem; color: var(--mid); margin-top: 4px; font-weight: 500; }
+    .hero-stats { display: flex; gap: 2.5rem; margin-top: 3rem; animation: rise .6s .4s ease both; }
+    .hstat-v { font-family: 'Instrument Serif', serif; font-size: 2.1rem; line-height: 1; }
+    .hstat-l { font-size: .75rem; color: var(--mid); margin-top: 3px; font-weight: 500; }
 
-    /* floating card */
+    /* hero card */
     .hero-card {
       background: var(--white); border: 1.5px solid var(--border);
-      border-radius: 20px; padding: 2rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,.09);
-      animation: rise .7s .2s ease both;
+      border-radius: 20px; padding: 1.75rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.08);
+      animation: rise .6s .15s ease both;
     }
-    .hcard-head {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 1.5rem;
-    }
-    .hcard-lbl { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
-    .hcard-price { font-family: 'Instrument Serif', serif; font-size: 2.4rem; line-height: 1; color: var(--blue); }
-    .hcard-row {
-      display: flex; align-items: center; gap: 10px;
-      padding: .72rem 0; border-top: 1px solid var(--mist);
-      font-size: .875rem; font-weight: 500;
-    }
-    .hcard-row-sub { font-size: .75rem; color: var(--mid); }
+    .hcard-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+    .hcard-lbl { font-size: .72rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--mid); }
+    .hcard-price { font-family: 'Instrument Serif', serif; font-size: 2.2rem; line-height: 1; color: var(--blue); }
+    .hcard-row { display: flex; align-items: center; gap: 10px; padding: .65rem 0; border-top: 1px solid var(--mist); font-size: .85rem; font-weight: 500; }
+    .hcard-sub { font-size: .72rem; color: var(--mid); }
     .hcard-btn {
-      margin-top: 1.5rem; width: 100%;
-      padding: .85rem; border-radius: var(--pill);
-      background: var(--blue); color: var(--white);
-      border: none; font-family: 'Outfit', sans-serif;
-      font-size: .9rem; font-weight: 700; cursor: pointer;
-      transition: opacity .18s, transform .14s;
+      margin-top: 1.25rem; width: 100%; padding: .8rem;
+      border-radius: var(--pill); background: var(--blue); color: var(--white);
+      border: none; font-family: 'Outfit', sans-serif; font-size: .875rem; font-weight: 700;
+      cursor: pointer; transition: opacity .18s, transform .14s;
     }
-    .hcard-btn:hover { opacity: .88; transform: translateY(-1px); }
+    .hcard-btn:hover { opacity: .85; transform: translateY(-1px); }
 
-    /* ─────────────────────────── SECTIONS */
-    section { padding: 90px clamp(1.25rem, 5vw, 4rem); }
-    .sec-lbl { font-size: .73rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: .75rem; }
-    .sec-h {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(2rem, 3.8vw, 2.9rem);
-      line-height: 1.1; letter-spacing: -.02em; margin-bottom: .75rem;
-    }
-    .sec-sub { color: var(--dim); font-size: .975rem; max-width: 440px; line-height: 1.7; }
+    /* ── SECTIONS ── */
+    section { padding: 88px clamp(1.25rem, 5vw, 4rem); }
+    .sec-lbl { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: .6rem; }
+    .sec-h { font-family: 'Instrument Serif', serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); line-height: 1.1; letter-spacing: -.02em; margin-bottom: .7rem; }
+    .sec-sub { color: var(--dim); font-size: .95rem; max-width: 420px; line-height: 1.72; }
 
-    /* ─────────────────────────── PROCESS */
+    /* ── PROCESS ── */
     #how { background: var(--cream); }
     .steps {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden;
-      margin-top: 3rem;
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 2.75rem;
     }
-    .step { padding: 2.25rem 1.75rem; background: var(--white); }
+    .step { padding: 2rem 1.6rem; background: var(--white); }
     .step + .step { border-left: 1.5px solid var(--border); }
-    .step-n {
-      font-family: 'Instrument Serif', serif; font-style: italic;
-      font-size: 3.5rem; color: var(--mist); line-height: 1; margin-bottom: 1rem;
-    }
-    .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; }
-    .step p { font-size: .85rem; color: var(--dim); line-height: 1.65; }
+    .step-n { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 3.2rem; color: var(--mist); line-height: 1; margin-bottom: .9rem; }
+    .step h3 { font-size: .95rem; font-weight: 600; margin-bottom: .4rem; }
+    .step p { font-size: .83rem; color: var(--dim); line-height: 1.65; }
 
-    /* ─────────────────────────── PRICING */
+    /* ── PRICING ── */
     #pricing { background: var(--white); }
-    .price-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem; margin-top: 3rem;
-    }
-    .pcard {
-      border: 1.5px solid var(--border); border-radius: 16px;
-      padding: 2.25rem 1.75rem; position: relative;
-      transition: box-shadow .2s, transform .2s;
-    }
-    .pcard:hover { box-shadow: 0 16px 50px rgba(0,0,0,.1); transform: translateY(-4px); }
+    .price-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-top: 2.75rem; }
+    .pcard { border: 1.5px solid var(--border); border-radius: 16px; padding: 2rem 1.75rem; position: relative; transition: box-shadow .2s, transform .2s; }
+    .pcard:hover { box-shadow: 0 16px 48px rgba(0,0,0,.1); transform: translateY(-4px); }
     .pcard.hot { background: var(--ink); color: var(--white); border-color: var(--ink); }
-    .pbadge {
-      position: absolute; top: 1.25rem; right: 1.25rem;
-      background: var(--blue); color: var(--white);
-      font-size: .68rem; font-weight: 800; padding: 3px 10px;
-      border-radius: var(--pill); letter-spacing: .07em; text-transform: uppercase;
-    }
-    .ptier { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: .75rem; }
+    .pbadge { position: absolute; top: 1.25rem; right: 1.25rem; background: var(--blue); color: var(--white); font-size: .67rem; font-weight: 800; padding: 3px 10px; border-radius: var(--pill); letter-spacing: .07em; text-transform: uppercase; }
+    .ptier { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: .65rem; }
     .pcard.hot .ptier { color: #666; }
-    .pamount { font-family: 'Instrument Serif', serif; font-size: 3.5rem; line-height: 1; margin-bottom: .25rem; }
-    .pamount sup { font-size: 1.6rem; vertical-align: super; }
-    .pdesc { font-size: .85rem; color: var(--dim); margin-bottom: 1.75rem; line-height: 1.6; }
+    .pamount { font-family: 'Instrument Serif', serif; font-size: 3.2rem; line-height: 1; margin-bottom: .2rem; }
+    .pamount sup { font-size: 1.5rem; vertical-align: super; }
+    .pdesc { font-size: .83rem; color: var(--dim); margin-bottom: 1.6rem; line-height: 1.6; }
     .pcard.hot .pdesc { color: #999; }
-    .pfeats { list-style: none; margin-bottom: 2rem; }
-    .pfeat {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: .875rem; color: var(--dim);
-      padding: .45rem 0; border-top: 1px solid var(--border);
-    }
+    .pfeats { list-style: none; margin-bottom: 1.75rem; }
+    .pfeat { display: flex; align-items: flex-start; gap: 8px; font-size: .85rem; color: var(--dim); padding: .4rem 0; border-top: 1px solid var(--border); }
     .pcard.hot .pfeat { border-color: #2a2a2a; color: #aaa; }
     .pfeat::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
     .pcard.hot .pfeat::before { color: #4ade80; }
-    .pcta {
-      display: block; width: 100%; text-align: center;
-      text-decoration: none; padding: .8rem; border-radius: var(--pill);
-      font-size: .9rem; font-weight: 700; transition: all .18s;
-      font-family: 'Outfit', sans-serif; border: none; cursor: pointer;
-    }
+    .pcta { display: block; width: 100%; text-align: center; text-decoration: none; padding: .75rem; border-radius: var(--pill); font-size: .875rem; font-weight: 700; font-family: 'Outfit', sans-serif; border: none; cursor: pointer; transition: all .18s; }
     .pcard:not(.hot) .pcta { background: var(--ink); color: var(--white); }
     .pcard:not(.hot) .pcta:hover { background: var(--blue); }
     .pcard.hot .pcta { background: var(--white); color: var(--ink); }
     .pcard.hot .pcta:hover { background: var(--blue); color: var(--white); }
 
-    /* ─────────────────────────── EXAMPLES */
+    /* ── EXAMPLES ── */
     #examples { background: var(--cream); }
-    .ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
-    .excard {
-      background: var(--white); border: 1.5px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-      transition: box-shadow .2s, transform .2s;
-    }
+    .ex-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-top: 2.75rem; }
+    .excard { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; transition: box-shadow .2s, transform .2s; }
     .excard:hover { box-shadow: 0 14px 40px rgba(0,0,0,.09); transform: translateY(-4px); }
-    .exthumb { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .exthumb { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 2.75rem; }
     .exthumb.a { background: linear-gradient(135deg,#dbeafe,#bfdbfe); }
     .exthumb.b { background: linear-gradient(135deg,#dcfce7,#bbf7d0); }
     .exthumb.c { background: linear-gradient(135deg,#fef9c3,#fef08a); }
-    .exbody { padding: 1.25rem 1.5rem; }
-    .exbody h3 { font-size: .95rem; font-weight: 600; margin-bottom: 4px; }
-    .exbody p { font-size: .8rem; color: var(--mid); }
-    .extag {
-      display: inline-block; margin-top: 8px;
-      font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
-      color: var(--blue); background: var(--blue-soft); padding: 3px 8px; border-radius: 4px;
-    }
+    .exbody { padding: 1.1rem 1.4rem; }
+    .exbody h3 { font-size: .92rem; font-weight: 600; margin-bottom: 3px; }
+    .exbody p { font-size: .78rem; color: var(--mid); }
+    .extag { display: inline-block; margin-top: 7px; font-size: .67rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--blue); background: var(--blue-soft); padding: 2px 8px; border-radius: 4px; }
 
-    /* ─────────────────────────── BOOKING */
+    /* ── BOOKING ── */
     #book { background: var(--white); }
-    .book-grid {
-      display: grid; grid-template-columns: 1fr 1.15fr;
-      gap: 5rem; align-items: start; max-width: 1100px; margin: 0 auto;
-    }
-    .book-copy p { color: var(--dim); font-size: .975rem; margin-bottom: 2.25rem; line-height: 1.7; }
-    .trust-list { display: flex; flex-direction: column; gap: 1.25rem; }
-    .titem { display: flex; align-items: flex-start; gap: 12px; }
-    .ticon {
-      width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px;
-      background: var(--blue-soft); display: flex; align-items: center; justify-content: center; font-size: 1rem;
-    }
-    .titem h4 { font-size: .9rem; font-weight: 600; margin-bottom: 2px; }
-    .titem p { font-size: .8rem; color: var(--mid); margin: 0; }
+    .book-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; max-width: 1080px; margin: 0 auto; }
+    .book-copy p { color: var(--dim); font-size: .95rem; margin-bottom: 2rem; line-height: 1.75; }
+    .trust-list { display: flex; flex-direction: column; gap: 1.1rem; }
+    .titem { display: flex; align-items: flex-start; gap: 11px; }
+    .ticon { width: 36px; height: 36px; flex-shrink: 0; border-radius: 9px; background: var(--blue-soft); display: flex; align-items: center; justify-content: center; font-size: .95rem; }
+    .titem h4 { font-size: .875rem; font-weight: 600; margin-bottom: 2px; }
+    .titem p { font-size: .78rem; color: var(--mid); margin: 0; }
 
     /* auth banners */
-    .auth-bar {
-      display: flex; align-items: center; gap: 10px;
-      padding: .8rem 1rem; border-radius: var(--r);
-      font-size: .85rem; font-weight: 500; margin-bottom: 1.25rem;
-    }
+    .auth-bar { display: flex; align-items: center; gap: 9px; padding: .75rem 1rem; border-radius: var(--r); font-size: .83rem; font-weight: 500; margin-bottom: 1rem; }
     .auth-bar.warn { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
     .auth-bar.ok   { background: #f0fdf4; border: 1px solid #86efac; color: #166534; display: none; }
 
-    /* form shell */
-    .form-wrap {
-      background: var(--cream); border: 1.5px solid var(--border);
-      border-radius: 20px; padding: 2.25rem;
-    }
-    .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 1rem; }
-    label { font-size: .8rem; font-weight: 600; }
+    /* form */
+    .form-wrap { background: var(--cream); border: 1.5px solid var(--border); border-radius: 18px; padding: 2rem; }
+    .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: .875rem; }
+    .fg { display: flex; flex-direction: column; gap: 4px; margin-bottom: .875rem; }
+    label { font-size: .78rem; font-weight: 600; }
     input[type=text], input[type=email], select, textarea {
-      font-family: 'Outfit', sans-serif; font-size: .9rem;
-      padding: .7rem .95rem; border-radius: var(--r);
+      font-family: 'Outfit', sans-serif; font-size: .875rem;
+      padding: .65rem .9rem; border-radius: var(--r);
       border: 1.5px solid var(--border); background: var(--white);
       color: var(--ink); outline: none; width: 100%;
       transition: border-color .18s, box-shadow .18s;
     }
-    input[type=text]:focus, input[type=email]:focus, select:focus, textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(29,78,216,.1);
-    }
-    textarea { resize: vertical; min-height: 110px; }
+    input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(29,78,216,.09); }
+    textarea { resize: vertical; min-height: 100px; }
     select { cursor: pointer; }
 
     /* slider */
-    .sl-row { display: flex; justify-content: space-between; align-items: baseline; font-size: .8rem; font-weight: 600; margin-bottom: 8px; }
-    .sl-val { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--blue); line-height: 1; }
-    input[type=range] {
-      -webkit-appearance: none; width: 100%; height: 5px;
-      border-radius: 3px; background: var(--border);
-      cursor: pointer; padding: 0; border: none; outline: none;
-    }
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 20px; height: 20px;
-      border-radius: 50%; background: var(--blue); cursor: pointer;
-      box-shadow: 0 2px 8px rgba(29,78,216,.35); transition: transform .15s;
-    }
+    .sl-row { display: flex; justify-content: space-between; align-items: baseline; font-size: .78rem; font-weight: 600; margin-bottom: 7px; }
+    .sl-val { font-family: 'Instrument Serif', serif; font-size: 1.5rem; color: var(--blue); line-height: 1; }
+    input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; border-radius: 2px; background: var(--border); cursor: pointer; padding: 0; border: none; outline: none; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--blue); cursor: pointer; box-shadow: 0 2px 8px rgba(29,78,216,.3); transition: transform .15s; }
     input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
-    .sl-ends { display: flex; justify-content: space-between; font-size: .72rem; color: var(--mid); margin-top: 5px; }
+    .sl-ends { display: flex; justify-content: space-between; font-size: .7rem; color: var(--mid); margin-top: 4px; }
 
-    /* gmail button */
+    /* gmail btn */
     .gmail-btn {
       width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: .85rem; border-radius: var(--pill);
+      padding: .8rem; border-radius: var(--pill);
       background: var(--white); color: var(--ink);
       border: 1.5px solid var(--border);
-      font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 600;
+      font-family: 'Outfit', sans-serif; font-size: .875rem; font-weight: 600;
       cursor: pointer; transition: border-color .18s, box-shadow .18s; margin-bottom: 1rem;
     }
-    .gmail-btn:hover { border-color: #aaa; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+    .gmail-btn:hover { border-color: #aaa; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
 
     .submit-btn {
-      width: 100%; padding: .95rem; border-radius: var(--pill);
-      background: var(--ink); color: var(--white);
-      border: none; font-family: 'Outfit', sans-serif;
-      font-size: .9rem; font-weight: 700; cursor: pointer;
+      width: 100%; padding: .9rem; border-radius: var(--pill);
+      background: var(--ink); color: var(--white); border: none;
+      font-family: 'Outfit', sans-serif; font-size: .875rem; font-weight: 700; cursor: pointer;
       transition: background .18s, transform .14s, box-shadow .18s;
     }
-    .submit-btn:hover:not(:disabled) { background: var(--blue); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(29,78,216,.22); }
+    .submit-btn:hover:not(:disabled) { background: var(--blue); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(29,78,216,.2); }
     .submit-btn:disabled { background: #bbb; cursor: not-allowed; }
-    .form-note { font-size: .775rem; color: var(--mid); text-align: center; margin-top: .75rem; }
-    .err { background: #fef2f2; border: 1.5px solid #fecaca; border-radius: var(--r); padding: .7rem .95rem; font-size: .84rem; color: var(--red); margin-top: .75rem; display: none; }
+    .form-note { font-size: .75rem; color: var(--mid); text-align: center; margin-top: .65rem; }
+    .err { background: #fef2f2; border: 1.5px solid #fecaca; border-radius: var(--r); padding: .65rem .9rem; font-size: .83rem; color: var(--red); margin-top: .65rem; display: none; }
 
     /* success */
-    .success-box { display: none; text-align: center; padding: 3rem 1rem; }
-    .success-box .ico { font-size: 3.5rem; margin-bottom: 1rem; }
-    .success-box h3 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; margin-bottom: .5rem; }
-    .success-box p { color: var(--dim); font-size: .9rem; }
+    .success-box { display: none; text-align: center; padding: 2.5rem 1rem; }
+    .success-box .ico { font-size: 3rem; margin-bottom: .75rem; }
+    .success-box h3 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; margin-bottom: .4rem; }
+    .success-box p { color: var(--dim); font-size: .875rem; }
 
-    /* ─────────────────────────── FOOTER */
+    /* ── FOOTER ── */
     footer {
       background: var(--ink); color: #666;
       padding: 2.5rem clamp(1.25rem, 5vw, 4rem);
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1rem;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
     }
     .flogo { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.2rem; color: var(--white); }
     .flogo b { color: var(--blue); font-weight: 400; }
@@ -385,9 +272,9 @@
     footer a { color: #666; text-decoration: none; transition: color .18s; }
     footer a:hover { color: var(--white); }
 
-    @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes rise { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 
-    /* ─────────────────────────── RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       .hero { grid-template-columns: 1fr; }
       .hero-right { display: none; }
@@ -423,9 +310,9 @@
 <section class="hero">
   <div class="hero-left">
     <div class="badge"><span class="badge-dot"></span>Taking new clients now</div>
-    <h1>Your business.<br/>A real <span class="accent">website.</span><br/>Under $200.</h1>
+    <h1>Your business.<br/>A real <span class="it">website.</span><br/>Under $200.</h1>
     <p class="hero-sub">I build clean, professional websites for any business — restaurant, salon, contractor, freelancer — starting at just $50. No templates. No fluff.</p>
-    <div class="hero-actions">
+    <div class="hero-btns">
       <a href="#book" class="btn btn-solid">Book Your Site →</a>
       <a href="#pricing" class="btn btn-ghost">See Pricing</a>
     </div>
@@ -437,26 +324,14 @@
   </div>
   <div class="hero-right">
     <div class="hero-card">
-      <div class="hcard-head">
+      <div class="hcard-top">
         <span class="hcard-lbl">What you get</span>
         <span class="hcard-price">$50–$200</span>
       </div>
-      <div class="hcard-row">
-        <span>🎨</span>
-        <div><div>Custom design</div><div class="hcard-row-sub">Built just for your brand</div></div>
-      </div>
-      <div class="hcard-row">
-        <span>📱</span>
-        <div><div>Mobile ready</div><div class="hcard-row-sub">Looks great everywhere</div></div>
-      </div>
-      <div class="hcard-row">
-        <span>⚡</span>
-        <div><div>Fast delivery</div><div class="hcard-row-sub">Live in under a week</div></div>
-      </div>
-      <div class="hcard-row">
-        <span>🔒</span>
-        <div><div>One flat price</div><div class="hcard-row-sub">No hidden fees, ever</div></div>
-      </div>
+      <div class="hcard-row"><span>🎨</span><div><div>Custom design</div><div class="hcard-sub">Built for your brand</div></div></div>
+      <div class="hcard-row"><span>📱</span><div><div>Mobile ready</div><div class="hcard-sub">Looks great everywhere</div></div></div>
+      <div class="hcard-row"><span>⚡</span><div><div>Fast delivery</div><div class="hcard-sub">Live in under a week</div></div></div>
+      <div class="hcard-row"><span>🔒</span><div><div>One flat price</div><div class="hcard-sub">No hidden fees, ever</div></div></div>
       <button class="hcard-btn" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Start My Project</button>
     </div>
   </div>
@@ -466,12 +341,12 @@
 <section id="how">
   <div class="sec-lbl">Process</div>
   <h2 class="sec-h">Three steps to launch.</h2>
-  <p class="sec-sub">No confusing contracts. No back-and-forth. Just a clean simple process from idea to live site.</p>
+  <p class="sec-sub">No confusing contracts. No back-and-forth. Just a clean, simple process.</p>
   <div class="steps">
-    <div class="step"><div class="step-n">01</div><h3>Fill out the form</h3><p>Tell me about your business and what you need. Set your budget anywhere from $50–$200.</p></div>
-    <div class="step"><div class="step-n">02</div><h3>I get to work</h3><p>I'll reply within 24 hours and start building your custom site immediately.</p></div>
-    <div class="step"><div class="step-n">03</div><h3>Review & launch</h3><p>You review the site, request any changes, and you're live — all within a week.</p></div>
-    <div class="step"><div class="step-n">04</div><h3>It's yours forever</h3><p>One flat payment. No monthly fees from me. The site belongs to you, always.</p></div>
+    <div class="step"><div class="step-n">01</div><h3>Fill out the form</h3><p>Tell me about your business. Set your budget from $50–$200.</p></div>
+    <div class="step"><div class="step-n">02</div><h3>I get to work</h3><p>I'll reply within 24 hours and start building your site immediately.</p></div>
+    <div class="step"><div class="step-n">03</div><h3>Review & launch</h3><p>You review, request changes, and go live — all within a week.</p></div>
+    <div class="step"><div class="step-n">04</div><h3>It's yours forever</h3><p>One flat payment. No monthly fees. The site is yours, always.</p></div>
   </div>
 </section>
 
@@ -479,7 +354,7 @@
 <section id="pricing">
   <div class="sec-lbl">Pricing</div>
   <h2 class="sec-h">Always under $200.</h2>
-  <p class="sec-sub">Pick a tier or use the slider on the booking form to set your own exact budget.</p>
+  <p class="sec-sub">Pick a tier or use the slider in the booking form to set your own budget.</p>
   <div class="price-grid">
     <div class="pcard">
       <div class="ptier">Starter</div>
@@ -539,11 +414,10 @@
 <!-- BOOKING -->
 <section id="book">
   <div class="book-grid">
-    <!-- left -->
     <div class="book-copy">
       <div class="sec-lbl">Book Now</div>
       <h2 class="sec-h">Let's build your site.</h2>
-      <p>Fill out the form and I'll be in touch within 24 hours. Sign in with Google so your booking is actually delivered to my email.</p>
+      <p>Fill out the form and I'll be in touch within 24 hours. Sign in with Google so your booking actually reaches me.</p>
       <div class="trust-list">
         <div class="titem"><div class="ticon">⚡</div><div><h4>Fast turnaround</h4><p>Most sites delivered in under 7 days.</p></div></div>
         <div class="titem"><div class="ticon">💬</div><div><h4>Direct communication</h4><p>You work directly with me, not a team.</p></div></div>
@@ -552,10 +426,9 @@
       </div>
     </div>
 
-    <!-- right -->
     <div>
       <div class="auth-bar warn" id="warnBar">🔐 &nbsp;Sign in with Google first — it's how your booking reaches me.</div>
-      <div class="auth-bar ok"  id="okBar">✅ &nbsp;<span id="signedInAs">Signed in</span> — ready to send!</div>
+      <div class="auth-bar ok" id="okBar">✅ &nbsp;<span id="signedInAs">Signed in</span> — ready to send!</div>
 
       <div class="form-wrap">
         <div id="gSignArea">
@@ -566,7 +439,7 @@
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            Sign in with Google to send your booking
+            Sign in with Google to continue
           </button>
         </div>
 
@@ -603,7 +476,7 @@
             <textarea id="notes" required placeholder="What does your business do? What pages do you want? Any features, colors, or inspiration? The more detail the better!"></textarea>
           </div>
           <button type="submit" class="submit-btn" id="subBtn" disabled>Sign in with Google first ↑</button>
-          <p class="form-note">Your booking goes directly to LiamsSites@proton.me. You'll also get a confirmation at your email.</p>
+          <p class="form-note">Your booking goes directly to LiamsSites@proton.me. You'll also get a confirmation email.</p>
           <div class="err" id="errBox"></div>
         </form>
 
@@ -624,9 +497,7 @@
   <p><a href="mailto:LiamsSites@proton.me">LiamsSites@proton.me</a></p>
 </footer>
 
-<!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-
 <script>
   /* ── Slider ── */
   const sl = document.getElementById('budgetSlider');
@@ -637,33 +508,50 @@
   let gToken = null, senderEmail = null;
 
   function doGoogleSignIn() {
-    // Fetch the client ID from our server then open the OAuth popup
     fetch('/google-client-id')
       .then(r => r.json())
       .then(({ clientId }) => {
         const client = google.accounts.oauth2.initTokenClient({
           client_id: clientId,
-          scope: 'https://www.googleapis.com/auth/gmail.send',
+          // ✅ include profile + email so we get the user's name
+          scope: 'https://www.googleapis.com/auth/gmail.send openid profile email',
           callback(resp) {
             if (resp.error) { alert('Sign-in failed: ' + resp.error); return; }
             gToken = resp.access_token;
+
+            // ✅ fetch userinfo to get real name + email
             fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
               headers: { Authorization: 'Bearer ' + gToken }
             })
             .then(r => r.json())
             .then(info => {
               senderEmail = info.email;
-              const name = info.name || info.email;
+
+              // ✅ use given_name + family_name if available, fallback to name or email
+              const firstName = info.given_name || '';
+              const lastName  = info.family_name || '';
+              const fullName  = info.name || info.email;
+
+              // Update banner
               document.getElementById('warnBar').style.display = 'none';
               document.getElementById('okBar').style.display = 'flex';
-              document.getElementById('signedInAs').textContent = name + ' signed in';
+              document.getElementById('signedInAs').textContent = fullName + ' signed in';
+
+              // Hide sign-in button
               document.getElementById('gSignArea').style.display = 'none';
+
+              // ✅ Auto-fill form fields
+              if (firstName && !document.getElementById('fn').value)
+                document.getElementById('fn').value = firstName;
+              if (lastName && !document.getElementById('ln').value)
+                document.getElementById('ln').value = lastName;
+              if (senderEmail && !document.getElementById('em').value)
+                document.getElementById('em').value = senderEmail;
+
+              // Enable submit
               const btn = document.getElementById('subBtn');
               btn.disabled = false;
               btn.textContent = 'Send Booking Request →';
-              if (!document.getElementById('em').value) {
-                document.getElementById('em').value = senderEmail;
-              }
             });
           }
         });
@@ -672,7 +560,7 @@
       .catch(() => alert('Could not connect to server. Make sure the server is running.'));
   }
 
-  /* ── Build RFC 2822 email encoded as base64url ── */
+  /* ── Build RFC 2822 email as base64url ── */
   function buildRaw(to, subject, html, from, replyTo) {
     const msg =
       'From: ' + from + '\r\n' +
@@ -695,7 +583,7 @@
     if (!r.ok) throw new Error('Gmail API ' + r.status);
   }
 
-  /* ── Form submit ── */
+  /* ── Submit ── */
   document.getElementById('bookForm').addEventListener('submit', async e => {
     e.preventDefault();
     const btn = document.getElementById('subBtn');
@@ -707,13 +595,13 @@
       err.style.display = 'block'; return;
     }
 
-    const fn    = document.getElementById('fn').value.trim();
-    const ln    = document.getElementById('ln').value.trim();
-    const email = document.getElementById('em').value.trim();
-    const biz   = document.getElementById('biz').value.trim();
-    const btype = document.getElementById('btype').value;
-    const budget= sl.value;
-    const notes = document.getElementById('notes').value.trim();
+    const fn     = document.getElementById('fn').value.trim();
+    const ln     = document.getElementById('ln').value.trim();
+    const email  = document.getElementById('em').value.trim();
+    const biz    = document.getElementById('biz').value.trim();
+    const btype  = document.getElementById('btype').value;
+    const budget = sl.value;
+    const notes  = document.getElementById('notes').value.trim();
 
     btn.disabled = true; btn.textContent = 'Sending…';
 
@@ -759,7 +647,7 @@
             <em style="color:#888;">Notes: ${notes}</em>
           </div>
           <p style="color:#555;font-size:14px;line-height:1.7;">
-            Have more details or files to share? Just reply to this email.<br/><br/>
+            Have extra details or files? Just reply to this email.<br/><br/>
             — Liam<br/>
             <a href="mailto:LiamsSites@proton.me" style="color:#1d4ed8;">LiamsSites@proton.me</a>
           </p>
@@ -779,6 +667,5 @@
     }
   });
 </script>
-
 </body>
 </html>
