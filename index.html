@@ -796,43 +796,104 @@ async function openEmailThread(id, subj) {
 }
 
 /* ════════════════════════════════════════════════════════
-   LIVE CHAT — rebuilt, no clipping bugs
+   LIVE CHAT
 ════════════════════════════════════════════════════════ */
-let ws = null;
-let chatSessionId = localStorage.getItem('lw_chat_sid') || null;
-let chatOpen      = false;
-let unreadCount   = 0;
-let chatReady     = false; // true once joined
+let ws          = null;
+let chatSid     = localStorage.getItem('lw_chat_sid') || null;
+let chatOpen    = false;
+let chatJoined  = false;
+let unreadCount = 0;
 
 function getWsUrl() {
   return (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host;
 }
 
-function initChat() {
+/* Show the name-entry form */
+function showNameForm() {
+  document.getElementById('chatNameForm').style.display = 'flex';
+  document.getElementById('chatMsgs').style.display     = 'none';
+  document.getElementById('chatInputRow').style.display = 'none';
+  setTimeout(() => document.getElementById('chatNameInput')?.focus(), 150);
+}
+
+/* Show the messages + input area */
+function showMsgArea() {
+  document.getElementById('chatNameForm').style.display = 'none';
+  document.getElementById('chatMsgs').style.display     = 'flex';
+  document.getElementById('chatInputRow').style.display = 'flex';
+}
+
+function scrollMsgs() {
+  const el = document.getElementById('chatMsgs');
+  if (el) setTimeout(() => { el.scrollTop = el.scrollHeight; }, 40);
+}
+
+/* Open / close the panel */
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const panel = document.getElementById('chatPanel');
+  panel.classList.toggle('open', chatOpen);
+
+  if (!chatOpen) return;
+
+  unreadCount = 0;
+  hideChatBadge();
+
+  // If already connected and joined, just scroll
+  if (chatJoined) { scrollMsgs(); return; }
+
+  // If we have a saved name or session, connect straight away
+  const savedName = localStorage.getItem('lw_chat_name') || userName;
+  if (chatSid || savedName) {
+    showMsgArea();
+    document.getElementById('chatMsgs').innerHTML = '<div class="chat-system">Connecting…</div>';
+    connectChat();
+  } else {
+    // First time — ask for name
+    showNameForm();
+  }
+}
+
+/* Called when user submits the name form */
+function startChat() {
+  const input = document.getElementById('chatNameInput');
+  const name  = input ? input.value.trim() : '';
+  if (!name) { input?.focus(); return; }
+  localStorage.setItem('lw_chat_name', name);
+  showMsgArea();
+  document.getElementById('chatMsgs').innerHTML = '<div class="chat-system">Connecting…</div>';
+  connectChat();
+}
+
+/* Open WebSocket and join */
+function connectChat() {
   if (ws && ws.readyState === WebSocket.OPEN) return;
-  ws = new WebSocket(getWsUrl());
+
+  try { ws = new WebSocket(getWsUrl()); } catch(e) { return; }
 
   ws.onopen = () => {
     const name  = userName || localStorage.getItem('lw_chat_name') || 'Visitor';
     const email = senderEmail || '';
-    ws.send(JSON.stringify({ type: 'user_join', sessionId: chatSessionId, name, email }));
+    ws.send(JSON.stringify({ type: 'user_join', sessionId: chatSid, name, email }));
   };
 
   ws.onmessage = (e) => {
     let msg; try { msg = JSON.parse(e.data); } catch { return; }
 
     if (msg.type === 'joined') {
-      chatSessionId = msg.sessionId;
-      localStorage.setItem('lw_chat_sid', chatSessionId);
-      chatReady = true;
-      const msgs = document.getElementById('chatMsgs');
-      if (msgs) msgs.innerHTML = '';
+      chatSid    = msg.sessionId;
+      chatJoined = true;
+      localStorage.setItem('lw_chat_sid', chatSid);
+
+      const msgsEl = document.getElementById('chatMsgs');
+      if (msgsEl) msgsEl.innerHTML = '';
+      showMsgArea();
+
       if (msg.history && msg.history.length > 0) {
-        // returning user — show history
         msg.history.forEach(m => appendChatBubble(m.from, m.text, false));
         scrollMsgs();
       } else {
-        // new chat — show welcome messages with typing indicator
+        // Brand new chat — animated welcome
         showTypingIndicator();
         setTimeout(() => {
           hideTypingIndicator();
@@ -841,97 +902,35 @@ function initChat() {
             showTypingIndicator();
             setTimeout(() => {
               hideTypingIndicator();
-              appendChatBubble('admin', "Someone will be with you shortly. Responses usually take a few minutes to a few hours — but can occasionally take up to 15 hours. We'll get back to you as soon as possible! 🙂", true);
+              appendChatBubble('admin', "Someone will be with you shortly! Responses usually take a few minutes — but can take up to 15 hours if we're busy. We'll get back to you ASAP 🙂", true);
             }, 1200);
-          }, 500);
+          }, 600);
         }, 900);
       }
-      showChatMessages();
       return;
     }
 
     if (msg.type === 'msg') {
       appendChatBubble(msg.from, msg.text, true);
-      if (msg.from === 'admin' && !chatOpen) { unreadCount++; showChatBadge(); }
-      // show notification if panel closed
-      if (!chatOpen) {
-        const b = document.getElementById('chatBubble');
-        b.style.animation = 'none';
-        b.offsetHeight; // reflow
-        b.style.animation = 'chatPing .4s ease';
+      if (msg.from === 'admin' && !chatOpen) {
+        unreadCount++;
+        showChatBadge();
       }
       return;
     }
 
     if (msg.type === 'ticket_closed') {
       appendChatSystem('🔒 This chat has been closed. Thanks for reaching out!');
-      const input = document.getElementById('chatInput');
-      const send  = document.getElementById('chatSendBtn');
-      if (input) { input.disabled = true; input.placeholder = 'Chat closed'; }
-      if (send)  send.disabled = true;
+      const inp  = document.getElementById('chatInput');
+      const send = document.getElementById('chatSendBtn');
+      if (inp)  { inp.disabled = true; inp.placeholder = 'Chat closed'; }
+      if (send) send.disabled = true;
       return;
     }
   };
 
-  ws.onclose = () => { ws = null; };
-  ws.onerror = () => { ws = null; };
-}
-
-function showChatMessages() {
-  const nameForm = document.getElementById('chatNameForm');
-  const msgs     = document.getElementById('chatMsgs');
-  const inputRow = document.getElementById('chatInputRow');
-  if (nameForm) nameForm.style.display = 'none';
-  if (msgs)     msgs.style.display     = 'flex';
-  if (inputRow) inputRow.style.display = 'flex';
-}
-
-function scrollMsgs() {
-  const msgs = document.getElementById('chatMsgs');
-  if (msgs) setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 50);
-}
-
-function toggleChat() {
-  chatOpen = !chatOpen;
-  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
-
-  if (chatOpen) {
-    unreadCount = 0;
-    hideChatBadge();
-
-    const savedName = localStorage.getItem('lw_chat_name');
-    const hasSession = chatSessionId || savedName || userName;
-
-    if (hasSession && !chatReady) {
-      // show loading then init
-      const msgs = document.getElementById('chatMsgs');
-      if (msgs) { msgs.innerHTML = '<div class="chat-system">Connecting…</div>'; msgs.style.display = 'flex'; }
-      document.getElementById('chatNameForm').style.display = 'none';
-      document.getElementById('chatInputRow').style.display = 'flex';
-      initChat();
-    } else if (!hasSession) {
-      // show name form
-      document.getElementById('chatNameForm').style.display  = 'flex';
-      document.getElementById('chatMsgs').style.display      = 'none';
-      document.getElementById('chatInputRow').style.display  = 'none';
-      setTimeout(() => document.getElementById('chatNameInput')?.focus(), 150);
-    }
-    scrollMsgs();
-  }
-}
-
-function startChat() {
-  const input = document.getElementById('chatNameInput');
-  const name  = input ? input.value.trim() : '';
-  if (!name) { input?.focus(); return; }
-  localStorage.setItem('lw_chat_name', name);
-  // show msgs area with loading
-  document.getElementById('chatNameForm').style.display = 'none';
-  const msgs = document.getElementById('chatMsgs');
-  msgs.innerHTML = '<div class="chat-system">Connecting…</div>';
-  msgs.style.display = 'flex';
-  document.getElementById('chatInputRow').style.display = 'flex';
-  initChat();
+  ws.onclose = () => { ws = null; chatJoined = false; };
+  ws.onerror = () => { ws = null; chatJoined = false; };
 }
 
 function appendChatBubble(from, text, scroll) {
