@@ -7,52 +7,86 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--ink:#0c0c0b;--white:#fff;--sand:#faf9f7;--border:#e4e1db;--mid:#999690;--dim:#706d68;--blue:#2563eb;--green:#15803d;--red:#dc2626;--r:10px}
-    body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--ink);height:100svh;display:flex;flex-direction:column;overflow:hidden}
+    :root{
+      --ink:#0c0c0b;--white:#fff;--sand:#faf9f7;--sand2:#f0eeea;
+      --border:#e4e1db;--mid:#999690;--dim:#706d68;
+      --blue:#2563eb;--blue2:#1d4ed8;--blue-tint:#eef2ff;
+      --green:#15803d;--green-tint:#f0fdf4;--green-border:#86efac;
+      --orange:#d97706;--orange-tint:#fffbeb;--orange-border:#fde68a;
+      --red:#dc2626;--red-tint:#fef2f2;--red-border:#fecaca;
+      --r:10px;
+    }
+    html,body{height:100%}
+    body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--ink);display:flex;flex-direction:column;overflow:hidden}
 
     /* ── LOGIN ── */
     #loginScreen{flex:1;display:flex;align-items:center;justify-content:center}
-    .login-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:2.5rem;width:100%;max-width:360px;text-align:center}
-    .login-card h1{font-size:1.4rem;font-weight:700;margin-bottom:.4rem}
-    .login-card p{font-size:.85rem;color:var(--dim);margin-bottom:1.75rem}
-    .login-input{width:100%;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:.7rem 1rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;margin-bottom:.75rem;transition:border-color .15s}
-    .login-input:focus{border-color:var(--blue)}
+    .login-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:2.5rem;width:100%;max-width:360px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.07)}
+    .login-logo{font-size:2rem;margin-bottom:.75rem}
+    .login-card h1{font-size:1.35rem;font-weight:700;margin-bottom:.3rem}
+    .login-card p{font-size:.83rem;color:var(--dim);margin-bottom:1.75rem}
+    .login-input{width:100%;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:.7rem 1rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;margin-bottom:.75rem;transition:border-color .15s;background:var(--sand)}
+    .login-input:focus{border-color:var(--blue);background:var(--white)}
     .login-btn{width:100%;padding:.85rem;border-radius:999px;background:var(--blue);color:var(--white);border:none;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:background .15s}
-    .login-btn:hover{background:#1d4ed8}
+    .login-btn:hover{background:var(--blue2)}
     .login-err{color:var(--red);font-size:.82rem;margin-top:.5rem;display:none}
 
     /* ── MAIN ── */
     #mainScreen{flex:1;display:none;flex-direction:column;overflow:hidden}
     .top-bar{height:52px;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;flex-shrink:0}
+    .top-bar-left{display:flex;align-items:center;gap:.75rem}
     .top-bar h2{font-size:.95rem;font-weight:600}
     .top-bar-right{display:flex;align-items:center;gap:.75rem}
-    .online-dot{width:8px;height:8px;border-radius:50%;background:#4ade80}
-    .top-bar p{font-size:.78rem;opacity:.6}
-    .logout-btn{background:none;border:1px solid #333;color:#aaa;font-size:.78rem;padding:.3rem .75rem;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .15s}
+    .online-pill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);padding:.25rem .7rem;border-radius:999px;font-size:.75rem;opacity:.8}
+    .online-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;flex-shrink:0}
+    .logout-btn{background:none;border:1px solid #333;color:#aaa;font-size:.78rem;padding:.3rem .75rem;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
     .logout-btn:hover{border-color:#888;color:var(--white)}
 
-    .panels{flex:1;display:grid;grid-template-columns:300px 1fr;overflow:hidden}
+    .panels{flex:1;display:grid;grid-template-columns:290px 1fr;overflow:hidden}
 
     /* ── CHAT LIST ── */
     .chat-list-panel{border-right:1px solid var(--border);background:var(--white);display:flex;flex-direction:column;overflow:hidden}
-    .chat-list-head{padding:.9rem 1rem;border-bottom:1px solid var(--border);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+    .clp-head{padding:.8rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .clp-head-title{font-size:.75rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mid)}
+    .clp-count{font-size:.7rem;background:var(--blue);color:var(--white);padding:1px 7px;border-radius:999px;font-weight:700}
     .chat-list-inner{flex:1;overflow-y:auto}
-    .chat-item{padding:.9rem 1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;position:relative}
+    .chat-item{padding:.85rem 1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;position:relative;display:flex;flex-direction:column;gap:2px}
     .chat-item:hover{background:var(--sand)}
-    .chat-item.active{background:#eef2ff;border-left:3px solid var(--blue)}
-    .chat-item-name{font-size:.9rem;font-weight:600;margin-bottom:2px}
-    .chat-item-email{font-size:.75rem;color:var(--mid);margin-bottom:3px}
-    .chat-item-last{font-size:.78rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
-    .chat-item-badge{position:absolute;top:.9rem;right:.9rem;background:var(--red);color:var(--white);font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:999px}
-    .empty-list{padding:2rem 1rem;text-align:center;color:var(--mid);font-size:.85rem}
+    .chat-item.active{background:var(--blue-tint);border-left:3px solid var(--blue)}
+    .ci-top{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+    .ci-name{font-size:.88rem;font-weight:600;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ci-email{font-size:.72rem;color:var(--mid)}
+    .ci-last{font-size:.76rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ci-badge{background:var(--red);color:var(--white);font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:999px;flex-shrink:0}
+    .ci-status{font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
+    .ci-status.open{background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd}
+    .ci-status.claimed{background:var(--green-tint);color:var(--green);border:1px solid var(--green-border)}
+    .ci-status.closed{background:var(--sand2);color:var(--mid);border:1px solid var(--border)}
+    .empty-list{padding:2.5rem 1rem;text-align:center;color:var(--mid);font-size:.85rem;line-height:1.6}
 
     /* ── CHAT WINDOW ── */
     .chat-window{display:flex;flex-direction:column;overflow:hidden;background:var(--sand)}
-    .chat-win-head{padding:.9rem 1.25rem;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-    .chat-win-name{font-size:.95rem;font-weight:600}
-    .chat-win-email{font-size:.78rem;color:var(--mid);margin-top:1px}
-    .no-chat-selected{flex:1;display:flex;align-items:center;justify-content:center;color:var(--mid);font-size:.9rem;flex-direction:column;gap:.5rem}
-    .no-chat-selected span{font-size:2.5rem}
+    .cw-head{padding:.8rem 1.25rem;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-shrink:0}
+    .cw-head-info{min-width:0}
+    .cw-name{font-size:.95rem;font-weight:700;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .cw-email{font-size:.75rem;color:var(--mid)}
+    .cw-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+    /* status badge in header */
+    .cw-status-badge{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em}
+    .cw-status-badge.open{background:#f0f9ff;color:#0369a1}
+    .cw-status-badge.claimed{background:var(--green-tint);color:var(--green);border:1px solid var(--green-border)}
+    .cw-status-badge.closed{background:var(--sand2);color:var(--mid)}
+    /* action buttons */
+    .act-btn{font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;padding:.35rem .85rem;border-radius:999px;cursor:pointer;border:none;transition:all .15s;white-space:nowrap}
+    .act-btn.claim{background:var(--green-tint);color:var(--green);border:1px solid var(--green-border)}
+    .act-btn.claim:hover{background:#dcfce7}
+    .act-btn.close{background:var(--red-tint);color:var(--red);border:1px solid var(--red-border)}
+    .act-btn.close:hover{background:#fee2e2}
+
+    .no-chat{flex:1;display:flex;align-items:center;justify-content:center;color:var(--mid);font-size:.9rem;flex-direction:column;gap:.6rem}
+    .no-chat span{font-size:2.5rem}
+
+    /* messages */
     .chat-msgs-area{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.5rem}
     .bubble-wrap{display:flex}
     .bubble-wrap.user{justify-content:flex-start}
@@ -60,18 +94,44 @@
     .bubble{max-width:72%;padding:.55rem .85rem;border-radius:14px;font-size:.875rem;line-height:1.5}
     .bubble-wrap.user .bubble{background:var(--white);color:var(--ink);border:1px solid var(--border);border-bottom-left-radius:4px}
     .bubble-wrap.admin .bubble{background:var(--blue);color:var(--white);border-bottom-right-radius:4px}
-    .bubble-time{font-size:.65rem;color:var(--mid);margin-top:2px;text-align:center}
-    .sys-msg{text-align:center;font-size:.72rem;color:var(--mid);padding:.25rem 0}
-    .chat-input-area{padding:.9rem 1.1rem;background:var(--white);border-top:1px solid var(--border);display:flex;gap:.6rem}
-    .admin-input{flex:1;font-family:'DM Sans',sans-serif;font-size:.875rem;padding:.6rem .9rem;border-radius:999px;border:1.5px solid var(--border);outline:none;transition:border-color .15s}
-    .admin-input:focus{border-color:var(--blue)}
+    .bubble-time{font-size:.63rem;color:var(--mid);margin-top:2px}
+    .bubble-wrap.admin .bubble-time{text-align:right}
+    .sys-msg{text-align:center;font-size:.72rem;color:var(--mid);padding:.3rem 0;font-style:italic}
+
+    /* input area */
+    .chat-input-area{background:var(--white);border-top:1px solid var(--border);padding:.75rem 1rem;flex-shrink:0}
+    .input-toolbar{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+    .better-up-btn{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:999px;cursor:pointer;border:1.5px solid var(--blue);background:var(--blue-tint);color:var(--blue);transition:all .15s;display:flex;align-items:center;gap:4px;white-space:nowrap}
+    .better-up-btn:hover{background:var(--blue);color:var(--white)}
+    .better-up-btn:disabled{opacity:.5;cursor:not-allowed}
+    .better-up-btn.loading{opacity:.7;cursor:wait}
+    .input-row{display:flex;gap:.5rem}
+    .admin-input{flex:1;font-family:'DM Sans',sans-serif;font-size:.875rem;padding:.6rem .9rem;border-radius:999px;border:1.5px solid var(--border);background:var(--sand);outline:none;transition:border-color .15s,background .15s}
+    .admin-input:focus{border-color:var(--blue);background:var(--white)}
+    .admin-input:disabled{opacity:.5;cursor:not-allowed}
     .admin-send{background:var(--blue);color:var(--white);border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .15s}
-    .admin-send:hover{background:#1d4ed8}
+    .admin-send:hover{background:var(--blue2)}
+    .admin-send:disabled{background:#bbb;cursor:not-allowed}
+    .closed-banner{background:var(--sand2);border-top:1px solid var(--border);padding:.9rem 1.25rem;text-align:center;font-size:.83rem;color:var(--mid);font-weight:500}
+
+    /* claim modal */
+    .modal-bg{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center}
+    .modal-bg.open{display:flex}
+    .modal-box{background:var(--white);border-radius:16px;padding:2rem;width:100%;max-width:360px;box-shadow:0 16px 60px rgba(0,0,0,.15)}
+    .modal-box h3{font-size:1.1rem;font-weight:700;margin-bottom:.4rem}
+    .modal-box p{font-size:.85rem;color:var(--dim);margin-bottom:1.25rem}
+    .modal-input{width:100%;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:.65rem .9rem;border-radius:var(--r);border:1.5px solid var(--border);background:var(--sand);outline:none;margin-bottom:1rem;transition:border-color .15s}
+    .modal-input:focus{border-color:var(--blue);background:var(--white)}
+    .modal-btns{display:flex;gap:.6rem}
+    .modal-confirm{flex:1;padding:.75rem;border-radius:999px;background:var(--green);color:var(--white);border:none;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;transition:background .15s}
+    .modal-confirm:hover{background:#166534}
+    .modal-cancel{padding:.75rem 1.25rem;border-radius:999px;background:var(--sand2);color:var(--ink);border:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s}
+    .modal-cancel:hover{background:var(--border)}
 
     @media(max-width:700px){
       .panels{grid-template-columns:1fr}
       .chat-list-panel{display:none}
-      .chat-list-panel.mobile-show{display:flex;position:fixed;inset:52px 0 0 0;z-index:10}
+      .chat-list-panel.show{display:flex;position:fixed;inset:52px 0 0 0;z-index:10}
     }
   </style>
 </head>
@@ -80,7 +140,8 @@
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-card">
-    <h1>🔒 Admin Panel</h1>
+    <div class="login-logo">🔒</div>
+    <h1>Admin Panel</h1>
     <p>Liam's Websites — Support Dashboard</p>
     <input class="login-input" type="password" id="pwInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')adminLogin()"/>
     <button class="login-btn" onclick="adminLogin()">Sign In</button>
@@ -91,63 +152,61 @@
 <!-- MAIN -->
 <div id="mainScreen">
   <div class="top-bar">
-    <h2>💬 Support Chats</h2>
+    <div class="top-bar-left">
+      <h2>💬 Support Chats</h2>
+    </div>
     <div class="top-bar-right">
-      <div class="online-dot"></div>
-      <p>Live</p>
+      <div class="online-pill"><div class="online-dot"></div>Live</div>
       <button class="logout-btn" onclick="adminLogout()">Log Out</button>
     </div>
   </div>
   <div class="panels">
-    <!-- Chat list -->
     <div class="chat-list-panel" id="chatListPanel">
-      <div class="chat-list-head">Conversations</div>
+      <div class="clp-head">
+        <span class="clp-head-title">Conversations</span>
+        <span class="clp-count" id="chatCount">0</span>
+      </div>
       <div class="chat-list-inner" id="chatListInner">
         <div class="empty-list">No chats yet.<br/>They'll appear here when visitors open the chat.</div>
       </div>
     </div>
-    <!-- Chat window -->
     <div class="chat-window" id="chatWindow">
-      <div class="no-chat-selected" id="noChatSelected"><span>💬</span>Select a conversation</div>
+      <div class="no-chat"><span>💬</span>Select a conversation to get started</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLAIM MODAL -->
+<div class="modal-bg" id="claimModal">
+  <div class="modal-box">
+    <h3>✅ Claim This Ticket</h3>
+    <p>Enter your name so the customer knows who's helping them.</p>
+    <input class="modal-input" id="claimNameInput" placeholder="Your name (e.g. Liam)" maxlength="40" onkeydown="if(event.key==='Enter')confirmClaim()"/>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeClaimModal()">Cancel</button>
+      <button class="modal-confirm" onclick="confirmClaim()">Claim Ticket</button>
     </div>
   </div>
 </div>
 
 <script>
   let ws = null, adminAuthed = false, activeSession = null, chatMetas = {};
+  let pendingClaimSid = null;
 
   function getWsUrl() {
     return (location.protocol==='https:'?'wss':'ws')+'://'+location.host;
   }
 
+  /* ── LOGIN ── */
   function adminLogin() {
-    const pw = document.getElementById('pwInput').value;
+    const pw  = document.getElementById('pwInput').value;
     const err = document.getElementById('loginErr');
     err.style.display = 'none';
     ws = new WebSocket(getWsUrl());
-    ws.onopen = () => ws.send(JSON.stringify({ type:'admin_join', password: pw }));
-    ws.onmessage = (e) => {
-      const msg = JSON.parse(e.data);
-      if (msg.type==='auth_fail') { err.style.display='block'; ws.close(); ws=null; return; }
-      if (msg.type==='auth_ok') {
-        adminAuthed = true;
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('mainScreen').style.display  = 'flex';
-        renderChatList(msg.chats);
-        return;
-      }
-      if (msg.type==='chat_list')  { renderChatList(msg.chats); return; }
-      if (msg.type==='new_msg')    { handleNewMsg(msg); return; }
-      if (msg.type==='chat_history') { renderChatHistory(msg); return; }
-    };
-    ws.onclose = () => { if (adminAuthed) setTimeout(reconnect, 2000); };
-    ws.onerror = () => { err.textContent='Connection failed.'; err.style.display='block'; };
-  }
-
-  function reconnect() {
-    if (!adminAuthed) return;
-    // Try restore session — for now just reload
-    location.reload();
+    ws.onopen    = () => ws.send(JSON.stringify({ type: 'admin_join', password: pw }));
+    ws.onmessage = handleWsMessage;
+    ws.onclose   = () => { if (adminAuthed) setTimeout(() => location.reload(), 2000); };
+    ws.onerror   = () => { err.textContent='Connection failed.'; err.style.display='block'; };
   }
 
   function adminLogout() {
@@ -158,103 +217,263 @@
     document.getElementById('pwInput').value = '';
   }
 
+  /* ── WS MESSAGES ── */
+  function handleWsMessage(e) {
+    const msg = JSON.parse(e.data);
+
+    if (msg.type === 'auth_fail') {
+      document.getElementById('loginErr').style.display = 'block';
+      ws.close(); ws = null; return;
+    }
+    if (msg.type === 'auth_ok') {
+      adminAuthed = true;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('mainScreen').style.display  = 'flex';
+      renderChatList(msg.chats);
+      return;
+    }
+    if (msg.type === 'chat_list')     { renderChatList(msg.chats); return; }
+    if (msg.type === 'new_msg')       { handleNewMsg(msg); return; }
+    if (msg.type === 'chat_history')  { renderChatHistory(msg); return; }
+    if (msg.type === 'ticket_updated'){ handleTicketUpdate(msg.chatMeta); return; }
+  }
+
+  /* ── CHAT LIST ── */
   function renderChatList(chats) {
     const inner = document.getElementById('chatListInner');
-    if (!chats || chats.length===0) {
-      inner.innerHTML='<div class="empty-list">No chats yet.<br/>They\'ll appear here when visitors open the chat.</div>'; return;
+    const countEl = document.getElementById('chatCount');
+    if (!chats || chats.length === 0) {
+      inner.innerHTML = '<div class="empty-list">No chats yet.<br/>They\'ll appear here when visitors open the chat.</div>';
+      countEl.textContent = '0'; return;
     }
     chats.forEach(c => chatMetas[c.id] = c);
+    countEl.textContent = chats.length;
     inner.innerHTML = chats.map(c => `
       <div class="chat-item ${activeSession===c.id?'active':''}" id="ci_${c.id}" onclick="openChat('${c.id}')">
-        <div class="chat-item-name">${esc(c.name)}</div>
-        <div class="chat-item-email">${esc(c.email||'No email')}</div>
-        <div class="chat-item-last">${c.lastMsg ? esc(c.lastMsg.text) : 'No messages yet'}</div>
-        ${c.unread>0 ? `<div class="chat-item-badge">${c.unread}</div>` : ''}
+        <div class="ci-top">
+          <div class="ci-name">${esc(c.name)}</div>
+          <div class="ci-status ${c.status}">${statusLabel(c)}</div>
+          ${c.unread > 0 && c.id !== activeSession ? `<div class="ci-badge">${c.unread}</div>` : ''}
+        </div>
+        <div class="ci-email">${esc(c.email||'No email')}</div>
+        <div class="ci-last">${c.lastMsg ? esc(c.lastMsg.text) : 'No messages yet'}</div>
       </div>`).join('');
   }
 
+  function statusLabel(c) {
+    if (c.status === 'claimed') return `Claimed by ${esc(c.claimedBy||'Admin')}`;
+    if (c.status === 'closed')  return 'Closed';
+    return 'Open';
+  }
+
+  /* ── OPEN CHAT ── */
   function openChat(sid) {
     activeSession = sid;
-    // mark active in list
     document.querySelectorAll('.chat-item').forEach(el => el.classList.remove('active'));
     const item = document.getElementById('ci_'+sid);
     if (item) item.classList.add('active');
-    ws.send(JSON.stringify({ type:'admin_open', sessionId: sid }));
+    ws.send(JSON.stringify({ type: 'admin_open', sessionId: sid }));
   }
 
+  /* ── RENDER CHAT HISTORY ── */
   function renderChatHistory(msg) {
     const meta = msg.chatMeta || chatMetas[msg.sessionId] || {};
     const win  = document.getElementById('chatWindow');
+    const isClosed = meta.status === 'closed';
+    const isClaimed = meta.status === 'claimed';
+
     win.innerHTML = `
-      <div class="chat-win-head">
-        <div>
-          <div class="chat-win-name">${esc(meta.name||'Visitor')}</div>
-          <div class="chat-win-email">${esc(meta.email||'')}</div>
+      <div class="cw-head">
+        <div class="cw-head-info">
+          <div class="cw-name">${esc(meta.name||'Visitor')}</div>
+          <div class="cw-email">${esc(meta.email||'No email provided')}</div>
+        </div>
+        <div class="cw-actions">
+          <span class="cw-status-badge ${meta.status}">${statusLabel(meta)}</span>
+          ${!isClosed && !isClaimed ? `<button class="act-btn claim" onclick="openClaimModal('${msg.sessionId}')">✅ Claim</button>` : ''}
+          ${!isClosed ? `<button class="act-btn close" onclick="closeTicket('${msg.sessionId}')">🔒 Close</button>` : ''}
         </div>
       </div>
       <div class="chat-msgs-area" id="msgsArea"></div>
-      <div class="chat-input-area">
-        <input class="admin-input" id="adminInput" placeholder="Reply to ${esc(meta.name||'visitor')}…" maxlength="500" onkeydown="if(event.key==='Enter')adminSend()"/>
-        <button class="admin-send" onclick="adminSend()">➤</button>
-      </div>`;
+      ${isClosed
+        ? `<div class="closed-banner">🔒 This ticket is closed — no more messages can be sent.</div>`
+        : `<div class="chat-input-area">
+            <div class="input-toolbar">
+              <button class="better-up-btn" id="betterUpBtn" onclick="betterUp()" title="Make your message more professional">✨ Better Up!</button>
+            </div>
+            <div class="input-row">
+              <input class="admin-input" id="adminInput" placeholder="Reply to ${esc(meta.name||'visitor')}…" maxlength="500" onkeydown="if(event.key==='Enter'&&!event.shiftKey)adminSend()"/>
+              <button class="admin-send" onclick="adminSend()">➤</button>
+            </div>
+          </div>`
+      }`;
+
     const area = document.getElementById('msgsArea');
-    if (!msg.history || msg.history.length===0) {
-      area.innerHTML='<div class="sys-msg">No messages yet</div>';
+    if (!msg.history || msg.history.length === 0) {
+      area.innerHTML = '<div class="sys-msg">No messages yet</div>';
     } else {
-      msg.history.forEach(m => appendAdminBubble(m.from, m.text, m.ts, false));
+      msg.history.forEach(m => appendBubble(m.from, m.text, m.ts, false));
     }
     area.scrollTop = area.scrollHeight;
     document.getElementById('adminInput')?.focus();
   }
 
+  /* ── TICKET UPDATE (claim/close from another admin) ── */
+  function handleTicketUpdate(meta) {
+    chatMetas[meta.id] = meta;
+    // update header if this chat is open
+    if (activeSession === meta.id) {
+      const head = document.querySelector('.cw-head');
+      if (head) {
+        const badge = head.querySelector('.cw-status-badge');
+        if (badge) { badge.className='cw-status-badge '+meta.status; badge.textContent=statusLabel(meta); }
+        const claimBtn = head.querySelector('.act-btn.claim');
+        const closeBtn = head.querySelector('.act-btn.close');
+        if (claimBtn && (meta.status==='claimed'||meta.status==='closed')) claimBtn.remove();
+        if (closeBtn && meta.status==='closed') closeBtn.remove();
+        if (meta.status==='closed') {
+          const inputArea = document.querySelector('.chat-input-area');
+          if (inputArea) inputArea.outerHTML = `<div class="closed-banner">🔒 This ticket is closed.</div>`;
+        }
+      }
+    }
+    // refresh list
+    const sorted = Object.values(chatMetas).sort((a,b)=>((b.lastMsg?.ts||0)-(a.lastMsg?.ts||0)));
+    renderChatList(sorted);
+  }
+
+  /* ── NEW MESSAGE ── */
   function handleNewMsg(msg) {
     chatMetas[msg.sessionId] = msg.chatMeta;
-    // update list item
     const item = document.getElementById('ci_'+msg.sessionId);
     if (item) {
-      item.querySelector('.chat-item-last').textContent = msg.msg.text;
-      const badge = item.querySelector('.chat-item-badge');
+      item.querySelector('.ci-last').textContent = msg.msg.text;
+      const badge = item.querySelector('.ci-badge');
       if (msg.chatMeta.unread > 0 && msg.sessionId !== activeSession) {
-        if (badge) { badge.textContent=msg.chatMeta.unread; }
-        else { item.insertAdjacentHTML('beforeend',`<div class="chat-item-badge">${msg.chatMeta.unread}</div>`); }
+        if (badge) badge.textContent = msg.chatMeta.unread;
+        else item.querySelector('.ci-top').insertAdjacentHTML('beforeend',`<div class="ci-badge">${msg.chatMeta.unread}</div>`);
       } else if (badge) badge.remove();
-      // move to top
-      const parent = item.parentElement;
-      parent.prepend(item);
+      item.parentElement.prepend(item);
     } else {
-      // new chat — re-render list
       const sorted = Object.values(chatMetas).sort((a,b)=>((b.lastMsg?.ts||0)-(a.lastMsg?.ts||0)));
       renderChatList(sorted);
     }
-    // append message if this chat is open
-    if (activeSession === msg.sessionId) {
-      appendAdminBubble(msg.msg.from, msg.msg.text, msg.msg.ts, true);
-    }
+    if (activeSession === msg.sessionId) appendBubble(msg.msg.from, msg.msg.text, msg.msg.ts, true);
   }
 
-  function appendAdminBubble(from, text, ts, scroll) {
+  /* ── APPEND BUBBLE ── */
+  function appendBubble(from, text, ts, scroll) {
     const area = document.getElementById('msgsArea');
     if (!area) return;
-    const wrap = document.createElement('div');
-    wrap.className='bubble-wrap '+(from==='admin'?'admin':'user');
-    const t = ts ? new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
-    wrap.innerHTML=`<div><div class="bubble">${esc(text)}</div><div class="bubble-time">${from==='admin'?'You':''} ${t}</div></div>`;
-    area.appendChild(wrap);
-    if (scroll) area.scrollTop=area.scrollHeight;
+    if (from === 'system') {
+      const div = document.createElement('div');
+      div.className = 'sys-msg'; div.textContent = text;
+      area.appendChild(div);
+    } else {
+      const wrap = document.createElement('div');
+      wrap.className = 'bubble-wrap '+(from==='admin'?'admin':'user');
+      const t = ts ? new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
+      wrap.innerHTML = `<div><div class="bubble">${esc(text)}</div><div class="bubble-time">${from==='admin'?'You · ':''} ${t}</div></div>`;
+      area.appendChild(wrap);
+    }
+    if (scroll) area.scrollTop = area.scrollHeight;
   }
 
+  /* ── SEND MESSAGE ── */
   function adminSend() {
     const input = document.getElementById('adminInput');
     if (!input) return;
     const text = input.value.trim();
-    if (!text || !activeSession || !ws || ws.readyState!==1) return;
-    ws.send(JSON.stringify({ type:'admin_msg', sessionId: activeSession, text }));
-    input.value='';
+    if (!text || !activeSession || !ws || ws.readyState !== 1) return;
+    ws.send(JSON.stringify({ type: 'admin_msg', sessionId: activeSession, text }));
+    input.value = '';
+    input.focus();
   }
 
+  /* ── BETTER UP ── */
+  async function betterUp() {
+    const input = document.getElementById('adminInput');
+    const btn   = document.getElementById('betterUpBtn');
+    if (!input || !input.value.trim()) {
+      input?.focus(); return;
+    }
+    const original = input.value.trim();
+    btn.disabled = true;
+    btn.classList.add('loading');
+    btn.textContent = '✨ Improving…';
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 300,
+          messages: [{
+            role: 'user',
+            content: `You are a professional customer support assistant for "Liam's Websites", a web design service. 
+Rewrite the following support message to be more professional, clear, friendly and polished — while keeping the exact same meaning and intent. 
+Keep it concise. Return ONLY the rewritten message with no explanation, quotes, or preamble.
+
+Message to improve: ${original}`
+          }]
+        })
+      });
+      const data = await res.json();
+      const improved = data?.content?.[0]?.text?.trim();
+      if (improved) {
+        input.value = improved;
+        input.focus();
+        // flash the input to show it changed
+        input.style.borderColor = '#15803d';
+        input.style.background  = '#f0fdf4';
+        setTimeout(() => { input.style.borderColor=''; input.style.background=''; }, 1200);
+      }
+    } catch(err) {
+      console.error('Better Up failed:', err);
+      alert('Better Up failed. Check your connection.');
+    } finally {
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      btn.textContent = '✨ Better Up!';
+    }
+  }
+
+  /* ── CLAIM MODAL ── */
+  function openClaimModal(sid) {
+    pendingClaimSid = sid;
+    document.getElementById('claimNameInput').value = '';
+    document.getElementById('claimModal').classList.add('open');
+    setTimeout(() => document.getElementById('claimNameInput').focus(), 100);
+  }
+  function closeClaimModal() {
+    document.getElementById('claimModal').classList.remove('open');
+    pendingClaimSid = null;
+  }
+  function confirmClaim() {
+    const name = document.getElementById('claimNameInput').value.trim();
+    if (!name) { document.getElementById('claimNameInput').focus(); return; }
+    if (!pendingClaimSid || !ws || ws.readyState !== 1) return;
+    ws.send(JSON.stringify({ type: 'admin_claim', sessionId: pendingClaimSid, claimedBy: name }));
+    closeClaimModal();
+  }
+
+  /* ── CLOSE TICKET ── */
+  function closeTicket(sid) {
+    if (!confirm('Close this ticket? The customer will be notified and no more messages can be sent.')) return;
+    if (!ws || ws.readyState !== 1) return;
+    ws.send(JSON.stringify({ type: 'admin_close', sessionId: sid }));
+  }
+
+  /* ── UTILS ── */
   function esc(str) {
     return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
+
+  // Close claim modal on background click
+  document.getElementById('claimModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('claimModal')) closeClaimModal();
+  });
 </script>
 </body>
 </html>
