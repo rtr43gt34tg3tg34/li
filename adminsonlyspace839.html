@@ -400,20 +400,24 @@
     btn.classList.add('loading');
     btn.textContent = '✨ Improving…';
     try {
-      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer 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',
-          'Content-Type': 'application/json',
-          'HTTP-Referer': 'https://liamswebsites.store',
-          'X-Title': "Liam's Websites Admin"
+          'Authorization': 'Bearer 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',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'google/gemini-flash-1.5',
-          messages: [{
-            role: 'user',
-            content: 'You are a professional customer support assistant for "Liam\'s Websites", a web design service. Rewrite the following support message to be more professional, clear, friendly and polished while keeping the exact same meaning. Keep it concise. Return ONLY the rewritten message, nothing else, no quotes, no explanation.\n\nMessage: ' + original
-          }]
+          model: 'llama-3.1-8b-instant',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a professional customer support assistant for "Liam\'s Websites", a web design service. When given a message, rewrite it to be more professional, clear, friendly and polished while keeping the exact same meaning. Return ONLY the rewritten message — no explanation, no quotes, nothing else.'
+            },
+            {
+              role: 'user',
+              content: original
+            }
+          ]
         })
       });
       const data = await res.json();
