@@ -175,57 +175,51 @@
 
     /* ── CHAT WIDGET ── */
     #chatBubble{position:fixed;bottom:24px;right:24px;z-index:400;width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);border:none;cursor:pointer;font-size:1.4rem;box-shadow:0 4px 20px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
-    #chatBubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,99,235,.5)}
-    #chatBadge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:#ef4444;color:var(--white);font-size:.65rem;font-weight:700;display:none;align-items:center;justify-content:center;border:2px solid var(--white)}
-    /* Chat panel — fixed height, no clipping, input always visible */
-    #chatPanel{
-      position:fixed;bottom:86px;right:24px;z-index:400;
-      width:340px;max-width:calc(100vw - 32px);
-      background:var(--white);border:1px solid var(--border);
-      border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.15);
-      display:none;flex-direction:column;
-      height:460px; /* fixed height so nothing clips */
-      overflow:hidden;
-    }
+    #chatBubble:hover{transform:scale(1.08)}
+    #chatBadge{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;border-radius:9px;background:#ef4444;color:var(--white);font-size:.62rem;font-weight:700;align-items:center;justify-content:center;border:2px solid var(--white);padding:0 4px}
+    #chatPanel{position:fixed;bottom:86px;right:24px;z-index:400;width:340px;max-width:calc(100vw - 32px);background:var(--white);border:1px solid var(--border);border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.15);display:none;flex-direction:column;height:460px;overflow:hidden}
     #chatPanel.open{display:flex}
-    .chat-head{padding:.85rem 1.1rem;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-    .chat-head-left{display:flex;align-items:center;gap:.6rem}
+    .chat-head{padding:.85rem 1.1rem;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;min-height:52px}
+    .chat-head-left{display:flex;align-items:center;gap:.6rem;min-width:0}
     .chat-head-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0}
-    .chat-head h4{font-size:.9rem;font-weight:600}
-    .chat-head p{font-size:.72rem;opacity:.6}
-    .chat-close-btn{background:none;border:none;color:var(--white);font-size:1.3rem;cursor:pointer;opacity:.8;line-height:1;padding:.2rem;flex-shrink:0}
-    /* messages area grows to fill space, input stays pinned at bottom */
-    .chat-msgs{flex:1;overflow-y:auto;padding:.75rem;display:flex;flex-direction:column;gap:.5rem;overscroll-behavior:contain}
-    .chat-bubble-wrap{display:flex}
-    .chat-bubble-wrap.user{justify-content:flex-end}
-    .chat-bubble-wrap.admin{justify-content:flex-start}
-    .cbubble{max-width:80%;padding:.55rem .85rem;border-radius:14px;font-size:.85rem;line-height:1.5;word-break:break-word}
-    .chat-bubble-wrap.user .cbubble{background:var(--blue);color:var(--white);border-bottom-right-radius:4px}
-    .chat-bubble-wrap.admin .cbubble{background:var(--sand2);color:var(--ink);border-bottom-left-radius:4px}
-    .chat-system{text-align:center;font-size:.72rem;color:var(--mid);padding:.3rem 0;font-style:italic}
-    .cbubble-outer{display:flex;flex-direction:column}
-    .chat-bubble-wrap.user .cbubble-outer{align-items:flex-end}
-    .chat-bubble-wrap.admin .cbubble-outer{align-items:flex-start}
-    .cbubble-time{font-size:.62rem;color:var(--mid);margin-top:2px;padding:0 2px}
-    /* typing dots */
-    .typing-bubble{display:flex;align-items:center;gap:4px;padding:.6rem .85rem}
-    .typing-bubble span{width:7px;height:7px;border-radius:50%;background:var(--mid);display:inline-block;animation:typingDot 1.2s infinite ease-in-out}
-    .typing-bubble span:nth-child(2){animation-delay:.2s}
-    .typing-bubble span:nth-child(3){animation-delay:.4s}
-    @keyframes typingDot{0%,80%,100%{transform:scale(.8);opacity:.5}40%{transform:scale(1.1);opacity:1}}
-    /* input row — always at bottom, never hidden */
-    .chat-input-row{display:flex;gap:.5rem;padding:.65rem .75rem;border-top:1px solid var(--border);flex-shrink:0;background:var(--white)}
-    .chat-input{flex:1;font-family:'DM Sans',sans-serif;font-size:16px;padding:.5rem .75rem;border-radius:var(--pill);border:1.5px solid var(--border);outline:none;transition:border-color .15s;min-width:0;background:var(--sand)}
-    .chat-input:focus{border-color:var(--blue);background:var(--white)}
-    .chat-send{background:var(--blue);color:var(--white);border:none;border-radius:50%;width:36px;height:36px;min-width:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .15s}
-    .chat-send:hover{background:var(--blue2)}
-    /* name form */
-    .chat-name-form{padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;flex:1}
-    .chat-name-form p{font-size:.875rem;color:var(--dim);line-height:1.5}
-    .chat-name-input{font-family:'DM Sans',sans-serif;font-size:16px;padding:.65rem .85rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;width:100%;transition:border-color .15s;background:var(--sand)}
+    .chat-head h4{font-size:.9rem;font-weight:600;white-space:nowrap}
+    .chat-head p{font-size:.7rem;opacity:.55;white-space:nowrap}
+    .chat-close-btn{background:none;border:none;color:var(--white);font-size:1.4rem;cursor:pointer;opacity:.75;line-height:1;padding:.25rem .4rem;flex-shrink:0;transition:opacity .15s}
+    .chat-close-btn:hover{opacity:1}
+    /* name form — fills the space between header and nothing */
+    .chat-name-form{flex:1;padding:1.25rem;display:none;flex-direction:column;gap:.75rem;overflow-y:auto}
+    .chat-name-form p{font-size:.875rem;color:var(--dim);line-height:1.55}
+    .chat-name-input{font-family:'DM Sans',sans-serif;font-size:16px;padding:.65rem .85rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;width:100%;background:var(--sand);transition:border-color .15s}
     .chat-name-input:focus{border-color:var(--blue);background:var(--white)}
     .chat-start-btn{background:var(--blue);color:var(--white);border:none;border-radius:var(--pill);padding:.7rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s}
     .chat-start-btn:hover{background:var(--blue2)}
+    /* messages — fills remaining space, scrollable */
+    .chat-msgs{flex:1;overflow-y:auto;padding:.75rem;display:none;flex-direction:column;gap:.5rem;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+    .chat-bubble-wrap{display:flex;width:100%}
+    .chat-bubble-wrap.user{justify-content:flex-end}
+    .chat-bubble-wrap.admin{justify-content:flex-start}
+    .cbubble-outer{display:flex;flex-direction:column;max-width:82%}
+    .chat-bubble-wrap.user .cbubble-outer{align-items:flex-end}
+    .chat-bubble-wrap.admin .cbubble-outer{align-items:flex-start}
+    .cbubble{padding:.55rem .85rem;border-radius:14px;font-size:.85rem;line-height:1.5;word-break:break-word}
+    .chat-bubble-wrap.user .cbubble{background:var(--blue);color:var(--white);border-bottom-right-radius:4px}
+    .chat-bubble-wrap.admin .cbubble{background:var(--sand2);color:var(--ink);border-bottom-left-radius:4px}
+    .cbubble-time{font-size:.6rem;color:var(--mid);margin-top:3px;padding:0 2px}
+    .chat-system{text-align:center;font-size:.72rem;color:var(--mid);padding:.4rem .5rem;font-style:italic;width:100%}
+    /* typing dots */
+    .typing-bubble{display:flex;align-items:center;gap:5px;padding:.65rem .9rem;min-width:52px}
+    .typing-bubble span{width:7px;height:7px;border-radius:50%;background:var(--mid);animation:tdot 1.3s infinite ease-in-out}
+    .typing-bubble span:nth-child(2){animation-delay:.2s}
+    .typing-bubble span:nth-child(3){animation-delay:.4s}
+    @keyframes tdot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
+    /* input row — pinned to bottom, never hidden once chat starts */
+    .chat-input-row{display:none;gap:.5rem;padding:.6rem .75rem;border-top:1px solid var(--border);flex-shrink:0;background:var(--white);align-items:center;min-height:58px}
+    .chat-input{flex:1;font-family:'DM Sans',sans-serif;font-size:16px;padding:.5rem .75rem;border-radius:var(--pill);border:1.5px solid var(--border);outline:none;background:var(--sand);min-width:0;transition:border-color .15s}
+    .chat-input:focus{border-color:var(--blue);background:var(--white)}
+    .chat-input:disabled{opacity:.5;cursor:not-allowed}
+    .chat-send{background:var(--blue);color:var(--white);border:none;border-radius:50%;width:36px;height:36px;min-width:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;transition:background .15s}
+    .chat-send:hover{background:var(--blue2)}
+    .chat-send:disabled{background:#bbb;cursor:not-allowed}
 
     /* ── FOOTER ── */
     footer{background:var(--ink);color:#555;padding:2.25rem clamp(1rem,5vw,4rem);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
@@ -468,7 +462,7 @@
 <!-- CHAT WIDGET -->
 <button id="chatBubble" aria-label="Open chat">
   💬
-  <div id="chatBadge">1</div>
+  <div id="chatBadge" style="display:none"></div>
 </button>
 <div id="chatPanel">
   <div class="chat-head">
@@ -478,19 +472,18 @@
     </div>
     <button class="chat-close-btn" id="chatCloseBtn">×</button>
   </div>
-  <div id="chatBody">
-    <!-- name form shown first -->
-    <div class="chat-name-form" id="chatNameForm">
-      <p>What's your name? We'll get you connected right away.</p>
-      <input class="chat-name-input" id="chatNameInput" placeholder="Your name…" maxlength="40"/>
-      <button class="chat-start-btn" onclick="startChat()">Start Chat →</button>
-    </div>
-    <!-- messages shown after -->
-    <div class="chat-msgs" id="chatMsgs" style="display:none"></div>
+  <!-- name form -->
+  <div class="chat-name-form" id="chatNameForm">
+    <p>What's your name? We'll get you connected right away.</p>
+    <input class="chat-name-input" id="chatNameInput" placeholder="Your name…" maxlength="40"/>
+    <button class="chat-start-btn" id="chatStartBtn">Start Chat →</button>
   </div>
-  <div class="chat-input-row" id="chatInputRow" style="display:none">
-    <input class="chat-input" id="chatInput" placeholder="Type a message…" maxlength="500" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg()}"/>
-    <button class="chat-send" id="chatSendBtn" onclick="sendChatMsg()">➤</button>
+  <!-- messages area — always in DOM, hidden until needed -->
+  <div class="chat-msgs" id="chatMsgs"></div>
+  <!-- input row — always in DOM, hidden until needed -->
+  <div class="chat-input-row" id="chatInputRow">
+    <input class="chat-input" id="chatInput" placeholder="Type a message…" maxlength="500"/>
+    <button class="chat-send" id="chatSendBtn">➤</button>
   </div>
 </div>
 
@@ -796,203 +789,259 @@ async function openEmailThread(id, subj) {
 }
 
 /* ════════════════════════════════════════════════════════
-   LIVE CHAT
+   LIVE CHAT — clean rewrite
+   States: NAME_FORM → CONNECTING → CHATTING → CLOSED
 ════════════════════════════════════════════════════════ */
-let ws          = null;
-let chatSid     = localStorage.getItem('lw_chat_sid') || null;
-let chatOpen    = false;
-let chatJoined  = false;
-let unreadCount = 0;
+(function() {
+  var ws         = null;
+  var chatSid    = localStorage.getItem('lw_chat_sid') || null;
+  var chatState  = 'IDLE'; // IDLE | NAME_FORM | CONNECTING | CHATTING | CLOSED
+  var panelOpen  = false;
+  var unread     = 0;
 
-function getWsUrl() {
-  return (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host;
-}
+  function el(id) { return document.getElementById(id); }
 
-/* Show the name-entry form */
-function showNameForm() {
-  document.getElementById('chatNameForm').style.display = 'flex';
-  document.getElementById('chatMsgs').style.display     = 'none';
-  document.getElementById('chatInputRow').style.display = 'none';
-  setTimeout(() => document.getElementById('chatNameInput')?.focus(), 150);
-}
+  function getWsUrl() {
+    return (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host;
+  }
 
-/* Show the messages + input area */
-function showMsgArea() {
-  document.getElementById('chatNameForm').style.display = 'none';
-  document.getElementById('chatMsgs').style.display     = 'flex';
-  document.getElementById('chatInputRow').style.display = 'flex';
-}
+  /* ── Show/hide sections ── */
+  function showSection(section) {
+    // section: 'name' | 'chat'
+    var nameForm  = el('chatNameForm');
+    var msgs      = el('chatMsgs');
+    var inputRow  = el('chatInputRow');
+    if (section === 'name') {
+      nameForm.style.display  = 'flex';
+      msgs.style.display      = 'none';
+      inputRow.style.display  = 'none';
+    } else {
+      nameForm.style.display  = 'none';
+      msgs.style.display      = 'flex';
+      inputRow.style.display  = 'flex';
+    }
+  }
 
-function scrollMsgs() {
-  const el = document.getElementById('chatMsgs');
-  if (el) setTimeout(() => { el.scrollTop = el.scrollHeight; }, 40);
-}
+  function scrollToBottom() {
+    var m = el('chatMsgs');
+    if (m) setTimeout(function() { m.scrollTop = m.scrollHeight; }, 40);
+  }
 
-/* Open / close the panel */
-function toggleChat() {
-  chatOpen = !chatOpen;
-  const panel = document.getElementById('chatPanel');
-  panel.classList.toggle('open', chatOpen);
+  /* ── Append messages ── */
+  function addBubble(from, text) {
+    var msgs = el('chatMsgs');
+    if (!msgs) return;
+    if (from === 'system') {
+      var s = document.createElement('div');
+      s.className = 'chat-system';
+      s.textContent = text;
+      msgs.appendChild(s);
+      scrollToBottom();
+      return;
+    }
+    var wrap  = document.createElement('div');
+    wrap.className = 'chat-bubble-wrap ' + (from === 'user' ? 'user' : 'admin');
+    var outer = document.createElement('div');
+    outer.className = 'cbubble-outer';
+    var bub   = document.createElement('div');
+    bub.className = 'cbubble';
+    bub.innerHTML = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    var time  = document.createElement('div');
+    time.className = 'cbubble-time';
+    time.textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    outer.appendChild(bub);
+    outer.appendChild(time);
+    wrap.appendChild(outer);
+    msgs.appendChild(wrap);
+    scrollToBottom();
+  }
 
-  if (!chatOpen) return;
+  function addTyping() {
+    var msgs = el('chatMsgs');
+    if (!msgs || el('typingDots')) return;
+    var wrap  = document.createElement('div');
+    wrap.id = 'typingDots';
+    wrap.className = 'chat-bubble-wrap admin';
+    wrap.innerHTML = '<div class="cbubble-outer"><div class="cbubble typing-bubble"><span></span><span></span><span></span></div></div>';
+    msgs.appendChild(wrap);
+    scrollToBottom();
+  }
 
-  unreadCount = 0;
-  hideChatBadge();
+  function removeTyping() {
+    var t = el('typingDots');
+    if (t) t.remove();
+  }
 
-  // If already connected and joined, just scroll
-  if (chatJoined) { scrollMsgs(); return; }
+  /* ── WebSocket connection ── */
+  function connect() {
+    if (ws && ws.readyState === WebSocket.OPEN) return;
+    chatState = 'CONNECTING';
+    try { ws = new WebSocket(getWsUrl()); } catch(e) { chatState = 'IDLE'; return; }
 
-  // If we have a saved name or session, connect straight away
-  const savedName = localStorage.getItem('lw_chat_name') || userName;
-  if (chatSid || savedName) {
-    showMsgArea();
-    document.getElementById('chatMsgs').innerHTML = '<div class="chat-system">Connecting…</div>';
-    connectChat();
+    ws.onopen = function() {
+      var name  = window.userName || localStorage.getItem('lw_chat_name') || 'Visitor';
+      var email = window.senderEmail || '';
+      ws.send(JSON.stringify({ type: 'user_join', sessionId: chatSid, name: name, email: email }));
+    };
+
+    ws.onmessage = function(e) {
+      var msg;
+      try { msg = JSON.parse(e.data); } catch(err) { return; }
+
+      if (msg.type === 'joined') {
+        chatSid   = msg.sessionId;
+        chatState = 'CHATTING';
+        localStorage.setItem('lw_chat_sid', chatSid);
+
+        var msgs = el('chatMsgs');
+        if (msgs) msgs.innerHTML = '';
+        showSection('chat');
+
+        if (msg.history && msg.history.length > 0) {
+          msg.history.forEach(function(m) { addBubble(m.from, m.text); });
+          scrollToBottom();
+        } else {
+          // New chat — animated welcome
+          addTyping();
+          setTimeout(function() {
+            removeTyping();
+            addBubble('admin', "👋 Hey! Thanks for reaching out to Liam's Websites.");
+            setTimeout(function() {
+              addTyping();
+              setTimeout(function() {
+                removeTyping();
+                addBubble('admin', "Someone will be with you shortly! We usually reply within a few minutes — but during busy periods it can take up to 15 hours. We'll get back to you ASAP 🙂");
+              }, 1200);
+            }, 600);
+          }, 900);
+        }
+        return;
+      }
+
+      if (msg.type === 'msg') {
+        addBubble(msg.from, msg.text);
+        if (msg.from === 'admin' && !panelOpen) {
+          unread++;
+          updateBadge();
+        }
+        return;
+      }
+
+      if (msg.type === 'ticket_closed') {
+        chatState = 'CLOSED';
+        addBubble('system', '🔒 This chat has been closed. Thanks for reaching out!');
+        var inp  = el('chatInput');
+        var send = el('chatSendBtn');
+        if (inp)  { inp.disabled = true; inp.placeholder = 'Chat closed'; }
+        if (send) send.disabled = true;
+        return;
+      }
+    };
+
+    ws.onclose = function() { ws = null; if (chatState !== 'CLOSED') chatState = 'IDLE'; };
+    ws.onerror = function() { ws = null; if (chatState !== 'CLOSED') chatState = 'IDLE'; };
+  }
+
+  /* ── Badge ── */
+  function updateBadge() {
+    var b = el('chatBadge');
+    if (!b) return;
+    if (unread > 0) { b.textContent = unread; b.style.display = 'flex'; }
+    else b.style.display = 'none';
+  }
+
+  /* ── Public API — attached to window so buttons can call them ── */
+  window.toggleChat = function() {
+    panelOpen = !panelOpen;
+    var panel = el('chatPanel');
+    if (!panel) return;
+    panel.classList.toggle('open', panelOpen);
+
+    if (!panelOpen) return;
+
+    // Reset unread
+    unread = 0;
+    updateBadge();
+
+    if (chatState === 'CHATTING') {
+      // Already connected — just scroll
+      showSection('chat');
+      scrollToBottom();
+      return;
+    }
+
+    if (chatState === 'CLOSED') {
+      showSection('chat');
+      scrollToBottom();
+      return;
+    }
+
+    // Check if we have enough info to connect without asking name
+    var savedName = localStorage.getItem('lw_chat_name') || window.userName;
+    if (chatSid || savedName) {
+      showSection('chat');
+      el('chatMsgs').innerHTML = '<div class="chat-system">Connecting…</div>';
+      connect();
+    } else {
+      chatState = 'NAME_FORM';
+      showSection('name');
+    }
+  };
+
+  window.startChat = function() {
+    var input = el('chatNameInput');
+    if (!input) return;
+    var name = input.value.trim();
+    if (!name) { input.focus(); return; }
+    localStorage.setItem('lw_chat_name', name);
+    showSection('chat');
+    el('chatMsgs').innerHTML = '<div class="chat-system">Connecting…</div>';
+    connect();
+  };
+
+  window.sendChatMsg = function() {
+    var input = el('chatInput');
+    if (!input) return;
+    var text = input.value.trim();
+    if (!text) return;
+    if (chatState === 'CLOSED') return;
+    if (!ws || ws.readyState !== WebSocket.OPEN) {
+      if (chatState !== 'CONNECTING') connect();
+      return;
+    }
+    ws.send(JSON.stringify({ type: 'user_msg', text: text }));
+    input.value = '';
+    input.focus();
+  };
+
+  /* ── Wire up buttons after DOM ready ── */
+  function wireButtons() {
+    var bubble    = el('chatBubble');
+    var closeBtn  = el('chatCloseBtn');
+    var startBtn  = el('chatStartBtn');
+    var sendBtn   = el('chatSendBtn');
+    var chatInput = el('chatInput');
+    var nameInput = el('chatNameInput');
+
+    if (bubble)    bubble.addEventListener('click', window.toggleChat);
+    if (closeBtn)  closeBtn.addEventListener('click', window.toggleChat);
+    if (startBtn)  startBtn.addEventListener('click', window.startChat);
+    if (sendBtn)   sendBtn.addEventListener('click', window.sendChatMsg);
+    if (chatInput) chatInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); window.sendChatMsg(); }
+    });
+    if (nameInput) nameInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); window.startChat(); }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireButtons);
   } else {
-    // First time — ask for name
-    showNameForm();
+    wireButtons();
   }
-}
 
-/* Called when user submits the name form */
-function startChat() {
-  const input = document.getElementById('chatNameInput');
-  const name  = input ? input.value.trim() : '';
-  if (!name) { input?.focus(); return; }
-  localStorage.setItem('lw_chat_name', name);
-  showMsgArea();
-  document.getElementById('chatMsgs').innerHTML = '<div class="chat-system">Connecting…</div>';
-  connectChat();
-}
-
-/* Open WebSocket and join */
-function connectChat() {
-  if (ws && ws.readyState === WebSocket.OPEN) return;
-
-  try { ws = new WebSocket(getWsUrl()); } catch(e) { return; }
-
-  ws.onopen = () => {
-    const name  = userName || localStorage.getItem('lw_chat_name') || 'Visitor';
-    const email = senderEmail || '';
-    ws.send(JSON.stringify({ type: 'user_join', sessionId: chatSid, name, email }));
-  };
-
-  ws.onmessage = (e) => {
-    let msg; try { msg = JSON.parse(e.data); } catch { return; }
-
-    if (msg.type === 'joined') {
-      chatSid    = msg.sessionId;
-      chatJoined = true;
-      localStorage.setItem('lw_chat_sid', chatSid);
-
-      const msgsEl = document.getElementById('chatMsgs');
-      if (msgsEl) msgsEl.innerHTML = '';
-      showMsgArea();
-
-      if (msg.history && msg.history.length > 0) {
-        msg.history.forEach(m => appendChatBubble(m.from, m.text, false));
-        scrollMsgs();
-      } else {
-        // Brand new chat — animated welcome
-        showTypingIndicator();
-        setTimeout(() => {
-          hideTypingIndicator();
-          appendChatBubble('admin', "👋 Hey! Thanks for reaching out to Liam's Websites.", true);
-          setTimeout(() => {
-            showTypingIndicator();
-            setTimeout(() => {
-              hideTypingIndicator();
-              appendChatBubble('admin', "Someone will be with you shortly! Responses usually take a few minutes — but can take up to 15 hours if we're busy. We'll get back to you ASAP 🙂", true);
-            }, 1200);
-          }, 600);
-        }, 900);
-      }
-      return;
-    }
-
-    if (msg.type === 'msg') {
-      appendChatBubble(msg.from, msg.text, true);
-      if (msg.from === 'admin' && !chatOpen) {
-        unreadCount++;
-        showChatBadge();
-      }
-      return;
-    }
-
-    if (msg.type === 'ticket_closed') {
-      appendChatSystem('🔒 This chat has been closed. Thanks for reaching out!');
-      const inp  = document.getElementById('chatInput');
-      const send = document.getElementById('chatSendBtn');
-      if (inp)  { inp.disabled = true; inp.placeholder = 'Chat closed'; }
-      if (send) send.disabled = true;
-      return;
-    }
-  };
-
-  ws.onclose = () => { ws = null; chatJoined = false; };
-  ws.onerror = () => { ws = null; chatJoined = false; };
-}
-
-function appendChatBubble(from, text, scroll) {
-  const msgs = document.getElementById('chatMsgs');
-  if (!msgs) return;
-  if (from === 'system') { appendChatSystem(text); return; }
-  const wrap = document.createElement('div');
-  wrap.className = 'chat-bubble-wrap ' + (from === 'user' ? 'user' : 'admin');
-  const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-  const now  = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  wrap.innerHTML = `<div class="cbubble-outer"><div class="cbubble">${safe}</div><div class="cbubble-time">${now}</div></div>`;
-  msgs.appendChild(wrap);
-  if (scroll) setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 30);
-}
-
-function showTypingIndicator() {
-  const msgs = document.getElementById('chatMsgs');
-  if (!msgs || document.getElementById('typingIndicator')) return;
-  const div = document.createElement('div');
-  div.id = 'typingIndicator';
-  div.className = 'chat-bubble-wrap admin';
-  div.innerHTML = '<div class="cbubble-outer"><div class="cbubble typing-bubble"><span></span><span></span><span></span></div></div>';
-  msgs.appendChild(div);
-  setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 30);
-}
-
-function hideTypingIndicator() {
-  const el = document.getElementById('typingIndicator');
-  if (el) el.remove();
-}
-
-function appendChatSystem(text) {
-  const msgs = document.getElementById('chatMsgs');
-  if (!msgs) return;
-  const div = document.createElement('div');
-  div.className = 'chat-system';
-  div.textContent = text;
-  msgs.appendChild(div);
-}
-
-function sendChatMsg() {
-  const input = document.getElementById('chatInput');
-  if (!input) return;
-  const text = input.value.trim();
-  if (!text) return;
-  if (!ws || ws.readyState !== WebSocket.OPEN) {
-    if (!chatReady) { initChat(); setTimeout(() => sendChatMsg(), 600); }
-    return;
-  }
-  ws.send(JSON.stringify({ type: 'user_msg', text }));
-  input.value = '';
-  input.focus();
-}
-
-function showChatBadge() {
-  const b = document.getElementById('chatBadge');
-  if (b) { b.textContent = unreadCount; b.style.display = 'flex'; }
-}
-function hideChatBadge() {
-  const b = document.getElementById('chatBadge');
-  if (b) b.style.display = 'none';
-}
+})(); // end chat IIFE
 
 /* ════════════════════════════════════════════════════════
    PWA — Add to Home Screen
@@ -1024,12 +1073,6 @@ function dismissInstall() {
    ON LOAD
 ════════════════════════════════════════════════════════ */
 window.addEventListener('load', () => {
-  // Attach chat buttons safely here so they always work
-  const bubble = document.getElementById('chatBubble');
-  const closeB = document.getElementById('chatCloseBtn');
-  if (bubble) bubble.addEventListener('click', toggleChat);
-  if (closeB) closeB.addEventListener('click', toggleChat);
-
   // Check OAuth redirect callback
   if (!handleOAuthCallback()) {
     if (loadAuth()) {
