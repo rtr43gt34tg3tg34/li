@@ -173,24 +173,27 @@ function getChatList() {
   return Object.values(chats).map(c => getChatMeta(c.id)).sort((a, b) => ((b.lastMsg?.ts || 0) - (a.lastMsg?.ts || 0)));
 }
 
-// ── Better Up ────────────────────────────────────────────────────────────────
-const OPENROUTER_KEY = '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';
+// ── Better Up (Groq) ─────────────────────────────────────────────────────────
+const GROQ_KEY = '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';
 
 app.post('/better-up', async (req, res) => {
   const { text } = req.body;
   if (!text) return res.status(400).json({ error: 'No text' });
   try {
-    const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + OPENROUTER_KEY, 'Content-Type': 'application/json' },
+      headers: { 'Authorization': 'Bearer ' + GROQ_KEY, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Rewrite this customer support message to be more professional and friendly. Return ONLY the rewritten message, nothing else: ' + text }]
+        model: 'llama-3.1-8b-instant',
+        messages: [
+          { role: 'system', content: 'You are a professional customer support assistant for Liam\'s Websites. Rewrite the given message to be more professional, clear and friendly while keeping the same meaning. Return ONLY the rewritten message, no explanation, no quotes.' },
+          { role: 'user', content: text }
+        ]
       })
     });
     const data = await r.json();
     const improved = data?.choices?.[0]?.message?.content?.trim();
-    if (!improved) return res.status(500).json({ error: 'No response' });
+    if (!improved) return res.status(500).json({ error: 'No response from Groq', detail: JSON.stringify(data) });
     res.json({ improved });
   } catch (e) {
     res.status(500).json({ error: e.message });
