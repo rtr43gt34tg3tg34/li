@@ -177,32 +177,44 @@
     #chatBubble{position:fixed;bottom:24px;right:24px;z-index:400;width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);border:none;cursor:pointer;font-size:1.4rem;box-shadow:0 4px 20px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
     #chatBubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,99,235,.5)}
     #chatBadge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:#ef4444;color:var(--white);font-size:.65rem;font-weight:700;display:none;align-items:center;justify-content:center;border:2px solid var(--white)}
-    #chatPanel{position:fixed;bottom:86px;right:24px;z-index:400;width:340px;max-width:calc(100vw - 32px);background:var(--white);border:1px solid var(--border);border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.15);display:none;flex-direction:column;overflow:hidden;max-height:480px}
+    /* Chat panel — fixed height, no clipping, input always visible */
+    #chatPanel{
+      position:fixed;bottom:86px;right:24px;z-index:400;
+      width:340px;max-width:calc(100vw - 32px);
+      background:var(--white);border:1px solid var(--border);
+      border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.15);
+      display:none;flex-direction:column;
+      height:460px; /* fixed height so nothing clips */
+      overflow:hidden;
+    }
     #chatPanel.open{display:flex}
-    .chat-head{padding:.9rem 1.1rem;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:space-between}
+    .chat-head{padding:.85rem 1.1rem;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
     .chat-head-left{display:flex;align-items:center;gap:.6rem}
-    .chat-head-dot{width:8px;height:8px;border-radius:50%;background:#4ade80}
+    .chat-head-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0}
     .chat-head h4{font-size:.9rem;font-weight:600}
     .chat-head p{font-size:.72rem;opacity:.6}
-    .chat-close-btn{background:none;border:none;color:var(--white);font-size:1.2rem;cursor:pointer;opacity:.7;line-height:1}
-    .chat-msgs{flex:1;overflow-y:auto;padding:.75rem;display:flex;flex-direction:column;gap:.5rem;min-height:160px}
+    .chat-close-btn{background:none;border:none;color:var(--white);font-size:1.3rem;cursor:pointer;opacity:.8;line-height:1;padding:.2rem;flex-shrink:0}
+    /* messages area grows to fill space, input stays pinned at bottom */
+    .chat-msgs{flex:1;overflow-y:auto;padding:.75rem;display:flex;flex-direction:column;gap:.5rem;overscroll-behavior:contain}
     .chat-bubble-wrap{display:flex}
     .chat-bubble-wrap.user{justify-content:flex-end}
     .chat-bubble-wrap.admin{justify-content:flex-start}
-    .cbubble{max-width:78%;padding:.55rem .85rem;border-radius:14px;font-size:.85rem;line-height:1.5}
+    .cbubble{max-width:80%;padding:.55rem .85rem;border-radius:14px;font-size:.85rem;line-height:1.5;word-break:break-word}
     .chat-bubble-wrap.user .cbubble{background:var(--blue);color:var(--white);border-bottom-right-radius:4px}
     .chat-bubble-wrap.admin .cbubble{background:var(--sand2);color:var(--ink);border-bottom-left-radius:4px}
-    .chat-system{text-align:center;font-size:.72rem;color:var(--mid);padding:.25rem 0}
-    .chat-input-row{display:flex;gap:.5rem;padding:.75rem;border-top:1px solid var(--border)}
-    .chat-input{flex:1;font-family:'DM Sans',sans-serif;font-size:.875rem;padding:.55rem .8rem;border-radius:var(--pill);border:1.5px solid var(--border);outline:none;transition:border-color .15s}
-    .chat-input:focus{border-color:var(--blue)}
-    .chat-send{background:var(--blue);color:var(--white);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .15s}
+    .chat-system{text-align:center;font-size:.72rem;color:var(--mid);padding:.3rem 0;font-style:italic}
+    /* input row — always at bottom, never hidden */
+    .chat-input-row{display:flex;gap:.5rem;padding:.65rem .75rem;border-top:1px solid var(--border);flex-shrink:0;background:var(--white)}
+    .chat-input{flex:1;font-family:'DM Sans',sans-serif;font-size:16px;padding:.5rem .75rem;border-radius:var(--pill);border:1.5px solid var(--border);outline:none;transition:border-color .15s;min-width:0;background:var(--sand)}
+    .chat-input:focus{border-color:var(--blue);background:var(--white)}
+    .chat-send{background:var(--blue);color:var(--white);border:none;border-radius:50%;width:36px;height:36px;min-width:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .15s}
     .chat-send:hover{background:var(--blue2)}
-    .chat-name-form{padding:1rem;display:flex;flex-direction:column;gap:.6rem}
-    .chat-name-form p{font-size:.83rem;color:var(--dim)}
-    .chat-name-input{font-family:'DM Sans',sans-serif;font-size:.875rem;padding:.6rem .85rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;width:100%;transition:border-color .15s}
-    .chat-name-input:focus{border-color:var(--blue)}
-    .chat-start-btn{background:var(--blue);color:var(--white);border:none;border-radius:var(--pill);padding:.65rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s}
+    /* name form */
+    .chat-name-form{padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;flex:1}
+    .chat-name-form p{font-size:.875rem;color:var(--dim);line-height:1.5}
+    .chat-name-input{font-family:'DM Sans',sans-serif;font-size:16px;padding:.65rem .85rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;width:100%;transition:border-color .15s;background:var(--sand)}
+    .chat-name-input:focus{border-color:var(--blue);background:var(--white)}
+    .chat-start-btn{background:var(--blue);color:var(--white);border:none;border-radius:var(--pill);padding:.7rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s}
     .chat-start-btn:hover{background:var(--blue2)}
 
     /* ── FOOTER ── */
@@ -214,6 +226,7 @@
     footer a:hover{color:var(--white)}
 
     @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes chatPing{0%{transform:scale(1)}50%{transform:scale(1.18)}100%{transform:scale(1)}}
 
     /* ── INSTALL BANNER (mobile only) ── */
     #installBanner{display:none;position:fixed;bottom:0;left:0;right:0;z-index:450;background:var(--ink);color:var(--white);padding:1rem 1.25rem;padding-bottom:calc(1rem + env(safe-area-inset-bottom));align-items:center;gap:.75rem}
@@ -239,7 +252,7 @@
       .how-card+.how-card{border-left:none;border-top:1px solid var(--border)}
       .hero-proof{flex-wrap:wrap;gap:1.25rem}
       .proof-div{display:none}
-      #chatPanel{width:calc(100vw - 32px);right:16px;bottom:80px}
+      #chatPanel{width:calc(100vw - 24px);right:12px;bottom:80px;height:420px}
     }
   </style>
 </head>
@@ -413,7 +426,7 @@
           </div>
           <div class="fg"><label for="notes">Tell me about your project *</label><textarea id="notes" required placeholder="What does your business do? What pages do you need? Any features, colors, or inspiration?"></textarea></div>
           <button type="submit" class="sbtn" id="subBtn" disabled>Sign in with Google first ↑</button>
-          <p class="fnote">Booking goes directly to LiamsSites@proton.me. You'll also get a confirmation email.</p>
+          <p class="fnote">Booking goes directly to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c18da8a0acb292a8b5a4b281b1b3aeb5aeafefaca4">[email&#160;protected]</a>. You'll also get a confirmation email.</p>
           <div class="ferr" id="errBox"></div>
         </form>
         <div class="win" id="winBox"><div class="win-ico">🎉</div><h3>Booking sent!</h3><p>I'll be in touch within 24 hours. Talk soon!</p></div>
@@ -426,7 +439,7 @@
 <footer>
   <div class="flogo">Liam's <em>Websites</em></div>
   <p>Professional websites for any business — always under $200.</p>
-  <p><a href="mailto:LiamsSites@proton.me">LiamsSites@proton.me</a></p>
+  <p><a href="/cdn-cgi/l/email-protection#d498bdb5b9a787bda0b1a794a4a6bba0bbbafab9b1"><span class="__cf_email__" data-cfemail="561a3f373b25053f22332516262439223938783b33">[email&#160;protected]</span></a></p>
 </footer>
 
 <!-- INBOX MODAL -->
@@ -466,8 +479,8 @@
     <div class="chat-msgs" id="chatMsgs" style="display:none"></div>
   </div>
   <div class="chat-input-row" id="chatInputRow" style="display:none">
-    <input class="chat-input" id="chatInput" placeholder="Type a message…" maxlength="500" onkeydown="if(event.key==='Enter')sendChatMsg()"/>
-    <button class="chat-send" onclick="sendChatMsg()">➤</button>
+    <input class="chat-input" id="chatInput" placeholder="Type a message…" maxlength="500" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg()}"/>
+    <button class="chat-send" id="chatSendBtn" onclick="sendChatMsg()">➤</button>
   </div>
 </div>
 
@@ -478,7 +491,7 @@
   <button class="install-dismiss" onclick="dismissInstall()">×</button>
 </div>
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 /* ════════════════════════════════════════════════════════
    PERSISTENT AUTH — store token + user in localStorage
@@ -571,23 +584,22 @@ function restoreFormFromSession() {
 function doSignIn() {
   fetch('/google-client-id').then(r=>r.json()).then(({clientId}) => {
     if (isMobile()) {
-      // Mobile: redirect flow with prompt=consent to force full scope approval
       saveFormToSession();
-      const p = new URLSearchParams({
-        client_id:     clientId,
-        redirect_uri:  window.location.origin + '/oauth-callback',
-        response_type: 'token',
-        scope:         SCOPES,
-        prompt:        'consent',   // ← forces gmail.send approval every time
-        include_granted_scopes: 'true',
-      });
-      window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' + p;
+      // Build URL manually - URLSearchParams encodes spaces as + which breaks Google scope parsing
+      const redirectUri = encodeURIComponent(window.location.origin + '/oauth-callback');
+      const scope = encodeURIComponent('https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly openid profile email');
+      const url = 'https://accounts.google.com/o/oauth2/v2/auth'
+        + '?client_id='    + encodeURIComponent(clientId)
+        + '&redirect_uri=' + redirectUri
+        + '&response_type=token'
+        + '&scope='        + scope
+        + '&prompt=consent'
+        + '&access_type=online';
+      window.location.href = url;
     } else {
-      // Desktop: popup flow
       const client = google.accounts.oauth2.initTokenClient({
         client_id: clientId,
         scope: SCOPES,
-        prompt: 'consent',
         callback(resp) {
           if (resp.error) { alert('Sign-in failed: ' + resp.error); return; }
           fetchUserInfo(resp.access_token);
@@ -774,107 +786,174 @@ async function openEmailThread(id, subj) {
 }
 
 /* ════════════════════════════════════════════════════════
-   LIVE CHAT
+   LIVE CHAT — rebuilt, no clipping bugs
 ════════════════════════════════════════════════════════ */
-let ws=null, chatSessionId=localStorage.getItem('lw_chat_sid')||null, chatOpen=false, unreadCount=0;
+let ws = null;
+let chatSessionId = localStorage.getItem('lw_chat_sid') || null;
+let chatOpen      = false;
+let unreadCount   = 0;
+let chatReady     = false; // true once joined
 
 function getWsUrl() {
-  const proto = location.protocol==='https:'?'wss':'ws';
-  return proto+'://'+location.host;
+  return (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host;
 }
 
 function initChat() {
-  if (ws && ws.readyState===WebSocket.OPEN) return;
-  try {
-    ws = new WebSocket(getWsUrl());
-    ws.onopen = () => {
-      const chatUser = userName || localStorage.getItem('lw_chat_name') || 'Visitor';
-      ws.send(JSON.stringify({ type:'user_join', sessionId: chatSessionId, name: chatUser, email: senderEmail||'' }));
-    };
-    ws.onmessage = (e) => {
-      const msg = JSON.parse(e.data);
-      if (msg.type==='joined') {
-        chatSessionId = msg.sessionId;
-        localStorage.setItem('lw_chat_sid', chatSessionId);
-        if (msg.history && msg.history.length>0) {
-          msg.history.forEach(m => appendChatBubble(m.from, m.text, false));
-        } else {
-          appendChatSystem('👋 Hi! How can we help you today?');
-        }
-        showChatMessages();
+  if (ws && ws.readyState === WebSocket.OPEN) return;
+  ws = new WebSocket(getWsUrl());
+
+  ws.onopen = () => {
+    const name  = userName || localStorage.getItem('lw_chat_name') || 'Visitor';
+    const email = senderEmail || '';
+    ws.send(JSON.stringify({ type: 'user_join', sessionId: chatSessionId, name, email }));
+  };
+
+  ws.onmessage = (e) => {
+    let msg; try { msg = JSON.parse(e.data); } catch { return; }
+
+    if (msg.type === 'joined') {
+      chatSessionId = msg.sessionId;
+      localStorage.setItem('lw_chat_sid', chatSessionId);
+      chatReady = true;
+      // clear loading state
+      const msgs = document.getElementById('chatMsgs');
+      if (msgs) msgs.innerHTML = '';
+      if (msg.history && msg.history.length > 0) {
+        msg.history.forEach(m => appendChatBubble(m.from, m.text, false));
+        scrollMsgs();
+      } else {
+        appendChatSystem('👋 Hi! How can we help you today?');
       }
-      if (msg.type==='msg') {
-        appendChatBubble(msg.from, msg.text, true);
-        if (msg.from==='admin' && !chatOpen) { unreadCount++; showChatBadge(); }
+      showChatMessages();
+      return;
+    }
+
+    if (msg.type === 'msg') {
+      appendChatBubble(msg.from, msg.text, true);
+      if (msg.from === 'admin' && !chatOpen) { unreadCount++; showChatBadge(); }
+      // show notification if panel closed
+      if (!chatOpen) {
+        const b = document.getElementById('chatBubble');
+        b.style.animation = 'none';
+        b.offsetHeight; // reflow
+        b.style.animation = 'chatPing .4s ease';
       }
-    };
-    ws.onclose = () => { ws=null; };
-    ws.onerror = () => { ws=null; };
-  } catch(e) { console.log('Chat unavailable'); }
+      return;
+    }
+
+    if (msg.type === 'ticket_closed') {
+      appendChatSystem('🔒 This chat has been closed. Thanks for reaching out!');
+      const input = document.getElementById('chatInput');
+      const send  = document.getElementById('chatSendBtn');
+      if (input) { input.disabled = true; input.placeholder = 'Chat closed'; }
+      if (send)  send.disabled = true;
+      return;
+    }
+  };
+
+  ws.onclose = () => { ws = null; };
+  ws.onerror = () => { ws = null; };
 }
 
 function showChatMessages() {
-  document.getElementById('chatNameForm').style.display='none';
-  document.getElementById('chatMsgs').style.display='flex';
-  document.getElementById('chatInputRow').style.display='flex';
+  const nameForm = document.getElementById('chatNameForm');
+  const msgs     = document.getElementById('chatMsgs');
+  const inputRow = document.getElementById('chatInputRow');
+  if (nameForm) nameForm.style.display = 'none';
+  if (msgs)     msgs.style.display     = 'flex';
+  if (inputRow) inputRow.style.display = 'flex';
+}
+
+function scrollMsgs() {
+  const msgs = document.getElementById('chatMsgs');
+  if (msgs) setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 50);
 }
 
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+
   if (chatOpen) {
-    unreadCount=0; hideChatBadge();
-    if (!ws || ws.readyState!==WebSocket.OPEN) {
-      const savedName = localStorage.getItem('lw_chat_name');
-      if (chatSessionId || savedName || userName) {
-        initChat();
-      }
-      // else show name form
+    unreadCount = 0;
+    hideChatBadge();
+
+    const savedName = localStorage.getItem('lw_chat_name');
+    const hasSession = chatSessionId || savedName || userName;
+
+    if (hasSession && !chatReady) {
+      // show loading then init
+      const msgs = document.getElementById('chatMsgs');
+      if (msgs) { msgs.innerHTML = '<div class="chat-system">Connecting…</div>'; msgs.style.display = 'flex'; }
+      document.getElementById('chatNameForm').style.display = 'none';
+      document.getElementById('chatInputRow').style.display = 'flex';
+      initChat();
+    } else if (!hasSession) {
+      // show name form
+      document.getElementById('chatNameForm').style.display  = 'flex';
+      document.getElementById('chatMsgs').style.display      = 'none';
+      document.getElementById('chatInputRow').style.display  = 'none';
+      setTimeout(() => document.getElementById('chatNameInput')?.focus(), 150);
     }
-    setTimeout(()=>{ const el=document.getElementById('chatMsgs'); if(el) el.scrollTop=el.scrollHeight; },100);
+    scrollMsgs();
   }
 }
 
 function startChat() {
-  const nameInput = document.getElementById('chatNameInput').value.trim();
-  if (!nameInput) { document.getElementById('chatNameInput').focus(); return; }
-  localStorage.setItem('lw_chat_name', nameInput);
+  const input = document.getElementById('chatNameInput');
+  const name  = input ? input.value.trim() : '';
+  if (!name) { input?.focus(); return; }
+  localStorage.setItem('lw_chat_name', name);
+  // show msgs area with loading
+  document.getElementById('chatNameForm').style.display = 'none';
+  const msgs = document.getElementById('chatMsgs');
+  msgs.innerHTML = '<div class="chat-system">Connecting…</div>';
+  msgs.style.display = 'flex';
+  document.getElementById('chatInputRow').style.display = 'flex';
   initChat();
 }
 
 function appendChatBubble(from, text, scroll) {
   const msgs = document.getElementById('chatMsgs');
   if (!msgs) return;
+  if (from === 'system') { appendChatSystem(text); return; }
   const wrap = document.createElement('div');
-  wrap.className = 'chat-bubble-wrap '+(from==='user'?'user':'admin');
-  wrap.innerHTML = `<div class="cbubble">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+  wrap.className = 'chat-bubble-wrap ' + (from === 'user' ? 'user' : 'admin');
+  const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  wrap.innerHTML = `<div class="cbubble">${safe}</div>`;
   msgs.appendChild(wrap);
-  if (scroll) msgs.scrollTop = msgs.scrollHeight;
+  if (scroll) setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 30);
 }
 
 function appendChatSystem(text) {
   const msgs = document.getElementById('chatMsgs');
   if (!msgs) return;
   const div = document.createElement('div');
-  div.className='chat-system'; div.textContent=text;
+  div.className = 'chat-system';
+  div.textContent = text;
   msgs.appendChild(div);
 }
 
 function sendChatMsg() {
   const input = document.getElementById('chatInput');
-  const text  = input.value.trim();
+  if (!input) return;
+  const text = input.value.trim();
   if (!text) return;
-  if (!ws || ws.readyState!==WebSocket.OPEN) { initChat(); setTimeout(()=>sendChatMsg(),500); return; }
-  ws.send(JSON.stringify({ type:'user_msg', text }));
-  input.value='';
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    if (!chatReady) { initChat(); setTimeout(() => sendChatMsg(), 600); }
+    return;
+  }
+  ws.send(JSON.stringify({ type: 'user_msg', text }));
+  input.value = '';
+  input.focus();
 }
 
 function showChatBadge() {
   const b = document.getElementById('chatBadge');
-  b.textContent = unreadCount; b.style.display='flex';
+  if (b) { b.textContent = unreadCount; b.style.display = 'flex'; }
 }
 function hideChatBadge() {
-  document.getElementById('chatBadge').style.display='none';
+  const b = document.getElementById('chatBadge');
+  if (b) b.style.display = 'none';
 }
 
 /* ════════════════════════════════════════════════════════
@@ -906,19 +985,4 @@ function dismissInstall() {
 /* ════════════════════════════════════════════════════════
    ON LOAD
 ════════════════════════════════════════════════════════ */
-window.addEventListener('load', () => {
-  // Check OAuth redirect callback
-  if (!handleOAuthCallback()) {
-    // Try restore from localStorage
-    if (loadAuth()) {
-      activateForm(userName || senderEmail, senderEmail);
-    }
-  }
-  // Register service worker for PWA
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(()=>{});
-  }
-});
-</script>
-</body>
-</html>
+window.addEventListener('load', () =>
