@@ -10,128 +10,118 @@
     :root{
       --ink:#0c0c0b;--white:#fff;--sand:#faf9f7;--sand2:#f0eeea;
       --border:#e4e1db;--mid:#999690;--dim:#706d68;
-      --blue:#2563eb;--blue2:#1d4ed8;--blue-tint:#eef2ff;
-      --green:#15803d;--green-tint:#f0fdf4;--green-border:#86efac;
-      --orange:#d97706;--orange-tint:#fffbeb;--orange-border:#fde68a;
-      --red:#dc2626;--red-tint:#fef2f2;--red-border:#fecaca;
+      --blue:#2563eb;--blue2:#1d4ed8;--bluetint:#eef2ff;
+      --green:#15803d;--greentint:#f0fdf4;--greenborder:#86efac;
+      --red:#dc2626;--redtint:#fef2f2;--redborder:#fecaca;
       --r:10px;
     }
-    html,body{height:100%}
-    body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--ink);display:flex;flex-direction:column;overflow:hidden}
+    html,body{height:100%;overflow:hidden}
+    body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--ink);display:flex;flex-direction:column}
 
-    /* ── LOGIN ── */
+    /* LOGIN */
     #loginScreen{flex:1;display:flex;align-items:center;justify-content:center}
-    .login-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:2.5rem;width:100%;max-width:360px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.07)}
-    .login-logo{font-size:2rem;margin-bottom:.75rem}
-    .login-card h1{font-size:1.35rem;font-weight:700;margin-bottom:.3rem}
-    .login-card p{font-size:.83rem;color:var(--dim);margin-bottom:1.75rem}
-    .login-input{width:100%;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:.7rem 1rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;margin-bottom:.75rem;transition:border-color .15s;background:var(--sand)}
-    .login-input:focus{border-color:var(--blue);background:var(--white)}
-    .login-btn{width:100%;padding:.85rem;border-radius:999px;background:var(--blue);color:var(--white);border:none;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:background .15s}
-    .login-btn:hover{background:var(--blue2)}
-    .login-err{color:var(--red);font-size:.82rem;margin-top:.5rem;display:none}
+    .lcard{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:2.5rem;width:340px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.07)}
+    .lcard h1{font-size:1.3rem;font-weight:700;margin-bottom:.3rem}
+    .lcard p{font-size:.83rem;color:var(--dim);margin-bottom:1.75rem}
+    .lcard input{width:100%;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:.7rem 1rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;margin-bottom:.75rem;background:var(--sand);transition:border-color .15s}
+    .lcard input:focus{border-color:var(--blue);background:var(--white)}
+    .lcard button{width:100%;padding:.85rem;border-radius:999px;background:var(--blue);color:var(--white);border:none;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer}
+    .lcard button:hover{background:var(--blue2)}
+    .lerr{color:var(--red);font-size:.82rem;margin-top:.6rem;display:none}
 
-    /* ── MAIN ── */
+    /* MAIN */
     #mainScreen{flex:1;display:none;flex-direction:column;overflow:hidden}
-    .top-bar{height:52px;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;flex-shrink:0}
-    .top-bar-left{display:flex;align-items:center;gap:.75rem}
-    .top-bar h2{font-size:.95rem;font-weight:600}
-    .top-bar-right{display:flex;align-items:center;gap:.75rem}
-    .online-pill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);padding:.25rem .7rem;border-radius:999px;font-size:.75rem;opacity:.8}
-    .online-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;flex-shrink:0}
-    .logout-btn{background:none;border:1px solid #333;color:#aaa;font-size:.78rem;padding:.3rem .75rem;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
-    .logout-btn:hover{border-color:#888;color:var(--white)}
+    .topbar{height:50px;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;flex-shrink:0}
+    .topbar h2{font-size:.9rem;font-weight:600}
+    .topbar-right{display:flex;align-items:center;gap:.75rem}
+    .live-pill{display:flex;align-items:center;gap:5px;font-size:.75rem;opacity:.7}
+    .live-dot{width:7px;height:7px;border-radius:50%;background:#4ade80}
+    .logout-btn{background:none;border:1px solid #333;color:#aaa;font-size:.75rem;padding:.3rem .7rem;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif}
+    .logout-btn:hover{border-color:#666;color:var(--white)}
 
-    .panels{flex:1;display:grid;grid-template-columns:290px 1fr;overflow:hidden}
+    /* PANELS */
+    .panels{flex:1;display:grid;grid-template-columns:280px 1fr;overflow:hidden}
 
-    /* ── CHAT LIST ── */
-    .chat-list-panel{border-right:1px solid var(--border);background:var(--white);display:flex;flex-direction:column;overflow:hidden}
-    .clp-head{padding:.8rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-    .clp-head-title{font-size:.75rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mid)}
-    .clp-count{font-size:.7rem;background:var(--blue);color:var(--white);padding:1px 7px;border-radius:999px;font-weight:700}
-    .chat-list-inner{flex:1;overflow-y:auto}
-    .chat-item{padding:.85rem 1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;position:relative;display:flex;flex-direction:column;gap:2px}
-    .chat-item:hover{background:var(--sand)}
-    .chat-item.active{background:var(--blue-tint);border-left:3px solid var(--blue)}
-    .ci-top{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
-    .ci-name{font-size:.88rem;font-weight:600;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .ci-email{font-size:.72rem;color:var(--mid)}
-    .ci-last{font-size:.76rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    /* CHAT LIST */
+    .list-panel{border-right:1px solid var(--border);background:var(--white);display:flex;flex-direction:column;overflow:hidden}
+    .list-head{padding:.8rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+    .list-head span{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+    .list-count{background:var(--blue);color:var(--white);font-size:.68rem;font-weight:700;padding:1px 7px;border-radius:999px}
+    .list-inner{flex:1;overflow-y:auto}
+    .ci{padding:.8rem 1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;position:relative}
+    .ci:hover{background:var(--sand)}
+    .ci.active{background:var(--bluetint);border-left:3px solid var(--blue)}
+    .ci-top{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:2px}
+    .ci-name{font-size:.875rem;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .ci-badge{background:var(--red);color:var(--white);font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:999px;flex-shrink:0}
-    .ci-status{font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
-    .ci-status.open{background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd}
-    .ci-status.claimed{background:var(--green-tint);color:var(--green);border:1px solid var(--green-border)}
-    .ci-status.closed{background:var(--sand2);color:var(--mid);border:1px solid var(--border)}
-    .empty-list{padding:2.5rem 1rem;text-align:center;color:var(--mid);font-size:.85rem;line-height:1.6}
+    .ci-status{font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em;flex-shrink:0}
+    .ci-status.open{background:#f0f9ff;color:#0369a1}
+    .ci-status.claimed{background:var(--greentint);color:var(--green)}
+    .ci-status.closed{background:var(--sand2);color:var(--mid)}
+    .ci-email{font-size:.72rem;color:var(--mid);margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .ci-last{font-size:.75rem;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .empty-list{padding:2rem 1rem;text-align:center;color:var(--mid);font-size:.85rem;line-height:1.6}
 
-    /* ── CHAT WINDOW ── */
-    .chat-window{display:flex;flex-direction:column;overflow:hidden;background:var(--sand)}
-    .cw-head{padding:.8rem 1.25rem;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-shrink:0}
-    .cw-head-info{min-width:0}
-    .cw-name{font-size:.95rem;font-weight:700;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .cw-email{font-size:.75rem;color:var(--mid)}
-    .cw-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
-    /* status badge in header */
-    .cw-status-badge{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em}
-    .cw-status-badge.open{background:#f0f9ff;color:#0369a1}
-    .cw-status-badge.claimed{background:var(--green-tint);color:var(--green);border:1px solid var(--green-border)}
-    .cw-status-badge.closed{background:var(--sand2);color:var(--mid)}
-    /* action buttons */
-    .act-btn{font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;padding:.35rem .85rem;border-radius:999px;cursor:pointer;border:none;transition:all .15s;white-space:nowrap}
-    .act-btn.claim{background:var(--green-tint);color:var(--green);border:1px solid var(--green-border)}
-    .act-btn.claim:hover{background:#dcfce7}
-    .act-btn.close{background:var(--red-tint);color:var(--red);border:1px solid var(--red-border)}
-    .act-btn.close:hover{background:#fee2e2}
-
-    .no-chat{flex:1;display:flex;align-items:center;justify-content:center;color:var(--mid);font-size:.9rem;flex-direction:column;gap:.6rem}
+    /* CHAT WINDOW */
+    .chat-win{display:flex;flex-direction:column;overflow:hidden;background:var(--sand)}
+    .no-chat{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--mid);font-size:.9rem;gap:.5rem}
     .no-chat span{font-size:2.5rem}
 
-    /* messages */
-    .chat-msgs-area{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.5rem}
-    .bubble-wrap{display:flex}
-    .bubble-wrap.user{justify-content:flex-start}
-    .bubble-wrap.admin{justify-content:flex-end}
-    .bubble{max-width:72%;padding:.55rem .85rem;border-radius:14px;font-size:.875rem;line-height:1.5}
-    .bubble-wrap.user .bubble{background:var(--white);color:var(--ink);border:1px solid var(--border);border-bottom-left-radius:4px}
-    .bubble-wrap.admin .bubble{background:var(--blue);color:var(--white);border-bottom-right-radius:4px}
-    .bubble-time{font-size:.63rem;color:var(--mid);margin-top:2px}
-    .bubble-wrap.admin .bubble-time{text-align:right}
-    .sys-msg{text-align:center;font-size:.72rem;color:var(--mid);padding:.3rem 0;font-style:italic}
+    .win-head{padding:.8rem 1.25rem;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-shrink:0}
+    .win-info{min-width:0;flex:1}
+    .win-name{font-size:.95rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .win-email{font-size:.75rem;color:var(--mid)}
+    .win-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+    .status-badge{font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+    .status-badge.open{background:#f0f9ff;color:#0369a1}
+    .status-badge.claimed{background:var(--greentint);color:var(--green)}
+    .status-badge.closed{background:var(--sand2);color:var(--mid)}
+    .act-btn{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;padding:.3rem .8rem;border-radius:999px;cursor:pointer;border:none;white-space:nowrap;transition:opacity .15s}
+    .act-btn:hover{opacity:.8}
+    .act-btn.claim{background:var(--greentint);color:var(--green);border:1px solid var(--greenborder)}
+    .act-btn.close{background:var(--redtint);color:var(--red);border:1px solid var(--redborder)}
 
-    /* input area */
-    .chat-input-area{background:var(--white);border-top:1px solid var(--border);padding:.75rem 1rem;flex-shrink:0}
-    .input-toolbar{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
-    .better-up-btn{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:999px;cursor:pointer;border:1.5px solid var(--blue);background:var(--blue-tint);color:var(--blue);transition:all .15s;display:flex;align-items:center;gap:4px;white-space:nowrap}
-    .better-up-btn:hover{background:var(--blue);color:var(--white)}
-    .better-up-btn:disabled{opacity:.5;cursor:not-allowed}
-    .better-up-btn.loading{opacity:.7;cursor:wait}
-    .input-row{display:flex;gap:.5rem}
-    .admin-input{flex:1;font-family:'DM Sans',sans-serif;font-size:.875rem;padding:.6rem .9rem;border-radius:999px;border:1.5px solid var(--border);background:var(--sand);outline:none;transition:border-color .15s,background .15s}
-    .admin-input:focus{border-color:var(--blue);background:var(--white)}
-    .admin-input:disabled{opacity:.5;cursor:not-allowed}
-    .admin-send{background:var(--blue);color:var(--white);border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .15s}
-    .admin-send:hover{background:var(--blue2)}
-    .admin-send:disabled{background:#bbb;cursor:not-allowed}
-    .closed-banner{background:var(--sand2);border-top:1px solid var(--border);padding:.9rem 1.25rem;text-align:center;font-size:.83rem;color:var(--mid);font-weight:500}
+    .msgs-area{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.5rem}
+    .bwrap{display:flex;width:100%}
+    .bwrap.user{justify-content:flex-start}
+    .bwrap.admin{justify-content:flex-end}
+    .bouter{display:flex;flex-direction:column;max-width:72%}
+    .bwrap.user .bouter{align-items:flex-start}
+    .bwrap.admin .bouter{align-items:flex-end}
+    .bubble{padding:.55rem .85rem;border-radius:14px;font-size:.875rem;line-height:1.5;word-break:break-word}
+    .bwrap.user .bubble{background:var(--white);color:var(--ink);border:1px solid var(--border);border-bottom-left-radius:4px}
+    .bwrap.admin .bubble{background:var(--blue);color:var(--white);border-bottom-right-radius:4px}
+    .btime{font-size:.62rem;color:var(--mid);margin-top:3px}
+    .sysmsg{text-align:center;font-size:.72rem;color:var(--mid);padding:.3rem;font-style:italic;width:100%}
 
-    /* claim modal */
-    .modal-bg{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center}
-    .modal-bg.open{display:flex}
-    .modal-box{background:var(--white);border-radius:16px;padding:2rem;width:100%;max-width:360px;box-shadow:0 16px 60px rgba(0,0,0,.15)}
-    .modal-box h3{font-size:1.1rem;font-weight:700;margin-bottom:.4rem}
-    .modal-box p{font-size:.85rem;color:var(--dim);margin-bottom:1.25rem}
-    .modal-input{width:100%;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:.65rem .9rem;border-radius:var(--r);border:1.5px solid var(--border);background:var(--sand);outline:none;margin-bottom:1rem;transition:border-color .15s}
-    .modal-input:focus{border-color:var(--blue);background:var(--white)}
+    .input-area{background:var(--white);border-top:1px solid var(--border);padding:.75rem 1rem;flex-shrink:0}
+    .input-toolbar{display:flex;gap:.5rem;margin-bottom:.5rem}
+    .betterup-btn{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:700;padding:.3rem .85rem;border-radius:999px;cursor:pointer;border:1.5px solid var(--blue);background:var(--bluetint);color:var(--blue);transition:all .15s}
+    .betterup-btn:hover:not(:disabled){background:var(--blue);color:var(--white)}
+    .betterup-btn:disabled{opacity:.5;cursor:not-allowed}
+    .input-row{display:flex;gap:.5rem;align-items:center}
+    .reply-input{flex:1;font-family:'DM Sans',sans-serif;font-size:.875rem;padding:.6rem .9rem;border-radius:999px;border:1.5px solid var(--border);outline:none;background:var(--sand);transition:border-color .15s}
+    .reply-input:focus{border-color:var(--blue);background:var(--white)}
+    .reply-send{background:var(--blue);color:var(--white);border:none;border-radius:50%;width:38px;height:38px;min-width:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:background .15s}
+    .reply-send:hover{background:var(--blue2)}
+    .closed-note{text-align:center;padding:.9rem;font-size:.83rem;color:var(--mid);border-top:1px solid var(--border);background:var(--sand2)}
+
+    /* CLAIM MODAL */
+    .overlay{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center}
+    .overlay.show{display:flex}
+    .modal{background:var(--white);border-radius:16px;padding:2rem;width:340px;box-shadow:0 16px 60px rgba(0,0,0,.15)}
+    .modal h3{font-size:1.05rem;font-weight:700;margin-bottom:.3rem}
+    .modal p{font-size:.85rem;color:var(--dim);margin-bottom:1.1rem}
+    .modal input{width:100%;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:.65rem .9rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;margin-bottom:.9rem;background:var(--sand)}
+    .modal input:focus{border-color:var(--blue);background:var(--white)}
     .modal-btns{display:flex;gap:.6rem}
-    .modal-confirm{flex:1;padding:.75rem;border-radius:999px;background:var(--green);color:var(--white);border:none;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;transition:background .15s}
-    .modal-confirm:hover{background:#166534}
-    .modal-cancel{padding:.75rem 1.25rem;border-radius:999px;background:var(--sand2);color:var(--ink);border:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s}
-    .modal-cancel:hover{background:var(--border)}
+    .modal-ok{flex:1;padding:.75rem;border-radius:999px;background:var(--green);color:var(--white);border:none;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer}
+    .modal-ok:hover{background:#166534}
+    .modal-cancel{padding:.75rem 1rem;border-radius:999px;background:var(--sand2);color:var(--ink);border:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer}
 
     @media(max-width:700px){
       .panels{grid-template-columns:1fr}
-      .chat-list-panel{display:none}
-      .chat-list-panel.show{display:flex;position:fixed;inset:52px 0 0 0;z-index:10}
+      .list-panel{display:none}
     }
   </style>
 </head>
@@ -139,386 +129,375 @@
 
 <!-- LOGIN -->
 <div id="loginScreen">
-  <div class="login-card">
-    <div class="login-logo">🔒</div>
+  <div class="lcard">
+    <div style="font-size:2rem;margin-bottom:.75rem">🔒</div>
     <h1>Admin Panel</h1>
     <p>Liam's Websites — Support Dashboard</p>
-    <input class="login-input" type="password" id="pwInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')adminLogin()"/>
-    <button class="login-btn" onclick="adminLogin()">Sign In</button>
-    <div class="login-err" id="loginErr">Incorrect password. Try again.</div>
+    <input type="password" id="pwInput" placeholder="Enter password"/>
+    <button id="loginBtn">Sign In</button>
+    <div class="lerr" id="loginErr">Wrong password. Try again.</div>
   </div>
 </div>
 
 <!-- MAIN -->
 <div id="mainScreen">
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <h2>💬 Support Chats</h2>
-    </div>
-    <div class="top-bar-right">
-      <div class="online-pill"><div class="online-dot"></div>Live</div>
-      <button class="logout-btn" onclick="adminLogout()">Log Out</button>
+  <div class="topbar">
+    <h2>💬 Support Chats</h2>
+    <div class="topbar-right">
+      <div class="live-pill"><div class="live-dot"></div>Live</div>
+      <button class="logout-btn" id="logoutBtn">Log Out</button>
     </div>
   </div>
   <div class="panels">
-    <div class="chat-list-panel" id="chatListPanel">
-      <div class="clp-head">
-        <span class="clp-head-title">Conversations</span>
-        <span class="clp-count" id="chatCount">0</span>
+    <div class="list-panel">
+      <div class="list-head">
+        <span>Conversations</span>
+        <span class="list-count" id="chatCount">0</span>
       </div>
-      <div class="chat-list-inner" id="chatListInner">
-        <div class="empty-list">No chats yet.<br/>They'll appear here when visitors open the chat.</div>
+      <div class="list-inner" id="listInner">
+        <div class="empty-list">No chats yet.<br/>They appear here when visitors open the chat.</div>
       </div>
     </div>
-    <div class="chat-window" id="chatWindow">
-      <div class="no-chat"><span>💬</span>Select a conversation to get started</div>
+    <div class="chat-win" id="chatWin">
+      <div class="no-chat"><span>💬</span>Select a conversation</div>
     </div>
   </div>
 </div>
 
 <!-- CLAIM MODAL -->
-<div class="modal-bg" id="claimModal">
-  <div class="modal-box">
-    <h3>✅ Claim This Ticket</h3>
-    <p>Enter your name so the customer knows who's helping them.</p>
-    <input class="modal-input" id="claimNameInput" placeholder="Your name (e.g. Liam)" maxlength="40" onkeydown="if(event.key==='Enter')confirmClaim()"/>
+<div class="overlay" id="claimOverlay">
+  <div class="modal">
+    <h3>Claim This Ticket</h3>
+    <p>Enter your name so the customer knows who is helping them.</p>
+    <input type="text" id="claimName" placeholder="Your name (e.g. Liam)" maxlength="40"/>
     <div class="modal-btns">
-      <button class="modal-cancel" onclick="closeClaimModal()">Cancel</button>
-      <button class="modal-confirm" onclick="confirmClaim()">Claim Ticket</button>
+      <button class="modal-cancel" id="claimCancelBtn">Cancel</button>
+      <button class="modal-ok" id="claimOkBtn">Claim Ticket</button>
     </div>
   </div>
 </div>
 
 <script>
-  let ws = null, adminAuthed = false, activeSession = null, chatMetas = {};
-  let pendingClaimSid = null;
+(function() {
+  var ws = null;
+  var authed = false;
+  var activeSession = null;
+  var metas = {}; // sessionId -> chatMeta
+  var claimingSid = null;
 
-  function getWsUrl() {
-    return (location.protocol==='https:'?'wss':'ws')+'://'+location.host;
-  }
+  function $(id) { return document.getElementById(id); }
+  function wsUrl() { return (location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.host; }
 
-  /* ── LOGIN ── */
-  function adminLogin() {
-    const pw  = document.getElementById('pwInput').value;
-    const err = document.getElementById('loginErr');
+  // ── LOGIN ──────────────────────────────────────────────────────────────────
+  function doLogin() {
+    var pw  = $('pwInput').value;
+    var err = $('loginErr');
     err.style.display = 'none';
-    ws = new WebSocket(getWsUrl());
-    ws.onopen    = () => ws.send(JSON.stringify({ type: 'admin_join', password: pw }));
-    ws.onmessage = handleWsMessage;
-    ws.onclose   = () => { if (adminAuthed) setTimeout(() => location.reload(), 2000); };
-    ws.onerror   = () => { err.textContent='Connection failed.'; err.style.display='block'; };
+    if (!pw) return;
+
+    if (ws) { ws.close(); ws = null; }
+    ws = new WebSocket(wsUrl());
+
+    ws.onopen = function() {
+      ws.send(JSON.stringify({ type: 'admin_join', password: pw }));
+    };
+
+    ws.onmessage = function(e) {
+      var msg;
+      try { msg = JSON.parse(e.data); } catch { return; }
+
+      if (msg.type === 'auth_fail') {
+        err.style.display = 'block';
+        ws.close(); ws = null;
+        return;
+      }
+      if (msg.type === 'auth_ok') {
+        authed = true;
+        $('loginScreen').style.display = 'none';
+        $('mainScreen').style.display  = 'flex';
+        renderList(msg.chats);
+        return;
+      }
+      if (msg.type === 'chat_list')     { renderList(msg.chats); return; }
+      if (msg.type === 'new_msg')       { onNewMsg(msg); return; }
+      if (msg.type === 'chat_history')  { renderHistory(msg); return; }
+      if (msg.type === 'ticket_updated'){ onTicketUpdated(msg.chatMeta); return; }
+      if (msg.type === 'ticket_deleted'){ onTicketDeleted(msg.sessionId); return; }
+    };
+
+    ws.onclose = function() {
+      if (authed) setTimeout(function() { location.reload(); }, 2000);
+    };
+    ws.onerror = function() {
+      err.textContent = 'Connection error.';
+      err.style.display = 'block';
+      if (ws) { ws.close(); ws = null; }
+    };
   }
 
-  function adminLogout() {
-    adminAuthed = false;
-    if (ws) ws.close();
-    document.getElementById('loginScreen').style.display = 'flex';
-    document.getElementById('mainScreen').style.display  = 'none';
-    document.getElementById('pwInput').value = '';
+  function doLogout() {
+    authed = false;
+    if (ws) { ws.close(); ws = null; }
+    $('loginScreen').style.display = 'flex';
+    $('mainScreen').style.display  = 'none';
+    $('pwInput').value = '';
   }
 
-  /* ── WS MESSAGES ── */
-  function handleWsMessage(e) {
-    const msg = JSON.parse(e.data);
-
-    if (msg.type === 'auth_fail') {
-      document.getElementById('loginErr').style.display = 'block';
-      ws.close(); ws = null; return;
-    }
-    if (msg.type === 'auth_ok') {
-      adminAuthed = true;
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('mainScreen').style.display  = 'flex';
-      renderChatList(msg.chats);
-      return;
-    }
-    if (msg.type === 'chat_list')     { renderChatList(msg.chats); return; }
-    if (msg.type === 'new_msg')       { handleNewMsg(msg); return; }
-    if (msg.type === 'chat_history')  { renderChatHistory(msg); return; }
-    if (msg.type === 'ticket_updated'){ handleTicketUpdate(msg.chatMeta); return; }
-      if (msg.type === 'ticket_deleted'){ handleTicketDeleted(msg.sessionId); return; }
-  }
-
-  /* ── CHAT LIST ── */
-  function renderChatList(chats) {
-    const inner = document.getElementById('chatListInner');
-    const countEl = document.getElementById('chatCount');
-    if (!chats || chats.length === 0) {
-      inner.innerHTML = '<div class="empty-list">No chats yet.<br/>They\'ll appear here when visitors open the chat.</div>';
-      countEl.textContent = '0'; return;
-    }
-    chats.forEach(c => chatMetas[c.id] = c);
-    countEl.textContent = chats.length;
-    inner.innerHTML = chats.map(c => `
-      <div class="chat-item ${activeSession===c.id?'active':''}" id="ci_${c.id}" onclick="openChat('${c.id}')">
-        <div class="ci-top">
-          <div class="ci-name">${esc(c.name)}</div>
-          <div class="ci-status ${c.status}">${statusLabel(c)}</div>
-          ${c.unread > 0 && c.id !== activeSession ? `<div class="ci-badge">${c.unread}</div>` : ''}
-        </div>
-        <div class="ci-email">${esc(c.email||'No email')}</div>
-        <div class="ci-last">${c.lastMsg ? esc(c.lastMsg.text) : 'No messages yet'}</div>
-      </div>`).join('');
-  }
-
-  function statusLabel(c) {
-    if (c.status === 'claimed') return `Claimed by ${esc(c.claimedBy||'Admin')}`;
-    if (c.status === 'closed')  return 'Closed';
+  // ── CHAT LIST ──────────────────────────────────────────────────────────────
+  function statusLabel(m) {
+    if (m.status === 'claimed') return 'Claimed: ' + (m.claimedBy || 'Admin');
+    if (m.status === 'closed')  return 'Closed';
     return 'Open';
   }
 
-  /* ── OPEN CHAT ── */
+  function renderList(chats) {
+    chats = chats || [];
+    chats.forEach(function(c) { if (c) metas[c.id] = c; });
+    $('chatCount').textContent = chats.length;
+    var inner = $('listInner');
+    if (!chats.length) {
+      inner.innerHTML = '<div class="empty-list">No chats yet.<br/>They appear here when visitors open the chat.</div>';
+      return;
+    }
+    inner.innerHTML = chats.map(function(c) {
+      if (!c) return '';
+      var isActive = activeSession === c.id;
+      return '<div class="ci' + (isActive ? ' active' : '') + '" data-sid="' + c.id + '">' +
+        '<div class="ci-top">' +
+          '<div class="ci-name">' + esc(c.name) + '</div>' +
+          '<span class="ci-status ' + c.status + '">' + statusLabel(c) + '</span>' +
+          (c.unread > 0 && c.id !== activeSession ? '<span class="ci-badge">' + c.unread + '</span>' : '') +
+        '</div>' +
+        '<div class="ci-email">' + esc(c.email || 'No email') + '</div>' +
+        '<div class="ci-last">' + esc(c.lastMsg ? c.lastMsg.text : 'No messages yet') + '</div>' +
+      '</div>';
+    }).join('');
+    // attach click listeners
+    inner.querySelectorAll('.ci').forEach(function(el) {
+      el.addEventListener('click', function() { openChat(el.dataset.sid); });
+    });
+  }
+
   function openChat(sid) {
     activeSession = sid;
-    document.querySelectorAll('.chat-item').forEach(el => el.classList.remove('active'));
-    const item = document.getElementById('ci_'+sid);
-    if (item) item.classList.add('active');
-    ws.send(JSON.stringify({ type: 'admin_open', sessionId: sid }));
+    // highlight
+    document.querySelectorAll('.ci').forEach(function(el) {
+      el.classList.toggle('active', el.dataset.sid === sid);
+    });
+    if (ws && ws.readyState === 1) {
+      ws.send(JSON.stringify({ type: 'admin_open', sessionId: sid }));
+    }
   }
 
-  /* ── RENDER CHAT HISTORY ── */
-  function renderChatHistory(msg) {
-    const meta = msg.chatMeta || chatMetas[msg.sessionId] || {};
-    const win  = document.getElementById('chatWindow');
-    const isClosed = meta.status === 'closed';
-    const isClaimed = meta.status === 'claimed';
+  // ── CHAT HISTORY ───────────────────────────────────────────────────────────
+  function renderHistory(msg) {
+    var meta   = msg.chatMeta || metas[msg.sessionId] || {};
+    var closed = meta.status === 'closed';
+    var claimed = meta.status === 'claimed';
+    var win = $('chatWin');
 
-    win.innerHTML = `
-      <div class="cw-head">
-        <div class="cw-head-info">
-          <div class="cw-name">${esc(meta.name||'Visitor')}</div>
-          <div class="cw-email">${esc(meta.email||'No email provided')}</div>
-        </div>
-        <div class="cw-actions">
-          <span class="cw-status-badge ${meta.status}">${statusLabel(meta)}</span>
-          ${!isClosed && !isClaimed ? `<button class="act-btn claim" onclick="openClaimModal('${msg.sessionId}')">✅ Claim</button>` : ''}
-          ${!isClosed ? `<button class="act-btn close" onclick="closeTicket('${msg.sessionId}')">🔒 Close</button>` : ''}
-        </div>
-      </div>
-      <div class="chat-msgs-area" id="msgsArea"></div>
-      ${isClosed
-        ? `<div class="closed-banner">🔒 This ticket is closed — no more messages can be sent.</div>`
-        : `<div class="chat-input-area">
-            <div class="input-toolbar">
-              <button class="better-up-btn" id="betterUpBtn" title="Make your message more professional">✨ Better Up!</button>
-            </div>
-            <div class="input-row">
-              <input class="admin-input" id="adminInput" placeholder="Reply to ${esc(meta.name||'visitor')}…" maxlength="500"/>
-              <button class="admin-send" id="adminSendBtn">➤</button>
-            </div>
-          </div>`
-      }`;
+    win.innerHTML =
+      '<div class="win-head">' +
+        '<div class="win-info">' +
+          '<div class="win-name">' + esc(meta.name || 'Visitor') + '</div>' +
+          '<div class="win-email">' + esc(meta.email || 'No email') + '</div>' +
+        '</div>' +
+        '<div class="win-actions">' +
+          '<span class="status-badge ' + meta.status + '">' + statusLabel(meta) + '</span>' +
+          (!closed && !claimed ? '<button class="act-btn claim" id="claimBtn">Claim</button>' : '') +
+          (!closed ? '<button class="act-btn close" id="closeBtn">Close</button>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="msgs-area" id="msgsArea"></div>' +
+      (closed
+        ? '<div class="closed-note">This ticket is closed.</div>'
+        : '<div class="input-area">' +
+            '<div class="input-toolbar"><button class="betterup-btn" id="betterupBtn">✨ Better Up!</button></div>' +
+            '<div class="input-row">' +
+              '<input class="reply-input" id="replyInput" placeholder="Reply to ' + esc(meta.name || 'visitor') + '..." maxlength="500"/>' +
+              '<button class="reply-send" id="replySendBtn">➤</button>' +
+            '</div>' +
+          '</div>');
 
-    const area = document.getElementById('msgsArea');
-    if (!msg.history || msg.history.length === 0) {
-      area.innerHTML = '<div class="sys-msg">No messages yet</div>';
+    // Render history
+    var area = $('msgsArea');
+    if (!msg.history || !msg.history.length) {
+      area.innerHTML = '<div class="sysmsg">No messages yet</div>';
     } else {
-      msg.history.forEach(m => appendBubble(m.from, m.text, m.ts, false));
+      msg.history.forEach(function(m) { addBubble(m.from, m.text, m.ts, false); });
+      area.scrollTop = area.scrollHeight;
     }
-    area.scrollTop = area.scrollHeight;
 
-    // Wire up input buttons after they're injected into DOM
-    const adminInput = document.getElementById('adminInput');
-    const adminSendBtn = document.getElementById('adminSendBtn');
-    const betterUpBtn = document.getElementById('betterUpBtn');
+    // Wire up buttons
+    var claimBtn    = $('claimBtn');
+    var closeBtn    = $('closeBtn');
+    var betterupBtn = $('betterupBtn');
+    var replyInput  = $('replyInput');
+    var replySendBtn = $('replySendBtn');
 
-    if (adminInput) {
-      adminInput.focus();
-      adminInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); adminSend(); }
+    if (claimBtn) claimBtn.addEventListener('click', function() { openClaimModal(msg.sessionId); });
+    if (closeBtn) closeBtn.addEventListener('click', function() { doClose(msg.sessionId); });
+    if (betterupBtn) betterupBtn.addEventListener('click', doBetterUp);
+    if (replyInput) {
+      replyInput.focus();
+      replyInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doSend(); }
       });
     }
-    if (adminSendBtn) {
-      adminSendBtn.addEventListener('click', function() { adminSend(); });
-    }
-    if (betterUpBtn) {
-      betterUpBtn.addEventListener('click', function() { betterUp(); });
-    }
+    if (replySendBtn) replySendBtn.addEventListener('click', doSend);
   }
 
-  /* ── TICKET DELETED (closed + wiped from server) ── */
-  function handleTicketDeleted(sid) {
-    delete chatMetas[sid];
-    // Remove from list UI
-    const item = document.getElementById('ci_'+sid);
-    if (item) item.remove();
-    const count = document.getElementById('chatCount');
-    if (count) count.textContent = Object.keys(chatMetas).length;
-    // If this was the open chat, show empty state
-    if (activeSession === sid) {
-      activeSession = null;
-      document.getElementById('chatWindow').innerHTML = '<div class="no-chat"><span>💬</span>Select a conversation to get started</div>';
-    }
-    // Update count
-    const inner = document.getElementById('chatListInner');
-    if (inner && inner.children.length === 0) {
-      inner.innerHTML = '<div class="empty-list">No chats yet.<br/>They'll appear here when visitors open the chat.</div>';
-    }
-  }
-
-  /* ── TICKET UPDATE (claim/close from another admin) ── */
-  function handleTicketUpdate(meta) {
-    chatMetas[meta.id] = meta;
-    // update header if this chat is open
-    if (activeSession === meta.id) {
-      const head = document.querySelector('.cw-head');
-      if (head) {
-        const badge = head.querySelector('.cw-status-badge');
-        if (badge) { badge.className='cw-status-badge '+meta.status; badge.textContent=statusLabel(meta); }
-        const claimBtn = head.querySelector('.act-btn.claim');
-        const closeBtn = head.querySelector('.act-btn.close');
-        if (claimBtn && (meta.status==='claimed'||meta.status==='closed')) claimBtn.remove();
-        if (closeBtn && meta.status==='closed') closeBtn.remove();
-        if (meta.status==='closed') {
-          const inputArea = document.querySelector('.chat-input-area');
-          if (inputArea) inputArea.outerHTML = `<div class="closed-banner">🔒 This ticket is closed.</div>`;
-        }
-      }
-    }
-    // refresh list
-    const sorted = Object.values(chatMetas).sort((a,b)=>((b.lastMsg?.ts||0)-(a.lastMsg?.ts||0)));
-    renderChatList(sorted);
-  }
-
-  /* ── NEW MESSAGE ── */
-  function handleNewMsg(msg) {
-    chatMetas[msg.sessionId] = msg.chatMeta;
-    const item = document.getElementById('ci_'+msg.sessionId);
-    if (item) {
-      item.querySelector('.ci-last').textContent = msg.msg.text;
-      const badge = item.querySelector('.ci-badge');
-      if (msg.chatMeta.unread > 0 && msg.sessionId !== activeSession) {
-        if (badge) badge.textContent = msg.chatMeta.unread;
-        else item.querySelector('.ci-top').insertAdjacentHTML('beforeend',`<div class="ci-badge">${msg.chatMeta.unread}</div>`);
-      } else if (badge) badge.remove();
-      item.parentElement.prepend(item);
-    } else {
-      const sorted = Object.values(chatMetas).sort((a,b)=>((b.lastMsg?.ts||0)-(a.lastMsg?.ts||0)));
-      renderChatList(sorted);
-    }
-    if (activeSession === msg.sessionId) appendBubble(msg.msg.from, msg.msg.text, msg.msg.ts, true);
-  }
-
-  /* ── APPEND BUBBLE ── */
-  function appendBubble(from, text, ts, scroll) {
-    const area = document.getElementById('msgsArea');
-    if (!area) return;
-    if (from === 'system') {
-      const div = document.createElement('div');
-      div.className = 'sys-msg'; div.textContent = text;
-      area.appendChild(div);
-    } else {
-      const wrap = document.createElement('div');
-      wrap.className = 'bubble-wrap '+(from==='admin'?'admin':'user');
-      const t = ts ? new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
-      wrap.innerHTML = `<div><div class="bubble">${esc(text)}</div><div class="bubble-time">${from==='admin'?'You · ':''} ${t}</div></div>`;
-      area.appendChild(wrap);
-    }
-    if (scroll) area.scrollTop = area.scrollHeight;
-  }
-
-  /* ── SEND MESSAGE ── */
-  function adminSend() {
-    const input = document.getElementById('adminInput');
-    if (!input) { console.warn('adminSend: no input found'); return; }
-    const text = input.value.trim();
+  // ── SEND ───────────────────────────────────────────────────────────────────
+  function doSend() {
+    var input = $('replyInput');
+    if (!input) return;
+    var text = input.value.trim();
     if (!text) return;
-    if (!activeSession) { console.warn('adminSend: no activeSession'); return; }
-    if (!ws) { console.warn('adminSend: no ws'); return; }
-    if (ws.readyState !== WebSocket.OPEN) { console.warn('adminSend: ws not open, state=', ws.readyState); return; }
-    ws.send(JSON.stringify({ type: 'admin_msg', sessionId: activeSession, text }));
+    if (!activeSession) return;
+    if (!ws || ws.readyState !== 1) return;
+    ws.send(JSON.stringify({ type: 'admin_msg', sessionId: activeSession, text: text }));
+    addBubble('admin', text, Date.now(), true);
     input.value = '';
     input.focus();
-    // Optimistically add the bubble so it feels instant
-    appendBubble('admin', text, Date.now(), true);
   }
 
-  /* ── BETTER UP ── */
-  async function betterUp() {
-    const input = document.getElementById('adminInput');
-    const btn   = document.getElementById('betterUpBtn');
-    if (!input || !input.value.trim()) { input?.focus(); return; }
-    const original = input.value.trim();
+  // ── BETTER UP ─────────────────────────────────────────────────────────────
+  async function doBetterUp() {
+    var input = $('replyInput');
+    var btn   = $('betterupBtn');
+    if (!input || !input.value.trim()) { if (input) input.focus(); return; }
+    var original = input.value.trim();
     btn.disabled = true;
-    btn.classList.add('loading');
-    btn.textContent = '✨ Improving…';
+    btn.textContent = '✨ Improving...';
     try {
-      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer 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',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          model: 'llama-3.1-8b-instant',
-          messages: [
-            {
-              role: 'system',
-              content: 'You are a professional customer support assistant for "Liam\'s Websites", a web design service. When given a message, rewrite it to be more professional, clear, friendly and polished while keeping the exact same meaning. Return ONLY the rewritten message — no explanation, no quotes, nothing else.'
-            },
-            {
-              role: 'user',
-              content: original
-            }
-          ]
-        })
-      });
-      const data = await res.json();
-      const improved = data?.choices?.[0]?.message?.content?.trim();
-      if (improved) {
-        input.value = improved;
-        input.focus();
+      var res  = await fetch('/better-up', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: original }) });
+      var data = await res.json();
+      if (data.improved) {
+        input.value = data.improved;
         input.style.borderColor = '#15803d';
-        input.style.background  = '#f0fdf4';
-        setTimeout(() => { input.style.borderColor=''; input.style.background=''; }, 1200);
+        setTimeout(function() { input.style.borderColor = ''; }, 1200);
       } else {
-        console.error('OpenRouter response:', JSON.stringify(data));
-        alert('Better Up failed: ' + (data?.error?.message || JSON.stringify(data)));
+        alert('Better Up failed: ' + (data.error || 'unknown'));
       }
-    } catch(err) {
-      alert('Better Up failed: ' + err.message);
+    } catch(e) {
+      alert('Better Up failed: ' + e.message);
     } finally {
       btn.disabled = false;
-      btn.classList.remove('loading');
       btn.textContent = '✨ Better Up!';
+      if (input) input.focus();
     }
   }
 
-  /* ── CLAIM MODAL ── */
+  // ── CLAIM ──────────────────────────────────────────────────────────────────
   function openClaimModal(sid) {
-    pendingClaimSid = sid;
-    document.getElementById('claimNameInput').value = '';
-    document.getElementById('claimModal').classList.add('open');
-    setTimeout(() => document.getElementById('claimNameInput').focus(), 100);
+    claimingSid = sid;
+    $('claimName').value = '';
+    $('claimOverlay').classList.add('show');
+    setTimeout(function() { $('claimName').focus(); }, 100);
   }
   function closeClaimModal() {
-    document.getElementById('claimModal').classList.remove('open');
-    pendingClaimSid = null;
+    $('claimOverlay').classList.remove('show');
+    claimingSid = null;
   }
   function confirmClaim() {
-    const name = document.getElementById('claimNameInput').value.trim();
-    if (!name) { document.getElementById('claimNameInput').focus(); return; }
-    if (!pendingClaimSid || !ws || ws.readyState !== 1) return;
-    ws.send(JSON.stringify({ type: 'admin_claim', sessionId: pendingClaimSid, claimedBy: name }));
+    var name = $('claimName').value.trim();
+    if (!name) { $('claimName').focus(); return; }
+    if (!claimingSid || !ws || ws.readyState !== 1) return;
+    ws.send(JSON.stringify({ type: 'admin_claim', sessionId: claimingSid, claimedBy: name }));
     closeClaimModal();
   }
 
-  /* ── CLOSE TICKET ── */
-  function closeTicket(sid) {
-    if (!confirm('Close this ticket? The customer will be notified and no more messages can be sent.')) return;
+  // ── CLOSE ──────────────────────────────────────────────────────────────────
+  function doClose(sid) {
+    if (!confirm('Close this ticket? The customer will be notified and the chat will be deleted.')) return;
     if (!ws || ws.readyState !== 1) return;
     ws.send(JSON.stringify({ type: 'admin_close', sessionId: sid }));
   }
 
-  /* ── UTILS ── */
-  function esc(str) {
-    return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // ── INCOMING EVENTS ────────────────────────────────────────────────────────
+  function onNewMsg(msg) {
+    if (!msg.chatMeta) return;
+    metas[msg.sessionId] = msg.chatMeta;
+    // update list item
+    var item = document.querySelector('.ci[data-sid="' + msg.sessionId + '"]');
+    if (item) {
+      item.querySelector('.ci-last').textContent = msg.msg.text;
+      var badge = item.querySelector('.ci-badge');
+      if (msg.chatMeta.unread > 0 && msg.sessionId !== activeSession) {
+        if (badge) badge.textContent = msg.chatMeta.unread;
+        else item.querySelector('.ci-top').insertAdjacentHTML('beforeend', '<span class="ci-badge">' + msg.chatMeta.unread + '</span>');
+      } else if (badge) badge.remove();
+      item.parentElement.prepend(item);
+    } else {
+      renderList(Object.values(metas).sort(function(a,b) { return ((b.lastMsg||{}).ts||0) - ((a.lastMsg||{}).ts||0); }));
+    }
+    // append to open chat
+    if (activeSession === msg.sessionId) addBubble(msg.msg.from, msg.msg.text, msg.msg.ts, true);
   }
 
-  // Close claim modal on background click
-  document.getElementById('claimModal').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('claimModal')) closeClaimModal();
-  });
+  function onTicketUpdated(meta) {
+    if (!meta) return;
+    metas[meta.id] = meta;
+    // update status badge in header if this chat is open
+    if (activeSession === meta.id) {
+      var badge = document.querySelector('.status-badge');
+      if (badge) { badge.className = 'status-badge ' + meta.status; badge.textContent = statusLabel(meta); }
+      var claimBtn = $('claimBtn');
+      if (claimBtn && (meta.status === 'claimed' || meta.status === 'closed')) claimBtn.remove();
+    }
+    renderList(Object.values(metas).sort(function(a,b) { return ((b.lastMsg||{}).ts||0) - ((a.lastMsg||{}).ts||0); }));
+  }
+
+  function onTicketDeleted(sid) {
+    delete metas[sid];
+    var item = document.querySelector('.ci[data-sid="' + sid + '"]');
+    if (item) item.remove();
+    $('chatCount').textContent = Object.keys(metas).length;
+    if (activeSession === sid) {
+      activeSession = null;
+      $('chatWin').innerHTML = '<div class="no-chat"><span>💬</span>Select a conversation</div>';
+    }
+    var inner = $('listInner');
+    if (inner && !inner.querySelector('.ci')) {
+      inner.innerHTML = '<div class="empty-list">No chats yet.<br/>They appear here when visitors open the chat.</div>';
+    }
+  }
+
+  // ── BUBBLES ────────────────────────────────────────────────────────────────
+  function addBubble(from, text, ts, scroll) {
+    var area = $('msgsArea');
+    if (!area) return;
+    if (from === 'system') {
+      area.insertAdjacentHTML('beforeend', '<div class="sysmsg">' + esc(text) + '</div>');
+    } else {
+      var t = ts ? new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+      var side = from === 'admin' ? 'admin' : 'user';
+      area.insertAdjacentHTML('beforeend',
+        '<div class="bwrap ' + side + '">' +
+          '<div class="bouter">' +
+            '<div class="bubble">' + esc(text) + '</div>' +
+            '<div class="btime">' + (from === 'admin' ? 'You · ' : '') + t + '</div>' +
+          '</div>' +
+        '</div>');
+    }
+    if (scroll) area.scrollTop = area.scrollHeight;
+  }
+
+  // ── UTILS ──────────────────────────────────────────────────────────────────
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ── WIRE UP ────────────────────────────────────────────────────────────────
+  $('loginBtn').addEventListener('click', doLogin);
+  $('pwInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+  $('logoutBtn').addEventListener('click', doLogout);
+  $('claimCancelBtn').addEventListener('click', closeClaimModal);
+  $('claimOkBtn').addEventListener('click', confirmClaim);
+  $('claimName').addEventListener('keydown', function(e) { if (e.key === 'Enter') confirmClaim(); });
+  $('claimOverlay').addEventListener('click', function(e) { if (e.target === $('claimOverlay')) closeClaimModal(); });
+
+})();
 </script>
 </body>
 </html>
