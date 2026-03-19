@@ -400,23 +400,36 @@
     btn.classList.add('loading');
     btn.textContent = '✨ Improving…';
     try {
-      const res  = await fetch('/better-up', {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: original })
+        headers: {
+          'Authorization': 'Bearer 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',
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://liamswebsites.store',
+          'X-Title': "Liam's Websites Admin"
+        },
+        body: JSON.stringify({
+          model: 'google/gemini-flash-1.5',
+          messages: [{
+            role: 'user',
+            content: 'You are a professional customer support assistant for "Liam\'s Websites", a web design service. Rewrite the following support message to be more professional, clear, friendly and polished while keeping the exact same meaning. Keep it concise. Return ONLY the rewritten message, nothing else, no quotes, no explanation.\n\nMessage: ' + original
+          }]
+        })
       });
       const data = await res.json();
-      if (data.improved) {
-        input.value = data.improved;
+      const improved = data?.choices?.[0]?.message?.content?.trim();
+      if (improved) {
+        input.value = improved;
         input.focus();
         input.style.borderColor = '#15803d';
         input.style.background  = '#f0fdf4';
         setTimeout(() => { input.style.borderColor=''; input.style.background=''; }, 1200);
       } else {
-        alert('Better Up failed: ' + (data.error || 'Unknown error'));
+        console.error('OpenRouter response:', JSON.stringify(data));
+        alert('Better Up failed: ' + (data?.error?.message || JSON.stringify(data)));
       }
     } catch(err) {
-      alert('Better Up failed. Check your connection.');
+      alert('Better Up failed: ' + err.message);
     } finally {
       btn.disabled = false;
       btn.classList.remove('loading');
