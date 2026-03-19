@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#0c0c0b"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Liam's Websites"/>
+  <link rel="manifest" href="/manifest.json"/>
+  <link rel="apple-touch-icon" href="/icon-192.png"/>
   <title>Liam's Websites — Professional Sites Under $200</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -10,20 +17,10 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --ink:#0c0c0b;
-      --white:#ffffff;
-      --sand:#faf9f7;
-      --sand2:#f3f1ed;
-      --border:#e4e1db;
-      --mid:#999690;
-      --dim:#706d68;
-      --blue:#2563eb;
-      --blue2:#1d4ed8;
-      --blue-tint:#eef2ff;
-      --green:#15803d;
-      --red:#dc2626;
-      --r:10px;
-      --pill:999px;
+      --ink:#0c0c0b; --white:#fff; --sand:#faf9f7; --sand2:#f3f1ed;
+      --border:#e4e1db; --mid:#999690; --dim:#706d68;
+      --blue:#2563eb; --blue2:#1d4ed8; --blue-tint:#eef2ff;
+      --green:#15803d; --red:#dc2626; --r:10px; --pill:999px;
     }
     html{scroll-behavior:smooth}
     body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);line-height:1.6;overflow-x:hidden}
@@ -31,128 +28,57 @@
     ::-webkit-scrollbar-track{background:var(--sand)}
     ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
-    /* ━━━ NAV ━━━ */
-    nav{
-      position:fixed;top:0;left:0;right:0;z-index:300;
-      height:58px;display:flex;align-items:center;justify-content:space-between;
-      padding:0 clamp(1rem,5vw,4rem);
-      background:rgba(255,255,255,0.94);
-      backdrop-filter:blur(20px) saturate(160%);
-      border-bottom:1px solid var(--border);
-    }
-    .logo{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:300;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,5vw,4rem);background:rgba(255,255,255,.94);backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--border)}
+    .logo{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:600;color:var(--ink);text-decoration:none}
     .logo em{color:var(--blue);font-style:italic}
     .nav-links{display:flex;gap:1.75rem;list-style:none}
     .nav-links a{font-size:.85rem;font-weight:500;color:var(--dim);text-decoration:none;transition:color .15s}
     .nav-links a:hover{color:var(--ink)}
-    .nav-cta{
-      background:var(--blue);color:var(--white);
-      padding:.45rem 1.1rem;border-radius:var(--pill);
-      font-size:.85rem;font-weight:600;text-decoration:none;
-      font-family:'DM Sans',sans-serif;border:none;cursor:pointer;
-      transition:background .15s,transform .12s;
-    }
+    .nav-right{display:flex;align-items:center;gap:.75rem}
+    .nav-cta{background:var(--blue);color:var(--white);padding:.45rem 1.1rem;border-radius:var(--pill);font-size:.85rem;font-weight:600;text-decoration:none;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;transition:background .15s,transform .12s}
     .nav-cta:hover{background:var(--blue2);transform:translateY(-1px)}
+    /* inbox button — only shown when logged in on mobile */
+    #inboxNavBtn{display:none;background:var(--sand2);color:var(--ink);border:1px solid var(--border);padding:.4rem .9rem;border-radius:var(--pill);font-size:.8rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
 
-    /* ━━━ HERO ━━━ */
-    .hero{
-      min-height:100svh;
-      display:grid;place-items:center;
-      padding:80px clamp(1rem,6vw,6rem) 60px;
-      text-align:center;
-      position:relative;overflow:hidden;
-      background:var(--sand);
-    }
-    .hero-bg{
-      position:absolute;inset:0;z-index:0;
-      background:
-        radial-gradient(ellipse 70% 50% at 50% -10%,#dce8ff 0%,transparent 60%),
-        radial-gradient(ellipse 40% 40% at 100% 80%,#e0ecff 0%,transparent 55%),
-        radial-gradient(ellipse 30% 30% at 0% 70%,#eef4ff 0%,transparent 50%);
-    }
-    /* diagonal stripe texture */
-    .hero-texture{
-      position:absolute;inset:0;z-index:0;opacity:.03;
-      background-image:repeating-linear-gradient(
-        45deg,var(--ink) 0px,var(--ink) 1px,transparent 0,transparent 50%
-      );
-      background-size:12px 12px;
-    }
+    /* ── HERO ── */
+    .hero{min-height:100svh;display:grid;place-items:center;padding:80px clamp(1rem,6vw,6rem) 60px;text-align:center;position:relative;overflow:hidden;background:var(--sand)}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 70% 50% at 50% -10%,#dce8ff 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 100% 80%,#e0ecff 0%,transparent 55%),radial-gradient(ellipse 30% 30% at 0% 70%,#eef4ff 0%,transparent 50%)}
+    .hero-texture{position:absolute;inset:0;z-index:0;opacity:.03;background-image:repeating-linear-gradient(45deg,var(--ink) 0px,var(--ink) 1px,transparent 0,transparent 50%);background-size:12px 12px}
     .hero-inner{position:relative;z-index:1;max-width:780px;margin:0 auto}
-
-    .hero-tag{
-      display:inline-flex;align-items:center;gap:8px;
-      background:var(--white);border:1px solid var(--border);
-      border-radius:var(--pill);padding:5px 14px;
-      font-size:.75rem;font-weight:600;color:var(--blue);
-      margin-bottom:2rem;animation:up .6s ease both;
-    }
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:var(--pill);padding:5px 14px;font-size:.75rem;font-weight:600;color:var(--blue);margin-bottom:2rem;animation:up .6s ease both}
     .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
     @keyframes blink{0%,100%{box-shadow:0 0 0 2px rgba(21,128,61,.2)}50%{box-shadow:0 0 0 5px rgba(21,128,61,.08)}}
-
-    h1{
-      font-family:'Fraunces',serif;
-      font-size:clamp(2.6rem,7vw,5.5rem);
-      line-height:1.05;letter-spacing:-.025em;
-      font-weight:700;margin-bottom:1.5rem;
-      animation:up .6s .1s ease both;
-    }
+    h1{font-family:'Fraunces',serif;font-size:clamp(2.6rem,7vw,5.5rem);line-height:1.05;letter-spacing:-.025em;font-weight:700;margin-bottom:1.5rem;animation:up .6s .1s ease both}
     h1 em{font-style:italic;color:var(--blue)}
-    h1 .under{
-      position:relative;display:inline-block;
-    }
-    h1 .under::after{
-      content:'';position:absolute;left:0;bottom:-4px;right:0;height:3px;
-      background:var(--blue);border-radius:2px;opacity:.4;
-    }
-
-    .hero-desc{
-      font-size:1.05rem;color:var(--dim);max-width:500px;margin:0 auto 2.25rem;
-      line-height:1.75;animation:up .6s .2s ease both;
-    }
+    h1 .under{position:relative;display:inline-block}
+    h1 .under::after{content:'';position:absolute;left:0;bottom:-4px;right:0;height:3px;background:var(--blue);border-radius:2px;opacity:.4}
+    .hero-desc{font-size:1.05rem;color:var(--dim);max-width:500px;margin:0 auto 2.25rem;line-height:1.75;animation:up .6s .2s ease both}
     .hero-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;animation:up .6s .3s ease both}
-
-    .btn{
-      padding:.75rem 1.75rem;border-radius:var(--pill);
-      font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;
-      text-decoration:none;border:none;cursor:pointer;
-      display:inline-flex;align-items:center;gap:6px;
-      transition:background .15s,border-color .15s,transform .12s,box-shadow .15s;
-    }
+    .btn{padding:.75rem 1.75rem;border-radius:var(--pill);font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s,border-color .15s,transform .12s,box-shadow .15s}
     .btn-blue{background:var(--blue);color:var(--white)}
     .btn-blue:hover{background:var(--blue2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.25)}
     .btn-outline{background:var(--white);color:var(--ink);border:1.5px solid var(--border)}
     .btn-outline:hover{border-color:var(--ink);transform:translateY(-2px)}
-
-    .hero-proof{
-      display:flex;align-items:center;justify-content:center;gap:2.5rem;
-      margin-top:3.5rem;animation:up .6s .4s ease both;
-      padding-top:2.5rem;border-top:1px solid var(--border);
-    }
+    .hero-proof{display:flex;align-items:center;justify-content:center;gap:2.5rem;margin-top:3.5rem;animation:up .6s .4s ease both;padding-top:2.5rem;border-top:1px solid var(--border)}
     .proof-num{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;line-height:1}
     .proof-lbl{font-size:.75rem;color:var(--mid);margin-top:3px;font-weight:500}
     .proof-div{width:1px;height:36px;background:var(--border)}
 
-    /* ━━━ MARQUEE STRIP ━━━ */
-    .strip{
-      background:var(--ink);color:var(--white);
-      padding:.7rem 0;overflow:hidden;white-space:nowrap;
-    }
-    .strip-inner{
-      display:inline-flex;gap:3rem;
-      animation:scroll 20s linear infinite;
-    }
+    /* ── STRIP ── */
+    .strip{background:var(--ink);color:var(--white);padding:.7rem 0;overflow:hidden;white-space:nowrap}
+    .strip-inner{display:inline-flex;gap:3rem;animation:scroll 22s linear infinite}
     .strip-item{font-size:.8rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;opacity:.7;flex-shrink:0}
     .strip-item b{opacity:1;color:#93c5fd}
     @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    /* ━━━ SECTION BASE ━━━ */
+    /* ── SECTIONS ── */
     section{padding:88px clamp(1rem,5vw,4rem)}
     .sec-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem}
     .sec-h{font-family:'Fraunces',serif;font-size:clamp(1.85rem,3.5vw,2.75rem);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:.65rem}
     .sec-sub{color:var(--dim);font-size:.95rem;max-width:420px;line-height:1.72}
 
-    /* ━━━ PROCESS ━━━ */
+    /* ── HOW ── */
     #how{background:var(--white)}
     .how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:2.75rem}
     .how-card{background:var(--white);padding:2rem 1.6rem}
@@ -160,7 +86,7 @@
     .how-card h3{font-size:.95rem;font-weight:600;margin-bottom:.4rem}
     .how-card p{font-size:.83rem;color:var(--dim);line-height:1.65}
 
-    /* ━━━ PRICING ━━━ */
+    /* ── PRICING ── */
     #pricing{background:var(--sand)}
     .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.75rem}
     .pcard{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem 1.75rem;position:relative;transition:box-shadow .2s,transform .2s}
@@ -184,90 +110,103 @@
     .pcard.hot .pcta{background:var(--white);color:var(--ink)}
     .pcard.hot .pcta:hover{background:var(--blue);color:var(--white)}
 
-    /* ━━━ WHO I BUILD FOR ━━━ */
+    /* ── WHO ── */
     #for{background:var(--white)}
     .for-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.75rem}
-    .for-card{border:1px solid var(--border);border-radius:14px;padding:1.5rem;transition:box-shadow .2s,transform .2s,border-color .2s;cursor:default}
+    .for-card{border:1px solid var(--border);border-radius:14px;padding:1.5rem;transition:box-shadow .2s,transform .2s,border-color .2s}
     .for-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.07);transform:translateY(-3px);border-color:#ccc}
     .for-icon{font-size:2rem;margin-bottom:.75rem}
     .for-card h3{font-size:.95rem;font-weight:600;margin-bottom:.3rem}
     .for-card p{font-size:.8rem;color:var(--mid);line-height:1.6}
 
-    /* ━━━ BOOKING ━━━ */
+    /* ── BOOKING ── */
     #book{background:var(--sand)}
-    .book-wrap{
-      display:grid;grid-template-columns:1fr 1.15fr;
-      gap:5rem;align-items:start;
-      max-width:1060px;margin:0 auto;
-    }
+    .book-wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:5rem;align-items:start;max-width:1060px;margin:0 auto}
     .book-info p{color:var(--dim);font-size:.95rem;margin-bottom:2rem;line-height:1.75}
     .tlist{display:flex;flex-direction:column;gap:1rem}
     .titem{display:flex;align-items:flex-start;gap:11px}
     .ticon{width:36px;height:36px;flex-shrink:0;border-radius:9px;background:var(--blue-tint);display:flex;align-items:center;justify-content:center;font-size:.95rem}
     .titem h4{font-size:.875rem;font-weight:600;margin-bottom:1px}
     .titem p{font-size:.78rem;color:var(--mid);margin:0}
-
-    /* auth bars */
     .abar{display:flex;align-items:center;gap:9px;padding:.7rem .95rem;border-radius:var(--r);font-size:.83rem;font-weight:500;margin-bottom:1rem}
     .abar.warn{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
     .abar.ok{background:#f0fdf4;border:1px solid #86efac;color:#166534;display:none}
-
-    /* form card */
     .form-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:2rem}
     .f2{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
     .fg{display:flex;flex-direction:column;gap:4px;margin-bottom:.875rem}
     label{font-size:.775rem;font-weight:600}
-    input[type=text],input[type=email],select,textarea{
-      font-family:'DM Sans',sans-serif;font-size:.875rem;
-      padding:.65rem .9rem;border-radius:var(--r);
-      border:1.5px solid var(--border);background:var(--sand);
-      color:var(--ink);outline:none;width:100%;
-      transition:border-color .15s,box-shadow .15s;
-    }
+    input[type=text],input[type=email],select,textarea{font-family:'DM Sans',sans-serif;font-size:.875rem;padding:.65rem .9rem;border-radius:var(--r);border:1.5px solid var(--border);background:var(--sand);color:var(--ink);outline:none;width:100%;transition:border-color .15s,box-shadow .15s}
     input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.08);background:var(--white)}
     textarea{resize:vertical;min-height:100px}
     select{cursor:pointer}
-
     .sl-row{display:flex;justify-content:space-between;align-items:baseline;font-size:.775rem;font-weight:600;margin-bottom:7px}
     .sl-val{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--blue);line-height:1}
     input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;background:var(--border);cursor:pointer;padding:0;border:none;outline:none}
     input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 2px 8px rgba(37,99,235,.3);transition:transform .12s}
     input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     .sl-ends{display:flex;justify-content:space-between;font-size:.7rem;color:var(--mid);margin-top:4px}
-
-    /* google btn */
-    .gbtn{
-      width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
-      padding:.8rem;border-radius:var(--pill);
-      background:var(--white);color:var(--ink);
-      border:1.5px solid var(--border);
-      font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;
-      cursor:pointer;transition:border-color .15s,box-shadow .15s;margin-bottom:1rem;
-    }
+    .gbtn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:.8rem;border-radius:var(--pill);background:var(--white);color:var(--ink);border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:border-color .15s,box-shadow .15s;margin-bottom:1rem}
     .gbtn:hover{border-color:#aaa;box-shadow:0 2px 12px rgba(0,0,0,.07)}
-
-    .sbtn{
-      width:100%;padding:.9rem;border-radius:var(--pill);
-      background:var(--blue);color:var(--white);border:none;
-      font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;
-      transition:background .15s,transform .12s,box-shadow .15s;
-    }
+    .sbtn{width:100%;padding:.9rem;border-radius:var(--pill);background:var(--blue);color:var(--white);border:none;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;transition:background .15s,transform .12s,box-shadow .15s}
     .sbtn:hover:not(:disabled){background:var(--blue2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,99,235,.2)}
     .sbtn:disabled{background:#bbb;cursor:not-allowed}
     .fnote{font-size:.73rem;color:var(--mid);text-align:center;margin-top:.6rem}
     .ferr{background:#fef2f2;border:1.5px solid #fecaca;border-radius:var(--r);padding:.6rem .9rem;font-size:.82rem;color:var(--red);margin-top:.6rem;display:none}
-
     .win{display:none;text-align:center;padding:2.5rem 1rem}
     .win-ico{font-size:3rem;margin-bottom:.75rem}
     .win h3{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;margin-bottom:.4rem}
     .win p{color:var(--dim);font-size:.875rem}
 
-    /* ━━━ FOOTER ━━━ */
-    footer{
-      background:var(--ink);color:#555;
-      padding:2.25rem clamp(1rem,5vw,4rem);
-      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
-    }
+    /* ── INBOX MODAL ── */
+    .modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center}
+    .modal-overlay.open{display:flex}
+    .inbox-modal{background:var(--white);width:100%;max-width:520px;border-radius:20px 20px 0 0;max-height:85svh;display:flex;flex-direction:column;overflow:hidden}
+    .inbox-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .inbox-header h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:600}
+    .inbox-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--mid);line-height:1}
+    .inbox-list{flex:1;overflow-y:auto;padding:.75rem}
+    .inbox-empty{text-align:center;padding:3rem 1rem;color:var(--mid);font-size:.875rem}
+    .inbox-thread{padding:.9rem 1rem;border-radius:var(--r);border:1px solid var(--border);margin-bottom:.5rem;cursor:pointer;transition:background .15s}
+    .inbox-thread:hover{background:var(--sand)}
+    .inbox-thread-from{font-size:.85rem;font-weight:600;margin-bottom:2px}
+    .inbox-thread-subj{font-size:.8rem;color:var(--dim)}
+    .inbox-thread-date{font-size:.72rem;color:var(--mid);margin-top:2px}
+    .inbox-loading{text-align:center;padding:2rem;color:var(--mid);font-size:.875rem}
+
+    /* ── CHAT WIDGET ── */
+    #chatBubble{position:fixed;bottom:24px;right:24px;z-index:400;width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);border:none;cursor:pointer;font-size:1.4rem;box-shadow:0 4px 20px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+    #chatBubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,99,235,.5)}
+    #chatBadge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:#ef4444;color:var(--white);font-size:.65rem;font-weight:700;display:none;align-items:center;justify-content:center;border:2px solid var(--white)}
+    #chatPanel{position:fixed;bottom:86px;right:24px;z-index:400;width:340px;max-width:calc(100vw - 32px);background:var(--white);border:1px solid var(--border);border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.15);display:none;flex-direction:column;overflow:hidden;max-height:480px}
+    #chatPanel.open{display:flex}
+    .chat-head{padding:.9rem 1.1rem;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:space-between}
+    .chat-head-left{display:flex;align-items:center;gap:.6rem}
+    .chat-head-dot{width:8px;height:8px;border-radius:50%;background:#4ade80}
+    .chat-head h4{font-size:.9rem;font-weight:600}
+    .chat-head p{font-size:.72rem;opacity:.6}
+    .chat-close-btn{background:none;border:none;color:var(--white);font-size:1.2rem;cursor:pointer;opacity:.7;line-height:1}
+    .chat-msgs{flex:1;overflow-y:auto;padding:.75rem;display:flex;flex-direction:column;gap:.5rem;min-height:160px}
+    .chat-bubble-wrap{display:flex}
+    .chat-bubble-wrap.user{justify-content:flex-end}
+    .chat-bubble-wrap.admin{justify-content:flex-start}
+    .cbubble{max-width:78%;padding:.55rem .85rem;border-radius:14px;font-size:.85rem;line-height:1.5}
+    .chat-bubble-wrap.user .cbubble{background:var(--blue);color:var(--white);border-bottom-right-radius:4px}
+    .chat-bubble-wrap.admin .cbubble{background:var(--sand2);color:var(--ink);border-bottom-left-radius:4px}
+    .chat-system{text-align:center;font-size:.72rem;color:var(--mid);padding:.25rem 0}
+    .chat-input-row{display:flex;gap:.5rem;padding:.75rem;border-top:1px solid var(--border)}
+    .chat-input{flex:1;font-family:'DM Sans',sans-serif;font-size:.875rem;padding:.55rem .8rem;border-radius:var(--pill);border:1.5px solid var(--border);outline:none;transition:border-color .15s}
+    .chat-input:focus{border-color:var(--blue)}
+    .chat-send{background:var(--blue);color:var(--white);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .15s}
+    .chat-send:hover{background:var(--blue2)}
+    .chat-name-form{padding:1rem;display:flex;flex-direction:column;gap:.6rem}
+    .chat-name-form p{font-size:.83rem;color:var(--dim)}
+    .chat-name-input{font-family:'DM Sans',sans-serif;font-size:.875rem;padding:.6rem .85rem;border-radius:var(--r);border:1.5px solid var(--border);outline:none;width:100%;transition:border-color .15s}
+    .chat-name-input:focus{border-color:var(--blue)}
+    .chat-start-btn{background:var(--blue);color:var(--white);border:none;border-radius:var(--pill);padding:.65rem;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .15s}
+    .chat-start-btn:hover{background:var(--blue2)}
+
+    /* ── FOOTER ── */
+    footer{background:var(--ink);color:#555;padding:2.25rem clamp(1rem,5vw,4rem);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
     .flogo{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:600;color:var(--white)}
     .flogo em{color:var(--blue);font-style:italic}
     footer p{font-size:.78rem}
@@ -276,7 +215,14 @@
 
     @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ━━━ RESPONSIVE ━━━ */
+    /* ── INSTALL BANNER (mobile only) ── */
+    #installBanner{display:none;position:fixed;bottom:0;left:0;right:0;z-index:450;background:var(--ink);color:var(--white);padding:1rem 1.25rem;padding-bottom:calc(1rem + env(safe-area-inset-bottom));align-items:center;gap:.75rem}
+    #installBanner p{flex:1;font-size:.85rem;line-height:1.4}
+    #installBanner b{display:block;font-size:.9rem;margin-bottom:2px}
+    .install-btn{background:var(--blue);color:var(--white);border:none;border-radius:var(--pill);padding:.5rem 1rem;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+    .install-dismiss{background:none;border:none;color:#888;font-size:1.2rem;cursor:pointer;line-height:1;flex-shrink:0}
+
+    /* ── RESPONSIVE ── */
     @media(max-width:960px){
       .nav-links{display:none}
       .hero-proof{gap:1.5rem}
@@ -286,12 +232,14 @@
       .price-grid,.for-grid{grid-template-columns:1fr}
       .book-wrap{grid-template-columns:1fr;gap:2.5rem}
       .f2{grid-template-columns:1fr}
+      #inboxNavBtn{display:block}
     }
     @media(max-width:500px){
       .how-grid{grid-template-columns:1fr}
       .how-card+.how-card{border-left:none;border-top:1px solid var(--border)}
       .hero-proof{flex-wrap:wrap;gap:1.25rem}
       .proof-div{display:none}
+      #chatPanel{width:calc(100vw - 32px);right:16px;bottom:80px}
     }
   </style>
 </head>
@@ -306,7 +254,10 @@
     <li><a href="#for">Who I Help</a></li>
     <li><a href="#book">Book</a></li>
   </ul>
-  <a href="#book" class="nav-cta">Get a Site →</a>
+  <div class="nav-right">
+    <button id="inboxNavBtn" onclick="openInbox()">📬 My Emails</button>
+    <a href="#book" class="nav-cta">Get a Site →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -315,11 +266,7 @@
   <div class="hero-texture"></div>
   <div class="hero-inner">
     <div class="hero-tag"><span class="dot"></span>Open for new projects</div>
-    <h1>
-      Every business<br/>
-      deserves a <em>great</em><br/>
-      <span class="under">website.</span>
-    </h1>
+    <h1>Every business<br/>deserves a <em>great</em><br/><span class="under">website.</span></h1>
     <p class="hero-desc">I build clean, fast, professional websites for any business — starting at $50. Restaurants, salons, contractors, freelancers — if you need a site, I've got you.</p>
     <div class="hero-btns">
       <a href="#book" class="btn btn-blue">Book Your Site →</a>
@@ -340,43 +287,24 @@
 <!-- MARQUEE -->
 <div class="strip" aria-hidden="true">
   <div class="strip-inner">
-    <span class="strip-item">Restaurants</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Barbershops</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Contractors</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Salons</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Freelancers</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Retail Shops</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Fitness Studios</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Real Estate</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Photographers</span>
-    <span class="strip-item"><b>★</b></span>
-    <!-- duplicate for seamless loop -->
-    <span class="strip-item">Restaurants</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Barbershops</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Contractors</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Salons</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Freelancers</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Retail Shops</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Fitness Studios</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Real Estate</span>
-    <span class="strip-item"><b>★</b></span>
-    <span class="strip-item">Photographers</span>
-    <span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Restaurants</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Barbershops</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Contractors</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Salons</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Freelancers</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Retail Shops</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Fitness Studios</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Real Estate</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Photographers</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Restaurants</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Barbershops</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Contractors</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Salons</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Freelancers</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Retail Shops</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Fitness Studios</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Real Estate</span><span class="strip-item"><b>★</b></span>
+    <span class="strip-item">Photographers</span><span class="strip-item"><b>★</b></span>
   </div>
 </div>
 
@@ -386,10 +314,10 @@
   <h2 class="sec-h">Simple from start to launch.</h2>
   <p class="sec-sub">No confusing process. No long waits. Just a straight line from your idea to a live website.</p>
   <div class="how-grid">
-    <div class="how-card"><div class="how-num">01</div><h3>Fill out the form</h3><p>Tell me about your business, what you need, and set your budget between $50–$200.</p></div>
-    <div class="how-card"><div class="how-num">02</div><h3>I start building</h3><p>I'll reply within 24 hours and get straight to work on your custom site.</p></div>
-    <div class="how-card"><div class="how-num">03</div><h3>Review & refine</h3><p>You review the site, I make your changes until you're happy with it.</p></div>
-    <div class="how-card"><div class="how-num">04</div><h3>Go live</h3><p>Your site goes live in under a week. One payment. No monthly fees from me.</p></div>
+    <div class="how-card"><div class="how-num">01</div><h3>Fill out the form</h3><p>Tell me about your business and set your budget from $50–$200.</p></div>
+    <div class="how-card"><div class="how-num">02</div><h3>I start building</h3><p>I'll reply within 24 hours and get straight to work.</p></div>
+    <div class="how-card"><div class="how-num">03</div><h3>Review & refine</h3><p>You review the site, I make changes until you're happy.</p></div>
+    <div class="how-card"><div class="how-num">04</div><h3>Go live</h3><p>Your site goes live in under a week. One flat payment.</p></div>
   </div>
 </section>
 
@@ -397,46 +325,25 @@
 <section id="pricing">
   <div class="sec-eyebrow">Pricing</div>
   <h2 class="sec-h">Always under $200.</h2>
-  <p class="sec-sub">Pick the right tier for your project — or set your own price with the slider in the booking form.</p>
+  <p class="sec-sub">Pick the right tier — or set your own price with the slider in the booking form.</p>
   <div class="price-grid">
     <div class="pcard">
-      <div class="ptier">Starter</div>
-      <div class="pamount"><sup>$</sup>50</div>
+      <div class="ptier">Starter</div><div class="pamount"><sup>$</sup>50</div>
       <div class="pdesc">Get online fast with a clean, simple site.</div>
-      <ul class="pfeats">
-        <li class="pfeat">1–2 page website</li>
-        <li class="pfeat">Mobile responsive</li>
-        <li class="pfeat">Contact section</li>
-        <li class="pfeat">1 revision round</li>
-      </ul>
+      <ul class="pfeats"><li class="pfeat">1–2 page website</li><li class="pfeat">Mobile responsive</li><li class="pfeat">Contact section</li><li class="pfeat">1 revision round</li></ul>
       <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Get Started</button>
     </div>
     <div class="pcard hot">
       <div class="pbadge">Most Popular</div>
-      <div class="ptier">Standard</div>
-      <div class="pamount"><sup>$</sup>120</div>
+      <div class="ptier">Standard</div><div class="pamount"><sup>$</sup>120</div>
       <div class="pdesc">The sweet spot for most businesses.</div>
-      <ul class="pfeats">
-        <li class="pfeat">3–5 pages</li>
-        <li class="pfeat">Mobile responsive</li>
-        <li class="pfeat">Contact form</li>
-        <li class="pfeat">Basic SEO</li>
-        <li class="pfeat">3 revision rounds</li>
-      </ul>
+      <ul class="pfeats"><li class="pfeat">3–5 pages</li><li class="pfeat">Mobile responsive</li><li class="pfeat">Contact form</li><li class="pfeat">Basic SEO</li><li class="pfeat">3 revision rounds</li></ul>
       <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Get Started</button>
     </div>
     <div class="pcard">
-      <div class="ptier">Pro</div>
-      <div class="pamount"><sup>$</sup>200</div>
+      <div class="ptier">Pro</div><div class="pamount"><sup>$</sup>200</div>
       <div class="pdesc">Full-featured for serious businesses.</div>
-      <ul class="pfeats">
-        <li class="pfeat">5–8 pages</li>
-        <li class="pfeat">Mobile responsive</li>
-        <li class="pfeat">Contact form + booking</li>
-        <li class="pfeat">Full SEO setup</li>
-        <li class="pfeat">Google Maps & socials</li>
-        <li class="pfeat">Unlimited revisions</li>
-      </ul>
+      <ul class="pfeats"><li class="pfeat">5–8 pages</li><li class="pfeat">Mobile responsive</li><li class="pfeat">Contact form + booking</li><li class="pfeat">Full SEO setup</li><li class="pfeat">Google Maps & socials</li><li class="pfeat">Unlimited revisions</li></ul>
       <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Get Started</button>
     </div>
   </div>
@@ -446,7 +353,7 @@
 <section id="for">
   <div class="sec-eyebrow">Who I Help</div>
   <h2 class="sec-h">Any business. Any idea.</h2>
-  <p class="sec-sub">If you can describe it, I can build it. Here are just a few of the businesses I work with.</p>
+  <p class="sec-sub">If you can describe it, I can build it.</p>
   <div class="for-grid">
     <div class="for-card"><div class="for-icon">🍕</div><h3>Restaurants & Cafés</h3><p>Menus, hours, location, online ordering links</p></div>
     <div class="for-card"><div class="for-icon">💈</div><h3>Salons & Barbershops</h3><p>Services, gallery, booking & social links</p></div>
@@ -460,11 +367,10 @@
 <!-- BOOKING -->
 <section id="book">
   <div class="book-wrap">
-    <!-- left -->
     <div class="book-info">
       <div class="sec-eyebrow">Book Now</div>
       <h2 class="sec-h">Let's get your site built.</h2>
-      <p>Sign in with Google below, fill in the details, and I'll be in touch within 24 hours. No commitment required.</p>
+      <p>Sign in with Google, fill in the details, and I'll be in touch within 24 hours.</p>
       <div class="tlist">
         <div class="titem"><div class="ticon">⚡</div><div><h4>Fast turnaround</h4><p>Most sites live in under 7 days.</p></div></div>
         <div class="titem"><div class="ticon">💬</div><div><h4>Work directly with me</h4><p>No middlemen, no agencies.</p></div></div>
@@ -472,26 +378,16 @@
         <div class="titem"><div class="ticon">✏️</div><div><h4>Any business welcome</h4><p>Seriously — any business, any idea.</p></div></div>
       </div>
     </div>
-
-    <!-- right -->
     <div>
       <div class="abar warn" id="warnBar">🔐 &nbsp;Sign in with Google first so your booking reaches me.</div>
       <div class="abar ok" id="okBar">✅ &nbsp;<span id="whoSignedIn">Signed in</span> — ready to go!</div>
-
       <div class="form-card">
-        <!-- Google sign-in -->
         <div id="gArea">
           <button class="gbtn" id="gBtn" onclick="doSignIn()">
-            <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-            </svg>
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
             Sign in with Google to continue
           </button>
         </div>
-
         <form id="bookForm">
           <div class="f2">
             <div class="fg"><label for="fn">First Name *</label><input type="text" id="fn" required placeholder="John"/></div>
@@ -503,16 +399,11 @@
             <label for="btype">Type of Business *</label>
             <select id="btype" required>
               <option value="" disabled selected>Select a category…</option>
-              <option>Restaurant / Food & Drink</option>
-              <option>Retail / Shop</option>
-              <option>Beauty / Salon / Barbershop</option>
-              <option>Contractor / Home Services</option>
-              <option>Fitness / Wellness</option>
-              <option>Healthcare / Medical</option>
-              <option>Real Estate</option>
-              <option>Photography / Creative</option>
-              <option>Freelancer / Consultant</option>
-              <option>Other</option>
+              <option>Restaurant / Food & Drink</option><option>Retail / Shop</option>
+              <option>Beauty / Salon / Barbershop</option><option>Contractor / Home Services</option>
+              <option>Fitness / Wellness</option><option>Healthcare / Medical</option>
+              <option>Real Estate</option><option>Photography / Creative</option>
+              <option>Freelancer / Consultant</option><option>Other</option>
             </select>
           </div>
           <div class="fg">
@@ -520,20 +411,12 @@
             <input type="range" id="budgetSlider" min="50" max="200" step="5" value="120"/>
             <div class="sl-ends"><span>$50 — Starter</span><span>$200 — Pro</span></div>
           </div>
-          <div class="fg">
-            <label for="notes">Tell me about your project *</label>
-            <textarea id="notes" required placeholder="What does your business do? What pages do you need? Any features, colors, or inspiration? More detail = better result!"></textarea>
-          </div>
+          <div class="fg"><label for="notes">Tell me about your project *</label><textarea id="notes" required placeholder="What does your business do? What pages do you need? Any features, colors, or inspiration?"></textarea></div>
           <button type="submit" class="sbtn" id="subBtn" disabled>Sign in with Google first ↑</button>
           <p class="fnote">Booking goes directly to LiamsSites@proton.me. You'll also get a confirmation email.</p>
           <div class="ferr" id="errBox"></div>
         </form>
-
-        <div class="win" id="winBox">
-          <div class="win-ico">🎉</div>
-          <h3>Booking sent!</h3>
-          <p>I'll be in touch within 24 hours. Talk soon!</p>
-        </div>
+        <div class="win" id="winBox"><div class="win-ico">🎉</div><h3>Booking sent!</h3><p>I'll be in touch within 24 hours. Talk soon!</p></div>
       </div>
     </div>
   </div>
@@ -546,249 +429,496 @@
   <p><a href="mailto:LiamsSites@proton.me">LiamsSites@proton.me</a></p>
 </footer>
 
-<!-- Google Identity Services -->
+<!-- INBOX MODAL -->
+<div class="modal-overlay" id="inboxOverlay" onclick="if(event.target===this)closeInbox()">
+  <div class="inbox-modal">
+    <div class="inbox-header">
+      <h3>📬 Your Emails from Liam</h3>
+      <button class="inbox-close" onclick="closeInbox()">×</button>
+    </div>
+    <div class="inbox-list" id="inboxList">
+      <div class="inbox-empty">Loading…</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT WIDGET -->
+<button id="chatBubble" onclick="toggleChat()" aria-label="Open chat">
+  💬
+  <div id="chatBadge">1</div>
+</button>
+<div id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-head-left">
+      <div class="chat-head-dot"></div>
+      <div><h4>Support Chat</h4><p>We reply fast!</p></div>
+    </div>
+    <button class="chat-close-btn" onclick="toggleChat()">×</button>
+  </div>
+  <div id="chatBody">
+    <!-- name form shown first -->
+    <div class="chat-name-form" id="chatNameForm">
+      <p>What's your name? We'll get you connected right away.</p>
+      <input class="chat-name-input" id="chatNameInput" placeholder="Your name…" maxlength="40"/>
+      <button class="chat-start-btn" onclick="startChat()">Start Chat →</button>
+    </div>
+    <!-- messages shown after -->
+    <div class="chat-msgs" id="chatMsgs" style="display:none"></div>
+  </div>
+  <div class="chat-input-row" id="chatInputRow" style="display:none">
+    <input class="chat-input" id="chatInput" placeholder="Type a message…" maxlength="500" onkeydown="if(event.key==='Enter')sendChatMsg()"/>
+    <button class="chat-send" onclick="sendChatMsg()">➤</button>
+  </div>
+</div>
+
+<!-- INSTALL BANNER -->
+<div id="installBanner">
+  <p><b>Add to Home Screen</b>Get quick access like a real app</p>
+  <button class="install-btn" id="installBtn">Install</button>
+  <button class="install-dismiss" onclick="dismissInstall()">×</button>
+</div>
+
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-  /* ── Slider ── */
-  const sl = document.getElementById('budgetSlider');
-  const sv = document.getElementById('slVal');
-  sl.addEventListener('input', () => sv.textContent = '$' + sl.value);
+/* ════════════════════════════════════════════════════════
+   PERSISTENT AUTH — store token + user in localStorage
+════════════════════════════════════════════════════════ */
+let gToken = null, senderEmail = null, userName = null;
+const SCOPES = 'https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly openid profile email';
 
-  /* ── OAuth state ── */
-  let gToken = null, senderEmail = null;
+function saveAuth(token, email, name) {
+  gToken = token; senderEmail = email; userName = name;
+  localStorage.setItem('lw_token', token);
+  localStorage.setItem('lw_email', email);
+  localStorage.setItem('lw_name',  name);
+  localStorage.setItem('lw_token_ts', Date.now().toString());
+}
 
-  /* ─────────────────────────────────────────────────────────
-     MOBILE-SAFE GOOGLE SIGN IN
-     - Desktop: uses popup (initTokenClient)
-     - Mobile: uses redirect flow via accounts.google.com
-  ───────────────────────────────────────────────────────── */
-  function isMobile() {
-    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
-  }
+function loadAuth() {
+  const ts = parseInt(localStorage.getItem('lw_token_ts') || '0');
+  // Google access tokens expire in 1 hour — clear if older
+  if (Date.now() - ts > 55 * 60 * 1000) { clearAuth(); return false; }
+  const t = localStorage.getItem('lw_token');
+  const e = localStorage.getItem('lw_email');
+  const n = localStorage.getItem('lw_name');
+  if (!t || !e) return false;
+  gToken = t; senderEmail = e; userName = n;
+  return true;
+}
 
-  /* Store form data in sessionStorage so it survives the redirect on mobile */
-  function saveFormToSession() {
-    sessionStorage.setItem('lw_fn',    document.getElementById('fn').value);
-    sessionStorage.setItem('lw_ln',    document.getElementById('ln').value);
-    sessionStorage.setItem('lw_em',    document.getElementById('em').value);
-    sessionStorage.setItem('lw_biz',   document.getElementById('biz').value);
-    sessionStorage.setItem('lw_btype', document.getElementById('btype').value);
-    sessionStorage.setItem('lw_budget',document.getElementById('budgetSlider').value);
-    sessionStorage.setItem('lw_notes', document.getElementById('notes').value);
-  }
+function clearAuth() {
+  gToken = null; senderEmail = null; userName = null;
+  localStorage.removeItem('lw_token');
+  localStorage.removeItem('lw_email');
+  localStorage.removeItem('lw_name');
+  localStorage.removeItem('lw_token_ts');
+}
 
-  function restoreFormFromSession() {
-    const fn = sessionStorage.getItem('lw_fn');
-    if (!fn) return;
-    document.getElementById('fn').value    = sessionStorage.getItem('lw_fn')    || '';
-    document.getElementById('ln').value    = sessionStorage.getItem('lw_ln')    || '';
-    document.getElementById('em').value    = sessionStorage.getItem('lw_em')    || '';
-    document.getElementById('biz').value   = sessionStorage.getItem('lw_biz')   || '';
-    const btype = sessionStorage.getItem('lw_btype');
-    if (btype) document.getElementById('btype').value = btype;
-    const budget = sessionStorage.getItem('lw_budget');
-    if (budget) { document.getElementById('budgetSlider').value = budget; sv.textContent = '$' + budget; }
-    document.getElementById('notes').value = sessionStorage.getItem('lw_notes') || '';
-  }
+function activateForm(name, email) {
+  document.getElementById('warnBar').style.display = 'none';
+  document.getElementById('okBar').style.display   = 'flex';
+  document.getElementById('whoSignedIn').textContent = name + ' signed in';
+  document.getElementById('gArea').style.display   = 'none';
+  const fn = name.split(' ')[0] || '';
+  const ln = name.split(' ').slice(1).join(' ') || '';
+  if (fn && !document.getElementById('fn').value) document.getElementById('fn').value = fn;
+  if (ln && !document.getElementById('ln').value) document.getElementById('ln').value = ln;
+  if (email && !document.getElementById('em').value) document.getElementById('em').value = email;
+  const btn = document.getElementById('subBtn');
+  btn.disabled = false; btn.textContent = 'Send Booking Request →';
+  // show inbox button on mobile
+  if (window.innerWidth < 960) document.getElementById('inboxNavBtn').style.display = 'block';
+}
 
-  function doSignIn() {
+/* ════════════════════════════════════════════════════════
+   SLIDER
+════════════════════════════════════════════════════════ */
+const sl = document.getElementById('budgetSlider');
+const sv = document.getElementById('slVal');
+sl.addEventListener('input', () => sv.textContent = '$' + sl.value);
+
+/* ════════════════════════════════════════════════════════
+   GOOGLE SIGN IN — unified flow that works on mobile
+   Uses redirect with prompt=consent&access_type=online
+   to ALWAYS show the consent screen so gmail.send is granted
+════════════════════════════════════════════════════════ */
+function isMobile() {
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
+}
+
+function saveFormToSession() {
+  ['fn','ln','em','biz','notes'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sessionStorage.setItem('lw_f_'+id, el.value);
+  });
+  sessionStorage.setItem('lw_f_btype',  document.getElementById('btype').value);
+  sessionStorage.setItem('lw_f_budget', document.getElementById('budgetSlider').value);
+}
+
+function restoreFormFromSession() {
+  ['fn','ln','em','biz','notes'].forEach(id => {
+    const val = sessionStorage.getItem('lw_f_'+id);
+    const el  = document.getElementById(id);
+    if (val && el) el.value = val;
+  });
+  const bt = sessionStorage.getItem('lw_f_btype');
+  if (bt) document.getElementById('btype').value = bt;
+  const bg = sessionStorage.getItem('lw_f_budget');
+  if (bg) { document.getElementById('budgetSlider').value = bg; sv.textContent = '$' + bg; }
+  ['fn','ln','em','biz','notes','btype','budget'].forEach(k => sessionStorage.removeItem('lw_f_'+k));
+}
+
+function doSignIn() {
+  fetch('/google-client-id').then(r=>r.json()).then(({clientId}) => {
     if (isMobile()) {
-      doMobileSignIn();
+      // Mobile: redirect flow with prompt=consent to force full scope approval
+      saveFormToSession();
+      const p = new URLSearchParams({
+        client_id:     clientId,
+        redirect_uri:  window.location.origin + '/oauth-callback',
+        response_type: 'token',
+        scope:         SCOPES,
+        prompt:        'consent',   // ← forces gmail.send approval every time
+        include_granted_scopes: 'true',
+      });
+      window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' + p;
     } else {
-      doDesktopSignIn();
+      // Desktop: popup flow
+      const client = google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: SCOPES,
+        prompt: 'consent',
+        callback(resp) {
+          if (resp.error) { alert('Sign-in failed: ' + resp.error); return; }
+          fetchUserInfo(resp.access_token);
+        }
+      });
+      client.requestAccessToken({ prompt: 'consent' });
     }
-  }
+  }).catch(()=>alert('Could not connect to server.'));
+}
 
-  /* Desktop popup flow */
-  function doDesktopSignIn() {
-    fetch('/google-client-id')
-      .then(r => r.json())
-      .then(({ clientId }) => {
-        const client = google.accounts.oauth2.initTokenClient({
-          client_id: clientId,
-          scope: 'https://www.googleapis.com/auth/gmail.send openid profile email',
-          callback(resp) {
-            if (resp.error) { alert('Sign-in failed: ' + resp.error); return; }
-            gToken = resp.access_token;
-            fetchUserAndActivate();
-          }
-        });
-        client.requestAccessToken();
-      })
-      .catch(() => alert('Could not connect to server.'));
-  }
-
-  /* Mobile redirect flow */
-  function doMobileSignIn() {
-    saveFormToSession();
-    fetch('/google-client-id')
-      .then(r => r.json())
-      .then(({ clientId }) => {
-        const params = new URLSearchParams({
-          client_id:     clientId,
-          redirect_uri:  window.location.origin + '/oauth-callback',
-          response_type: 'token',
-          scope:         'https://www.googleapis.com/auth/gmail.send openid profile email',
-          include_granted_scopes: 'true',
-        });
-        window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' + params.toString();
-      })
-      .catch(() => alert('Could not connect to server.'));
-  }
-
-  /* Handle redirect callback — token comes back in URL hash */
-  function handleOAuthCallback() {
-    const hash = window.location.hash.substring(1);
-    if (!hash) return false;
-    const params = new URLSearchParams(hash);
-    const token = params.get('access_token');
-    if (!token) return false;
-    gToken = token;
-    // Clean URL
-    history.replaceState(null, '', window.location.pathname + window.location.search);
-    // Restore saved form data
+function fetchUserInfo(token) {
+  fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+    headers: { Authorization: 'Bearer ' + token }
+  })
+  .then(r=>r.json())
+  .then(info => {
+    const name = info.name || info.email;
+    saveAuth(token, info.email, name);
+    activateForm(name, info.email);
     restoreFormFromSession();
-    fetchUserAndActivate();
-    return true;
-  }
-
-  /* Shared: get user info and unlock the form */
-  function fetchUserAndActivate() {
-    fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-      headers: { Authorization: 'Bearer ' + gToken }
-    })
-    .then(r => r.json())
-    .then(info => {
-      senderEmail = info.email;
-      const fn   = info.given_name  || '';
-      const ln   = info.family_name || '';
-      const name = info.name || info.email;
-
-      document.getElementById('warnBar').style.display = 'none';
-      document.getElementById('okBar').style.display   = 'flex';
-      document.getElementById('whoSignedIn').textContent = name + ' signed in';
-      document.getElementById('gArea').style.display   = 'none';
-
-      if (fn && !document.getElementById('fn').value) document.getElementById('fn').value = fn;
-      if (ln && !document.getElementById('ln').value) document.getElementById('ln').value = ln;
-      if (senderEmail && !document.getElementById('em').value) document.getElementById('em').value = senderEmail;
-
-      const btn = document.getElementById('subBtn');
-      btn.disabled = false;
-      btn.textContent = 'Send Booking Request →';
-
-      // Scroll to book section if coming back from redirect
-      if (sessionStorage.getItem('lw_fn')) {
-        document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
-        // Clear session after restore
-        ['fn','ln','em','biz','btype','budget','notes'].forEach(k => sessionStorage.removeItem('lw_' + k));
-      }
-    });
-  }
-
-  /* ── Build RFC 2822 email as base64url ── */
-  function buildRaw(to, subject, html, from, replyTo) {
-    const msg =
-      'From: ' + from + '\r\n' +
-      'To: ' + to + '\r\n' +
-      (replyTo ? 'Reply-To: ' + replyTo + '\r\n' : '') +
-      'Subject: ' + subject + '\r\n' +
-      'MIME-Version: 1.0\r\n' +
-      'Content-Type: text/html; charset=UTF-8\r\n\r\n' +
-      html;
-    return btoa(unescape(encodeURIComponent(msg)))
-      .replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-  }
-
-  async function gmailSend(raw) {
-    const r = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
-      method: 'POST',
-      headers: { Authorization: 'Bearer ' + gToken, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ raw })
-    });
-    if (!r.ok) throw new Error('Gmail API ' + r.status);
-  }
-
-  /* ── Submit ── */
-  document.getElementById('bookForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const btn = document.getElementById('subBtn');
-    const err = document.getElementById('errBox');
-    err.style.display = 'none';
-    if (!gToken) { err.textContent = 'Please sign in with Google first.'; err.style.display = 'block'; return; }
-
-    const fn     = document.getElementById('fn').value.trim();
-    const ln     = document.getElementById('ln').value.trim();
-    const email  = document.getElementById('em').value.trim();
-    const biz    = document.getElementById('biz').value.trim();
-    const btype  = document.getElementById('btype').value;
-    const budget = sl.value;
-    const notes  = document.getElementById('notes').value.trim();
-
-    btn.disabled = true; btn.textContent = 'Sending…';
-
-    try {
-      await gmailSend(buildRaw(
-        'LiamsSites@proton.me',
-        '🌐 New Booking — ' + biz + ' ($' + budget + ')',
-        `<div style="font-family:sans-serif;max-width:600px;margin:auto;padding:32px;color:#111;">
-          <h2 style="margin:0 0 6px;font-size:22px;">New Website Booking</h2>
-          <p style="color:#888;font-size:14px;margin:0 0 24px;">Submitted via Liam's Websites</p>
-          <table style="width:100%;border-collapse:collapse;font-size:15px;">
-            <tr><td style="padding:10px 0;color:#888;width:130px;border-top:1px solid #f0f0f0;">Name</td><td style="padding:10px 0;font-weight:600;border-top:1px solid #f0f0f0;">${fn} ${ln}</td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Email</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;"><a href="mailto:${email}">${email}</a></td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Business</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;font-weight:600;">${biz}</td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Type</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;">${btype}</td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Budget</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;font-weight:700;color:#2563eb;">$${budget}</td></tr>
-          </table>
-          <div style="margin-top:24px;">
-            <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Project Notes</p>
-            <div style="background:#faf9f7;border-radius:10px;padding:18px;font-size:14px;line-height:1.7;white-space:pre-wrap;">${notes}</div>
-          </div>
-          <p style="margin-top:24px;font-size:13px;color:#aaa;">Reply to this email to contact ${fn} directly.</p>
-        </div>`,
-        senderEmail, email
-      ));
-
-      await gmailSend(buildRaw(
-        email,
-        'Got your request, ' + fn + '! 🎉',
-        `<div style="font-family:sans-serif;max-width:560px;margin:auto;padding:32px;color:#111;">
-          <h2 style="margin:0 0 8px;">You're all set, ${fn}! 🎉</h2>
-          <p style="color:#555;font-size:15px;line-height:1.7;margin-bottom:20px;">
-            Thanks for reaching out about <strong>${biz}</strong>. I've received your booking and will reply within <strong>24 hours</strong>.
-          </p>
-          <div style="background:#faf9f7;border-radius:12px;padding:20px;font-size:14px;margin-bottom:20px;">
-            <strong>Your summary</strong><br/><br/>
-            Business: <strong>${biz}</strong><br/>
-            Type: ${btype}<br/>
-            Budget: <strong style="color:#2563eb;">$${budget}</strong><br/><br/>
-            <em style="color:#888;">Notes: ${notes}</em>
-          </div>
-          <p style="color:#555;font-size:14px;line-height:1.7;">
-            Have extra details or files? Just reply to this email.<br/><br/>
-            — Liam<br/>
-            <a href="mailto:LiamsSites@proton.me" style="color:#2563eb;">LiamsSites@proton.me</a>
-          </p>
-        </div>`,
-        senderEmail, 'LiamsSites@proton.me'
-      ));
-
-      document.getElementById('bookForm').style.display = 'none';
-      document.getElementById('winBox').style.display   = 'block';
-
-    } catch(ex) {
-      err.textContent = 'Failed to send. Please email LiamsSites@proton.me directly. (' + ex.message + ')';
-      err.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = 'Send Booking Request →';
+    if (sessionStorage.getItem('lw_f_fn') !== null) {
+      document.getElementById('book').scrollIntoView({behavior:'smooth'});
     }
   });
+}
 
-  /* ── On load: check for OAuth redirect callback ── */
-  window.addEventListener('load', () => {
-    handleOAuthCallback();
+function handleOAuthCallback() {
+  const hash = window.location.hash.slice(1);
+  if (!hash) return false;
+  const params = new URLSearchParams(hash);
+  const token  = params.get('access_token');
+  if (!token) return false;
+  history.replaceState(null,'', window.location.pathname + window.location.search);
+  fetchUserInfo(token);
+  return true;
+}
+
+/* ════════════════════════════════════════════════════════
+   EMAIL SENDING
+════════════════════════════════════════════════════════ */
+function buildRaw(to, subject, html, from, replyTo) {
+  const msg =
+    'From: '+from+'\r\nTo: '+to+'\r\n'+
+    (replyTo?'Reply-To: '+replyTo+'\r\n':'')+
+    'Subject: '+subject+'\r\nMIME-Version: 1.0\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n'+html;
+  return btoa(unescape(encodeURIComponent(msg))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+
+async function gmailSend(raw) {
+  const r = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send',{
+    method:'POST',
+    headers:{Authorization:'Bearer '+gToken,'Content-Type':'application/json'},
+    body:JSON.stringify({raw})
   });
+  if (!r.ok) {
+    const e = await r.json().catch(()=>({}));
+    throw new Error('Gmail API '+r.status+': '+(e?.error?.message||'unknown'));
+  }
+}
+
+document.getElementById('bookForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('subBtn');
+  const err = document.getElementById('errBox');
+  err.style.display = 'none';
+  if (!gToken) { err.textContent='Please sign in with Google first.'; err.style.display='block'; return; }
+  const fn=document.getElementById('fn').value.trim();
+  const ln=document.getElementById('ln').value.trim();
+  const email=document.getElementById('em').value.trim();
+  const biz=document.getElementById('biz').value.trim();
+  const btype=document.getElementById('btype').value;
+  const budget=sl.value;
+  const notes=document.getElementById('notes').value.trim();
+  btn.disabled=true; btn.textContent='Sending…';
+  try {
+    await gmailSend(buildRaw('LiamsSites@proton.me','🌐 New Booking — '+biz+' ($'+budget+')',
+      `<div style="font-family:sans-serif;max-width:600px;margin:auto;padding:32px;color:#111">
+        <h2 style="margin:0 0 6px">New Website Booking</h2>
+        <p style="color:#888;font-size:14px;margin:0 0 24px">Submitted via Liam's Websites</p>
+        <table style="width:100%;border-collapse:collapse;font-size:15px">
+          <tr><td style="padding:10px 0;color:#888;width:130px;border-top:1px solid #f0f0f0">Name</td><td style="padding:10px 0;font-weight:600;border-top:1px solid #f0f0f0">${fn} ${ln}</td></tr>
+          <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0">Email</td><td style="padding:10px 0;border-top:1px solid #f0f0f0"><a href="mailto:${email}">${email}</a></td></tr>
+          <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0">Business</td><td style="padding:10px 0;font-weight:600;border-top:1px solid #f0f0f0">${biz}</td></tr>
+          <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0">Type</td><td style="padding:10px 0;border-top:1px solid #f0f0f0">${btype}</td></tr>
+          <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0">Budget</td><td style="padding:10px 0;font-weight:700;color:#2563eb;border-top:1px solid #f0f0f0">$${budget}</td></tr>
+        </table>
+        <div style="margin-top:24px">
+          <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Project Notes</p>
+          <div style="background:#faf9f7;border-radius:10px;padding:18px;font-size:14px;line-height:1.7;white-space:pre-wrap">${notes}</div>
+        </div>
+        <p style="margin-top:24px;font-size:13px;color:#aaa">Reply to contact ${fn} directly.</p>
+      </div>`,senderEmail,email));
+    await gmailSend(buildRaw(email,'Got your request, '+fn+'! 🎉',
+      `<div style="font-family:sans-serif;max-width:560px;margin:auto;padding:32px;color:#111">
+        <h2 style="margin:0 0 8px">You're all set, ${fn}! 🎉</h2>
+        <p style="color:#555;font-size:15px;line-height:1.7;margin-bottom:20px">Thanks for reaching out about <strong>${biz}</strong>. I'll reply within <strong>24 hours</strong>.</p>
+        <div style="background:#faf9f7;border-radius:12px;padding:20px;font-size:14px;margin-bottom:20px">
+          <strong>Your summary</strong><br/><br/>Business: <strong>${biz}</strong><br/>Type: ${btype}<br/>Budget: <strong style="color:#2563eb">$${budget}</strong><br/><br/><em style="color:#888">Notes: ${notes}</em>
+        </div>
+        <p style="color:#555;font-size:14px;line-height:1.7">Have extra details? Just reply to this email.<br/><br/>— Liam<br/><a href="mailto:LiamsSites@proton.me" style="color:#2563eb">LiamsSites@proton.me</a></p>
+      </div>`,senderEmail,'LiamsSites@proton.me'));
+    document.getElementById('bookForm').style.display='none';
+    document.getElementById('winBox').style.display='block';
+  } catch(ex) {
+    err.textContent='Failed to send. Please email LiamsSites@proton.me directly. ('+ex.message+')';
+    err.style.display='block'; btn.disabled=false; btn.textContent='Send Booking Request →';
+  }
+});
+
+/* ════════════════════════════════════════════════════════
+   INBOX — reads Gmail for emails from LiamsSites
+════════════════════════════════════════════════════════ */
+function openInbox() {
+  document.getElementById('inboxOverlay').classList.add('open');
+  loadInbox();
+}
+function closeInbox() {
+  document.getElementById('inboxOverlay').classList.remove('open');
+}
+async function loadInbox() {
+  const list = document.getElementById('inboxList');
+  list.innerHTML = '<div class="inbox-loading">Loading…</div>';
+  if (!gToken) { list.innerHTML='<div class="inbox-empty">Sign in first to see your emails.</div>'; return; }
+  try {
+    // search for emails from LiamsSites@proton.me
+    const q = encodeURIComponent('from:LiamsSites@proton.me');
+    const r = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages?q=${q}&maxResults=15`,{
+      headers:{Authorization:'Bearer '+gToken}
+    });
+    if (!r.ok) throw new Error('API '+r.status);
+    const data = await r.json();
+    if (!data.messages || data.messages.length===0) {
+      list.innerHTML='<div class="inbox-empty">No emails from Liam yet.<br/>Check back after you book!</div>'; return;
+    }
+    list.innerHTML='';
+    for (const m of data.messages) {
+      const mr = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${m.id}?format=metadata&metadataHeaders=Subject&metadataHeaders=From&metadataHeaders=Date`,{
+        headers:{Authorization:'Bearer '+gToken}
+      });
+      const md = await mr.json();
+      const headers = md.payload?.headers || [];
+      const subj = headers.find(h=>h.name==='Subject')?.value || '(no subject)';
+      const date = headers.find(h=>h.name==='Date')?.value || '';
+      const d = date ? new Date(date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+      const div = document.createElement('div');
+      div.className='inbox-thread';
+      div.innerHTML=`<div class="inbox-thread-from">Liam's Websites</div><div class="inbox-thread-subj">${subj}</div><div class="inbox-thread-date">${d}</div>`;
+      div.onclick = () => openEmailThread(m.id, subj);
+      list.appendChild(div);
+    }
+  } catch(ex) {
+    list.innerHTML='<div class="inbox-empty">Could not load emails. Try signing in again.</div>';
+    console.error(ex);
+  }
+}
+async function openEmailThread(id, subj) {
+  const list = document.getElementById('inboxList');
+  list.innerHTML='<div class="inbox-loading">Loading email…</div>';
+  try {
+    const r = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=full`,{
+      headers:{Authorization:'Bearer '+gToken}
+    });
+    const data = await r.json();
+    // decode body
+    function decodeBody(parts) {
+      if (!parts) return '';
+      for (const p of parts) {
+        if (p.mimeType==='text/html' && p.body?.data) return atob(p.body.data.replace(/-/g,'+').replace(/_/g,'/'));
+        if (p.parts) { const r=decodeBody(p.parts); if(r) return r; }
+      }
+      if (data.payload?.body?.data) return atob(data.payload.body.data.replace(/-/g,'+').replace(/_/g,'/'));
+      return '<p>Could not decode email body.</p>';
+    }
+    const body = decodeBody(data.payload?.parts) || decodeBody([data.payload]);
+    list.innerHTML=`
+      <div style="padding:.75rem 0;display:flex;align-items:center;gap:.5rem">
+        <button onclick="loadInbox()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--dim)">←</button>
+        <strong style="font-size:.9rem">${subj}</strong>
+      </div>
+      <div style="font-size:.85rem;line-height:1.65;padding:.5rem 0;overflow-x:auto">${body}</div>`;
+  } catch(ex) {
+    list.innerHTML='<div class="inbox-empty">Could not load email.</div>';
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   LIVE CHAT
+════════════════════════════════════════════════════════ */
+let ws=null, chatSessionId=localStorage.getItem('lw_chat_sid')||null, chatOpen=false, unreadCount=0;
+
+function getWsUrl() {
+  const proto = location.protocol==='https:'?'wss':'ws';
+  return proto+'://'+location.host;
+}
+
+function initChat() {
+  if (ws && ws.readyState===WebSocket.OPEN) return;
+  try {
+    ws = new WebSocket(getWsUrl());
+    ws.onopen = () => {
+      const chatUser = userName || localStorage.getItem('lw_chat_name') || 'Visitor';
+      ws.send(JSON.stringify({ type:'user_join', sessionId: chatSessionId, name: chatUser, email: senderEmail||'' }));
+    };
+    ws.onmessage = (e) => {
+      const msg = JSON.parse(e.data);
+      if (msg.type==='joined') {
+        chatSessionId = msg.sessionId;
+        localStorage.setItem('lw_chat_sid', chatSessionId);
+        if (msg.history && msg.history.length>0) {
+          msg.history.forEach(m => appendChatBubble(m.from, m.text, false));
+        } else {
+          appendChatSystem('👋 Hi! How can we help you today?');
+        }
+        showChatMessages();
+      }
+      if (msg.type==='msg') {
+        appendChatBubble(msg.from, msg.text, true);
+        if (msg.from==='admin' && !chatOpen) { unreadCount++; showChatBadge(); }
+      }
+    };
+    ws.onclose = () => { ws=null; };
+    ws.onerror = () => { ws=null; };
+  } catch(e) { console.log('Chat unavailable'); }
+}
+
+function showChatMessages() {
+  document.getElementById('chatNameForm').style.display='none';
+  document.getElementById('chatMsgs').style.display='flex';
+  document.getElementById('chatInputRow').style.display='flex';
+}
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+  if (chatOpen) {
+    unreadCount=0; hideChatBadge();
+    if (!ws || ws.readyState!==WebSocket.OPEN) {
+      const savedName = localStorage.getItem('lw_chat_name');
+      if (chatSessionId || savedName || userName) {
+        initChat();
+      }
+      // else show name form
+    }
+    setTimeout(()=>{ const el=document.getElementById('chatMsgs'); if(el) el.scrollTop=el.scrollHeight; },100);
+  }
+}
+
+function startChat() {
+  const nameInput = document.getElementById('chatNameInput').value.trim();
+  if (!nameInput) { document.getElementById('chatNameInput').focus(); return; }
+  localStorage.setItem('lw_chat_name', nameInput);
+  initChat();
+}
+
+function appendChatBubble(from, text, scroll) {
+  const msgs = document.getElementById('chatMsgs');
+  if (!msgs) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'chat-bubble-wrap '+(from==='user'?'user':'admin');
+  wrap.innerHTML = `<div class="cbubble">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+  msgs.appendChild(wrap);
+  if (scroll) msgs.scrollTop = msgs.scrollHeight;
+}
+
+function appendChatSystem(text) {
+  const msgs = document.getElementById('chatMsgs');
+  if (!msgs) return;
+  const div = document.createElement('div');
+  div.className='chat-system'; div.textContent=text;
+  msgs.appendChild(div);
+}
+
+function sendChatMsg() {
+  const input = document.getElementById('chatInput');
+  const text  = input.value.trim();
+  if (!text) return;
+  if (!ws || ws.readyState!==WebSocket.OPEN) { initChat(); setTimeout(()=>sendChatMsg(),500); return; }
+  ws.send(JSON.stringify({ type:'user_msg', text }));
+  input.value='';
+}
+
+function showChatBadge() {
+  const b = document.getElementById('chatBadge');
+  b.textContent = unreadCount; b.style.display='flex';
+}
+function hideChatBadge() {
+  document.getElementById('chatBadge').style.display='none';
+}
+
+/* ════════════════════════════════════════════════════════
+   PWA — Add to Home Screen
+════════════════════════════════════════════════════════ */
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (!localStorage.getItem('lw_install_dismissed') && isMobile()) {
+    document.getElementById('installBanner').style.display='flex';
+  }
+});
+
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('installBanner').style.display='none';
+});
+
+function dismissInstall() {
+  localStorage.setItem('lw_install_dismissed','1');
+  document.getElementById('installBanner').style.display='none';
+}
+
+/* ════════════════════════════════════════════════════════
+   ON LOAD
+════════════════════════════════════════════════════════ */
+window.addEventListener('load', () => {
+  // Check OAuth redirect callback
+  if (!handleOAuthCallback()) {
+    // Try restore from localStorage
+    if (loadAuth()) {
+      activateForm(userName || senderEmail, senderEmail);
+    }
+  }
+  // Register service worker for PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
+  }
+});
 </script>
 </body>
 </html>
