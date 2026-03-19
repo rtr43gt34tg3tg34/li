@@ -929,11 +929,23 @@ async function openEmailThread(id, subj) {
 
       if (msg.type === 'ticket_closed') {
         chatState = 'CLOSED';
-        addBubble('system', '🔒 This chat has been closed. Thanks for reaching out!');
-        var inp  = el('chatInput');
-        var send = el('chatSendBtn');
-        if (inp)  { inp.disabled = true; inp.placeholder = 'Chat closed'; }
-        if (send) send.disabled = true;
+        addBubble('system', 'Redirecting you to start a new chat...');
+        // After 2s, wipe session and reset to name form so they can open fresh
+        setTimeout(function() {
+          // Clear stored session
+          localStorage.removeItem('lw_chat_sid');
+          localStorage.removeItem('lw_chat_name');
+          chatSid   = null;
+          chatState = 'IDLE';
+          chatJoined = false;
+          if (ws) { ws.close(); ws = null; }
+          // Reset UI
+          var msgs = el('chatMsgs');
+          if (msgs) msgs.innerHTML = '';
+          showSection('name');
+          var nameInput = el('chatNameInput');
+          if (nameInput) nameInput.value = '';
+        }, 2500);
         return;
       }
     };
