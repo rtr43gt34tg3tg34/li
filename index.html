@@ -466,7 +466,7 @@
 </div>
 
 <!-- CHAT WIDGET -->
-<button id="chatBubble" onclick="toggleChat()" aria-label="Open chat">
+<button id="chatBubble" aria-label="Open chat">
   💬
   <div id="chatBadge">1</div>
 </button>
@@ -476,7 +476,7 @@
       <div class="chat-head-dot"></div>
       <div><h4>Support Chat</h4><p>We reply fast!</p></div>
     </div>
-    <button class="chat-close-btn" onclick="toggleChat()">×</button>
+    <button class="chat-close-btn" id="chatCloseBtn">×</button>
   </div>
   <div id="chatBody">
     <!-- name form shown first -->
@@ -1023,4 +1023,24 @@ function dismissInstall() {
 /* ════════════════════════════════════════════════════════
    ON LOAD
 ════════════════════════════════════════════════════════ */
-window.addEventListener('load', () =>
+window.addEventListener('load', () => {
+  // Attach chat buttons safely here so they always work
+  const bubble = document.getElementById('chatBubble');
+  const closeB = document.getElementById('chatCloseBtn');
+  if (bubble) bubble.addEventListener('click', toggleChat);
+  if (closeB) closeB.addEventListener('click', toggleChat);
+
+  // Check OAuth redirect callback
+  if (!handleOAuthCallback()) {
+    if (loadAuth()) {
+      activateForm(userName || senderEmail, senderEmail);
+    }
+  }
+  // Register service worker for PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
+});
+</script>
+</body>
+</html>
