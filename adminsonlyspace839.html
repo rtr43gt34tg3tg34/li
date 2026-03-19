@@ -394,43 +394,28 @@
   async function betterUp() {
     const input = document.getElementById('adminInput');
     const btn   = document.getElementById('betterUpBtn');
-    if (!input || !input.value.trim()) {
-      input?.focus(); return;
-    }
+    if (!input || !input.value.trim()) { input?.focus(); return; }
     const original = input.value.trim();
     btn.disabled = true;
     btn.classList.add('loading');
     btn.textContent = '✨ Improving…';
-
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res  = await fetch('/better-up', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 300,
-          messages: [{
-            role: 'user',
-            content: `You are a professional customer support assistant for "Liam's Websites", a web design service. 
-Rewrite the following support message to be more professional, clear, friendly and polished — while keeping the exact same meaning and intent. 
-Keep it concise. Return ONLY the rewritten message with no explanation, quotes, or preamble.
-
-Message to improve: ${original}`
-          }]
-        })
+        body: JSON.stringify({ text: original })
       });
       const data = await res.json();
-      const improved = data?.content?.[0]?.text?.trim();
-      if (improved) {
-        input.value = improved;
+      if (data.improved) {
+        input.value = data.improved;
         input.focus();
-        // flash the input to show it changed
         input.style.borderColor = '#15803d';
         input.style.background  = '#f0fdf4';
         setTimeout(() => { input.style.borderColor=''; input.style.background=''; }, 1200);
+      } else {
+        alert('Better Up failed: ' + (data.error || 'Unknown error'));
       }
     } catch(err) {
-      console.error('Better Up failed:', err);
       alert('Better Up failed. Check your connection.');
     } finally {
       btn.disabled = false;
