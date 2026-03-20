@@ -1,616 +1,788 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Liam's Websites — Professional Sites Under $200</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#fafaf9"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="Liam's Websites"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="apple-touch-icon" href="/icon-192.png"/>
+<title>Liam's Websites — Professional Sites Under $200</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:        #fafaf9;
+  --bg2:       #f3f2ef;
+  --surface:   #ffffff;
+  --border:    #e8e5df;
+  --ink:       #1a1814;
+  --ink2:      #6b6760;
+  --ink3:      #aaa89f;
+  --accent:    #1a56db;
+  --accent-bg: #eef3ff;
+  --accent-h:  #1447c0;
+  --green:     #0d7f4f;
+  --green-bg:  #ecfdf4;
+  --red:       #d93232;
+  --nav:       60px;
+  --r:         12px;
+  --pill:      999px;
+  --tr:        .2s cubic-bezier(.4,0,.2,1);
+}
+[data-theme="dark"] {
+  --bg:        #111110;
+  --bg2:       #1a1917;
+  --surface:   #222220;
+  --border:    #2e2c29;
+  --ink:       #f0ede7;
+  --ink2:      #9a9690;
+  --ink3:      #5a5852;
+  --accent:    #5b8aff;
+  --accent-bg: #1a2040;
+  --accent-h:  #7ba0ff;
+  --green:     #34c87a;
+  --green-bg:  #0d2318;
+  --red:       #f06060;
+}
 
-    :root {
-      --ink:       #111110;
-      --white:     #ffffff;
-      --cream:     #f9f8f6;
-      --mist:      #f2f1ee;
-      --border:    #e8e6e1;
-      --mid:       #9b9890;
-      --dim:       #6b6966;
-      --blue:      #1d4ed8;
-      --blue-soft: #eff4ff;
-      --green:     #16a34a;
-      --red:       #dc2626;
-      --r:         12px;
-      --pill:      999px;
-    }
+html{scroll-behavior:smooth}
+body{
+  font-family:'Manrope',sans-serif;
+  background:var(--bg);color:var(--ink);
+  line-height:1.6;overflow-x:hidden;
+  transition:background var(--tr),color var(--tr);
+}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
-    html { scroll-behavior: smooth; }
+/* ─── THEME TOGGLE ─── */
+.tog{
+  width:34px;height:34px;border-radius:var(--pill);
+  border:1.5px solid var(--border);background:var(--surface);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:border-color var(--tr),background var(--tr);flex-shrink:0;
+}
+.tog:hover{border-color:var(--ink3)}
+.tog svg{width:15px;height:15px;stroke:var(--ink2);fill:none;stroke-width:1.8;stroke-linecap:round;transition:stroke var(--tr)}
+.i-sun{display:block}.i-moon{display:none}
+[data-theme="dark"] .i-sun{display:none}[data-theme="dark"] .i-moon{display:block}
 
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: var(--white);
-      color: var(--ink);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  height:var(--nav);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(1.25rem,5vw,4rem);
+  background:color-mix(in srgb,var(--bg) 85%,transparent);
+  backdrop-filter:blur(24px) saturate(160%);
+  border-bottom:1px solid var(--border);
+  transition:background var(--tr),border-color var(--tr);
+}
+.logo{
+  font-family:'Instrument Serif',serif;font-size:1.3rem;font-style:italic;
+  color:var(--ink);text-decoration:none;letter-spacing:-.01em;
+  transition:color var(--tr);
+}
+.logo b{font-style:normal;color:var(--accent);font-weight:400;transition:color var(--tr)}
+.nav-links{display:flex;gap:.25rem;list-style:none}
+.nav-links a{
+  font-size:.8rem;font-weight:600;color:var(--ink3);
+  text-decoration:none;padding:.38rem .75rem;border-radius:var(--pill);
+  transition:color var(--tr),background var(--tr);
+}
+.nav-links a:hover{color:var(--ink);background:var(--bg2)}
+.nav-r{display:flex;align-items:center;gap:.5rem}
+#inboxNavBtn{
+  display:none;background:var(--surface);color:var(--ink2);
+  border:1.5px solid var(--border);padding:.32rem .85rem;border-radius:var(--pill);
+  font-size:.75rem;font-weight:600;cursor:pointer;font-family:'Manrope',sans-serif;
+  transition:border-color var(--tr),color var(--tr),background var(--tr);
+}
+#inboxNavBtn:hover{border-color:var(--ink3)}
+.nav-cta{
+  background:var(--accent);color:#fff;
+  padding:.42rem 1.15rem;border-radius:var(--pill);
+  font-size:.78rem;font-weight:700;letter-spacing:.01em;
+  text-decoration:none;border:none;cursor:pointer;font-family:'Manrope',sans-serif;
+  transition:background var(--tr),transform var(--tr),box-shadow var(--tr);
+}
+.nav-cta:hover{background:var(--accent-h);transform:translateY(-1px);box-shadow:0 4px 16px color-mix(in srgb,var(--accent) 30%,transparent)}
 
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--cream); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+/* ─── HERO ─── */
+.hero{
+  min-height:100svh;
+  padding:calc(var(--nav) + 80px) clamp(1.25rem,5vw,4rem) 80px;
+  display:grid;grid-template-columns:1.05fr .95fr;
+  align-items:center;gap:5rem;position:relative;overflow:hidden;
+}
+/* subtle grid texture */
+.hero::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:48px 48px;
+  opacity:.35;
+  -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);
+  transition:opacity var(--tr);
+}
+[data-theme="dark"] .hero::before{opacity:.15}
+.hero-l,.hero-r{position:relative;z-index:1}
 
-    /* ─────────────────────────── NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: 62px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 clamp(1.25rem, 5vw, 4rem);
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(18px) saturate(180%);
-      border-bottom: 1px solid var(--border);
-    }
-    .logo {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic; font-size: 1.3rem;
-      color: var(--ink); text-decoration: none;
-    }
-    .logo b { color: var(--blue); font-style: normal; font-weight: 400; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.875rem; font-weight: 500; color: var(--dim);
-      text-decoration: none; transition: color .18s;
-    }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta {
-      background: var(--ink); color: var(--white);
-      padding: .52rem 1.3rem; border-radius: var(--pill);
-      font-size: .875rem; font-weight: 600;
-      text-decoration: none; border: none; cursor: pointer;
-      font-family: 'Outfit', sans-serif;
-      transition: background .18s, transform .14s;
-    }
-    .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
+.status-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1.5px solid var(--border);border-radius:var(--pill);
+  background:var(--surface);padding:5px 14px;
+  font-size:.72rem;font-weight:700;color:var(--green);
+  margin-bottom:2rem;letter-spacing:.02em;
+  transition:background var(--tr),border-color var(--tr),color var(--tr);
+}
+.live-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--green);
+  animation:ping 2.2s infinite;flex-shrink:0;
+  transition:background var(--tr);
+}
+@keyframes ping{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--green) 50%,transparent)}60%{box-shadow:0 0 0 6px transparent}}
 
-    /* ─────────────────────────── HERO */
-    .hero {
-      min-height: 100svh;
-      padding: 105px clamp(1.25rem, 5vw, 4rem) 80px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 4rem;
-      position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 60% 60% at 80% 40%, #dce8ff 0%, transparent 65%),
-        radial-gradient(ellipse 30% 40% at 10% 90%, #eef4ff 0%, transparent 60%);
-    }
-    .hero::after {
-      content: '';
-      position: absolute; inset: 0; z-index: 0; opacity: .5;
-      background-image: radial-gradient(circle, #ccc8c0 1px, transparent 1px);
-      background-size: 28px 28px;
-      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 80% 50%, black 0%, transparent 70%);
-      mask-image: radial-gradient(ellipse 70% 80% at 80% 50%, black 0%, transparent 70%);
-    }
-    .hero-left, .hero-right { position: relative; z-index: 1; }
+h1{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(3rem,5.5vw,5.2rem);
+  line-height:1.04;letter-spacing:-.03em;
+  margin-bottom:1.5rem;
+  animation:up .65s ease both;
+}
+h1 em{font-style:italic;color:var(--accent);transition:color var(--tr)}
 
-    .badge {
-      display: inline-flex; align-items: center; gap: 7px;
-      border: 1px solid var(--border); border-radius: var(--pill);
-      background: var(--white); padding: 5px 14px;
-      font-size: .775rem; font-weight: 600; color: var(--blue);
-      margin-bottom: 1.75rem;
-      animation: rise .7s ease both;
-    }
-    .badge-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--green);
-      animation: glow 2s infinite;
-    }
-    @keyframes glow {
-      0%,100% { box-shadow: 0 0 0 2px rgba(22,163,74,.25); }
-      50%      { box-shadow: 0 0 0 5px rgba(22,163,74,.1); }
-    }
+.hero-sub{
+  font-size:.98rem;color:var(--ink2);max-width:430px;
+  line-height:1.82;margin-bottom:2.5rem;font-weight:400;
+  animation:up .65s .1s ease both;
+  transition:color var(--tr);
+}
+.hero-btns{display:flex;gap:.65rem;flex-wrap:wrap;animation:up .65s .2s ease both}
+.btn{
+  padding:.75rem 1.75rem;border-radius:var(--pill);
+  font-family:'Manrope',sans-serif;font-size:.82rem;font-weight:700;
+  text-decoration:none;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:background var(--tr),border-color var(--tr),color var(--tr),transform var(--tr),box-shadow var(--tr);
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 28%,transparent)}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--ink2);transform:translateY(-2px)}
 
-    h1 {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(2.8rem, 5.5vw, 5rem);
-      line-height: 1.07; letter-spacing: -.02em;
-      margin-bottom: 1.5rem;
-      animation: rise .7s .1s ease both;
-    }
-    h1 .accent { font-style: italic; color: var(--blue); }
+.hero-proof{
+  display:flex;gap:2.5rem;margin-top:3.5rem;
+  padding-top:2.5rem;border-top:1.5px solid var(--border);
+  animation:up .65s .3s ease both;flex-wrap:wrap;
+  transition:border-color var(--tr);
+}
+.proof-n{font-family:'Instrument Serif',serif;font-size:2.2rem;line-height:1;font-style:italic;color:var(--ink);transition:color var(--tr)}
+.proof-l{font-size:.7rem;color:var(--ink3);margin-top:4px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;transition:color var(--tr)}
 
-    .hero-sub {
-      font-size: 1.05rem; color: var(--dim); max-width: 440px;
-      line-height: 1.72; margin-bottom: 2.25rem;
-      animation: rise .7s .2s ease both;
-    }
-    .hero-actions {
-      display: flex; gap: .875rem; flex-wrap: wrap;
-      animation: rise .7s .3s ease both;
-    }
-    .btn {
-      padding: .8rem 1.85rem; border-radius: var(--pill);
-      font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 600;
-      text-decoration: none; border: none; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 6px;
-      transition: background .18s, border-color .18s, transform .14s, box-shadow .18s;
-    }
-    .btn-solid { background: var(--ink); color: var(--white); }
-    .btn-solid:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(29,78,216,.22); }
-    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
-    .btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
+/* hero right — glass card */
+.hero-card{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 2px 40px color-mix(in srgb,var(--ink) 6%,transparent);
+  animation:up .65s .15s ease both;
+  transition:background var(--tr),border-color var(--tr),box-shadow var(--tr);
+}
+.hc-head{
+  padding:1.5rem 1.75rem 1.25rem;
+  border-bottom:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  transition:border-color var(--tr);
+}
+.hc-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);transition:color var(--tr)}
+.hc-price{font-family:'Instrument Serif',serif;font-size:2.2rem;font-style:italic;color:var(--accent);transition:color var(--tr)}
+.hc-row{
+  display:flex;align-items:center;gap:.9rem;
+  padding:.95rem 1.75rem;border-bottom:1px solid var(--border);
+  transition:background var(--tr),border-color var(--tr);cursor:default;
+}
+.hc-row:last-of-type{border-bottom:none}
+.hc-row:hover{background:var(--bg2)}
+.hc-ico{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background var(--tr);
+}
+.hc-ico svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke var(--tr)}
+.hc-title{font-size:.85rem;font-weight:600}
+.hc-sub{font-size:.7rem;color:var(--ink3);margin-top:1px;transition:color var(--tr)}
+.hc-btn{
+  display:block;margin:1.25rem 1.75rem 1.75rem;text-align:center;padding:.82rem;
+  border-radius:var(--pill);background:var(--ink);color:var(--bg);
+  border:none;cursor:pointer;font-family:'Manrope',sans-serif;font-size:.82rem;font-weight:700;
+  transition:background var(--tr),color var(--tr),transform var(--tr);
+}
+.hc-btn:hover{background:var(--accent);transform:translateY(-1px)}
 
-    .hero-stats {
-      display: flex; gap: 2.5rem; margin-top: 3.5rem;
-      animation: rise .7s .4s ease both;
-    }
-    .hstat-v {
-      font-family: 'Instrument Serif', serif;
-      font-size: 2.2rem; line-height: 1;
-    }
-    .hstat-l { font-size: .775rem; color: var(--mid); margin-top: 4px; font-weight: 500; }
+/* ─── MARQUEE ─── */
+.marquee{
+  background:var(--ink);padding:.6rem 0;overflow:hidden;white-space:nowrap;
+  transition:background var(--tr);
+}
+.marquee-track{display:inline-flex;gap:0;animation:scroll 28s linear infinite}
+.m-item{
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);padding:0 1.5rem;flex-shrink:0;
+  display:flex;align-items:center;gap:1.5rem;transition:color var(--tr);
+}
+.m-item::after{content:'·';opacity:.5;font-size:.5rem}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    /* floating card */
-    .hero-card {
-      background: var(--white); border: 1.5px solid var(--border);
-      border-radius: 20px; padding: 2rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,.09);
-      animation: rise .7s .2s ease both;
-    }
-    .hcard-head {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 1.5rem;
-    }
-    .hcard-lbl { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
-    .hcard-price { font-family: 'Instrument Serif', serif; font-size: 2.4rem; line-height: 1; color: var(--blue); }
-    .hcard-row {
-      display: flex; align-items: center; gap: 10px;
-      padding: .72rem 0; border-top: 1px solid var(--mist);
-      font-size: .875rem; font-weight: 500;
-    }
-    .hcard-row-sub { font-size: .75rem; color: var(--mid); }
-    .hcard-btn {
-      margin-top: 1.5rem; width: 100%;
-      padding: .85rem; border-radius: var(--pill);
-      background: var(--blue); color: var(--white);
-      border: none; font-family: 'Outfit', sans-serif;
-      font-size: .9rem; font-weight: 700; cursor: pointer;
-      transition: opacity .18s, transform .14s;
-    }
-    .hcard-btn:hover { opacity: .88; transform: translateY(-1px); }
+/* ─── SECTIONS ─── */
+.sec{padding:88px clamp(1.25rem,5vw,4rem)}
+.eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;transition:color var(--tr)}
+.sec-h{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2rem,3.8vw,3rem);
+  line-height:1.06;letter-spacing:-.025em;margin-bottom:.65rem;
+}
+.sec-sub{color:var(--ink2);font-size:.9rem;max-width:400px;line-height:1.78;transition:color var(--tr)}
 
-    /* ─────────────────────────── SECTIONS */
-    section { padding: 90px clamp(1.25rem, 5vw, 4rem); }
-    .sec-lbl { font-size: .73rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: .75rem; }
-    .sec-h {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(2rem, 3.8vw, 2.9rem);
-      line-height: 1.1; letter-spacing: -.02em; margin-bottom: .75rem;
-    }
-    .sec-sub { color: var(--dim); font-size: .975rem; max-width: 440px; line-height: 1.7; }
+/* ─── PROCESS ─── */
+#how{background:var(--surface);border-top:1.5px solid var(--border);border-bottom:1.5px solid var(--border);transition:background var(--tr),border-color var(--tr)}
+.how-layout{display:grid;grid-template-columns:300px 1fr;gap:6rem;align-items:start}
+.how-sticky{position:sticky;top:calc(var(--nav)+2rem)}
+.steps{display:flex;flex-direction:column;gap:0}
+.step{
+  display:grid;grid-template-columns:52px 1fr;gap:1rem;
+  padding:1.75rem 0;border-bottom:1.5px solid var(--border);
+  transition:border-color var(--tr);
+}
+.step:first-child{padding-top:0}
+.step:last-child{border-bottom:none;padding-bottom:0}
+.step-n{
+  width:36px;height:36px;border-radius:var(--pill);
+  border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:.72rem;font-weight:700;color:var(--ink3);
+  transition:border-color var(--tr),background var(--tr),color var(--tr);
+}
+.step:hover .step-n{background:var(--accent);border-color:var(--accent);color:#fff}
+.step h3{font-size:.9rem;font-weight:700;margin-bottom:.3rem}
+.step p{font-size:.82rem;color:var(--ink2);line-height:1.72;transition:color var(--tr)}
 
-    /* ─────────────────────────── PROCESS */
-    #how { background: var(--cream); }
-    .steps {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden;
-      margin-top: 3rem;
-    }
-    .step { padding: 2.25rem 1.75rem; background: var(--white); }
-    .step + .step { border-left: 1.5px solid var(--border); }
-    .step-n {
-      font-family: 'Instrument Serif', serif; font-style: italic;
-      font-size: 3.5rem; color: var(--mist); line-height: 1; margin-bottom: 1rem;
-    }
-    .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; }
-    .step p { font-size: .85rem; color: var(--dim); line-height: 1.65; }
+/* ─── PRICING ─── */
+#pricing{background:var(--bg);transition:background var(--tr)}
+.pricing-layout{display:grid;grid-template-columns:300px 1fr;gap:6rem;align-items:start}
+.pricing-sticky{position:sticky;top:calc(var(--nav)+2rem)}
+.pcards{display:flex;flex-direction:column;gap:1rem}
+.pcard{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:16px;padding:1.75rem 2rem;
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:1.5rem;
+  position:relative;cursor:default;
+  transition:box-shadow var(--tr),transform var(--tr),background var(--tr),border-color var(--tr);
+}
+.pcard:hover{box-shadow:0 8px 32px color-mix(in srgb,var(--ink) 8%,transparent);transform:translateX(6px)}
+.pcard.hot{background:var(--ink);border-color:var(--ink)}
+[data-theme="dark"] .pcard.hot{background:var(--accent);border-color:var(--accent)}
+.pcard-l{}
+.ptier{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.4rem;transition:color var(--tr)}
+.pcard.hot .ptier{color:rgba(255,255,255,.45)}
+.pamount{font-family:'Instrument Serif',serif;font-size:3rem;line-height:1;letter-spacing:-.025em;color:var(--ink);transition:color var(--tr)}
+.pamount sup{font-size:1.3rem;vertical-align:super;font-weight:400}
+.pcard.hot .pamount{color:#fff}
+.pdesc{font-size:.78rem;color:var(--ink2);margin-top:.35rem;line-height:1.6;transition:color var(--tr)}
+.pcard.hot .pdesc{color:rgba(255,255,255,.45)}
+.pcard-r{display:flex;flex-direction:column;align-items:flex-end;gap:.875rem}
+.pbadge{background:var(--accent);color:#fff;font-size:.6rem;font-weight:700;padding:3px 10px;border-radius:var(--pill);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.pcard.hot .pbadge{background:rgba(255,255,255,.2)}
+[data-theme="dark"] .pcard.hot .pbadge{background:rgba(255,255,255,.15)}
+.pfeats{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:flex-end;max-width:230px}
+.pfeat{
+  font-size:.7rem;font-weight:600;color:var(--ink2);
+  background:var(--bg2);border-radius:var(--pill);
+  padding:3px 10px;display:flex;align-items:center;gap:4px;
+  transition:background var(--tr),color var(--tr);
+}
+.pcard.hot .pfeat{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
+.pfeat svg{width:9px;height:9px;stroke:var(--green);fill:none;stroke-width:2.5;stroke-linecap:round;flex-shrink:0;transition:stroke var(--tr)}
+.pcard.hot .pfeat svg{stroke:#7cf5b0}
+.pcta{
+  padding:.62rem 1.4rem;border-radius:var(--pill);
+  font-family:'Manrope',sans-serif;font-size:.75rem;font-weight:700;
+  border:none;cursor:pointer;white-space:nowrap;
+  transition:background var(--tr),color var(--tr),transform var(--tr);
+}
+.pcard:not(.hot) .pcta{background:var(--ink);color:var(--bg)}
+.pcard:not(.hot) .pcta:hover{background:var(--accent)}
+.pcard.hot .pcta{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.pcard.hot .pcta:hover{background:rgba(255,255,255,.28)}
 
-    /* ─────────────────────────── PRICING */
-    #pricing { background: var(--white); }
-    .price-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem; margin-top: 3rem;
-    }
-    .pcard {
-      border: 1.5px solid var(--border); border-radius: 16px;
-      padding: 2.25rem 1.75rem; position: relative;
-      transition: box-shadow .2s, transform .2s;
-    }
-    .pcard:hover { box-shadow: 0 16px 50px rgba(0,0,0,.1); transform: translateY(-4px); }
-    .pcard.hot { background: var(--ink); color: var(--white); border-color: var(--ink); }
-    .pbadge {
-      position: absolute; top: 1.25rem; right: 1.25rem;
-      background: var(--blue); color: var(--white);
-      font-size: .68rem; font-weight: 800; padding: 3px 10px;
-      border-radius: var(--pill); letter-spacing: .07em; text-transform: uppercase;
-    }
-    .ptier { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: .75rem; }
-    .pcard.hot .ptier { color: #666; }
-    .pamount { font-family: 'Instrument Serif', serif; font-size: 3.5rem; line-height: 1; margin-bottom: .25rem; }
-    .pamount sup { font-size: 1.6rem; vertical-align: super; }
-    .pdesc { font-size: .85rem; color: var(--dim); margin-bottom: 1.75rem; line-height: 1.6; }
-    .pcard.hot .pdesc { color: #999; }
-    .pfeats { list-style: none; margin-bottom: 2rem; }
-    .pfeat {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: .875rem; color: var(--dim);
-      padding: .45rem 0; border-top: 1px solid var(--border);
-    }
-    .pcard.hot .pfeat { border-color: #2a2a2a; color: #aaa; }
-    .pfeat::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
-    .pcard.hot .pfeat::before { color: #4ade80; }
-    .pcta {
-      display: block; width: 100%; text-align: center;
-      text-decoration: none; padding: .8rem; border-radius: var(--pill);
-      font-size: .9rem; font-weight: 700; transition: all .18s;
-      font-family: 'Outfit', sans-serif; border: none; cursor: pointer;
-    }
-    .pcard:not(.hot) .pcta { background: var(--ink); color: var(--white); }
-    .pcard:not(.hot) .pcta:hover { background: var(--blue); }
-    .pcard.hot .pcta { background: var(--white); color: var(--ink); }
-    .pcard.hot .pcta:hover { background: var(--blue); color: var(--white); }
+/* ─── WHO ─── */
+#for{background:var(--surface);border-top:1.5px solid var(--border);border-bottom:1.5px solid var(--border);transition:background var(--tr),border-color var(--tr)}
+.for-layout{display:grid;grid-template-columns:300px 1fr;gap:6rem;align-items:start}
+.for-sticky{position:sticky;top:calc(var(--nav)+2rem)}
+.for-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1.5px solid var(--border);border-radius:16px;overflow:hidden}
+.for-card{
+  background:var(--surface);padding:1.5rem;
+  transition:background var(--tr);cursor:default;
+}
+.for-card:hover{background:var(--bg)}
+.for-ico{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--accent-bg);
+  display:flex;align-items:center;justify-content:center;margin-bottom:.875rem;
+  transition:background var(--tr);
+}
+.for-card:hover .for-ico{background:color-mix(in srgb,var(--accent-bg) 60%,var(--accent) 20%)}
+.for-ico svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke var(--tr)}
+.for-card h3{font-size:.88rem;font-weight:700;margin-bottom:.25rem}
+.for-card p{font-size:.75rem;color:var(--ink3);line-height:1.6;transition:color var(--tr)}
 
-    /* ─────────────────────────── EXAMPLES */
-    #examples { background: var(--cream); }
-    .ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
-    .excard {
-      background: var(--white); border: 1.5px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-      transition: box-shadow .2s, transform .2s;
-    }
-    .excard:hover { box-shadow: 0 14px 40px rgba(0,0,0,.09); transform: translateY(-4px); }
-    .exthumb { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
-    .exthumb.a { background: linear-gradient(135deg,#dbeafe,#bfdbfe); }
-    .exthumb.b { background: linear-gradient(135deg,#dcfce7,#bbf7d0); }
-    .exthumb.c { background: linear-gradient(135deg,#fef9c3,#fef08a); }
-    .exbody { padding: 1.25rem 1.5rem; }
-    .exbody h3 { font-size: .95rem; font-weight: 600; margin-bottom: 4px; }
-    .exbody p { font-size: .8rem; color: var(--mid); }
-    .extag {
-      display: inline-block; margin-top: 8px;
-      font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
-      color: var(--blue); background: var(--blue-soft); padding: 3px 8px; border-radius: 4px;
-    }
+/* ─── BOOKING ─── */
+#book{background:var(--bg);transition:background var(--tr)}
+.book-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:start;max-width:1100px;margin:0 auto}
+.book-l .sec-sub{margin-bottom:2.25rem;max-width:100%}
+.tlist{display:flex;flex-direction:column;gap:.75rem}
+.titem{
+  display:flex;align-items:flex-start;gap:.875rem;
+  padding:.875rem 1rem;
+  background:var(--surface);border:1.5px solid var(--border);border-radius:12px;
+  transition:background var(--tr),border-color var(--tr),box-shadow var(--tr);cursor:default;
+}
+.titem:hover{border-color:var(--accent);box-shadow:0 2px 12px color-mix(in srgb,var(--accent) 10%,transparent)}
+.ticon{
+  width:32px;height:32px;flex-shrink:0;border-radius:8px;
+  background:var(--accent-bg);display:flex;align-items:center;justify-content:center;
+  transition:background var(--tr);
+}
+.ticon svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke var(--tr)}
+.titem h4{font-size:.83rem;font-weight:700;margin-bottom:2px}
+.titem p{font-size:.75rem;color:var(--ink3);margin:0;line-height:1.55;transition:color var(--tr)}
 
-    /* ─────────────────────────── BOOKING */
-    #book { background: var(--white); }
-    .book-grid {
-      display: grid; grid-template-columns: 1fr 1.15fr;
-      gap: 5rem; align-items: start; max-width: 1100px; margin: 0 auto;
-    }
-    .book-copy p { color: var(--dim); font-size: .975rem; margin-bottom: 2.25rem; line-height: 1.7; }
-    .trust-list { display: flex; flex-direction: column; gap: 1.25rem; }
-    .titem { display: flex; align-items: flex-start; gap: 12px; }
-    .ticon {
-      width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px;
-      background: var(--blue-soft); display: flex; align-items: center; justify-content: center; font-size: 1rem;
-    }
-    .titem h4 { font-size: .9rem; font-weight: 600; margin-bottom: 2px; }
-    .titem p { font-size: .8rem; color: var(--mid); margin: 0; }
+/* auth bars */
+.abar{
+  display:flex;align-items:center;gap:8px;padding:.7rem .95rem;
+  border-radius:10px;font-size:.8rem;font-weight:600;margin-bottom:1rem;
+  transition:background var(--tr),border-color var(--tr),color var(--tr);
+}
+.abar svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0}
+.abar.warn{background:color-mix(in srgb,var(--accent) 8%,var(--bg));border:1.5px solid color-mix(in srgb,var(--accent) 28%,transparent);color:var(--accent)}
+.abar.ok{background:var(--green-bg);border:1.5px solid color-mix(in srgb,var(--green) 35%,transparent);color:var(--green);display:none}
 
-    /* auth banners */
-    .auth-bar {
-      display: flex; align-items: center; gap: 10px;
-      padding: .8rem 1rem; border-radius: var(--r);
-      font-size: .85rem; font-weight: 500; margin-bottom: 1.25rem;
-    }
-    .auth-bar.warn { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
-    .auth-bar.ok   { background: #f0fdf4; border: 1px solid #86efac; color: #166534; display: none; }
+/* form */
+.form-card{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:2rem;transition:background var(--tr),border-color var(--tr)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:.875rem}
+label{font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink3);transition:color var(--tr)}
+input[type=text],input[type=email],select,textarea{
+  font-family:'Manrope',sans-serif;font-size:.86rem;font-weight:500;
+  padding:.68rem .9rem;border-radius:10px;
+  border:1.5px solid var(--border);background:var(--bg);color:var(--ink);
+  outline:none;width:100%;
+  transition:border-color var(--tr),box-shadow var(--tr),background var(--tr),color var(--tr);
+}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent);background:var(--surface)}
+textarea{resize:vertical;min-height:100px}
+select{cursor:pointer}
+::placeholder{color:var(--ink3)}
+.sl-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.sl-lbl{font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink3);transition:color var(--tr)}
+.sl-val{font-family:'Instrument Serif',serif;font-size:1.6rem;font-style:italic;color:var(--accent);line-height:1;transition:color var(--tr)}
+input[type=range]{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;background:var(--border);cursor:pointer;padding:0;border:none;outline:none;transition:background var(--tr)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 35%,transparent);transition:transform .12s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.sl-ends{display:flex;justify-content:space-between;font-size:.68rem;color:var(--ink3);margin-top:5px;font-weight:600;transition:color var(--tr)}
+.gbtn{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;padding:.78rem;border-radius:10px;background:var(--bg);color:var(--ink2);border:1.5px solid var(--border);font-family:'Manrope',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:border-color var(--tr),color var(--tr),background var(--tr);margin-bottom:.875rem}
+.gbtn:hover{border-color:var(--ink2);color:var(--ink)}
+.sbtn{width:100%;padding:.85rem;border-radius:10px;background:var(--accent);color:#fff;border:none;font-family:'Manrope',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:background var(--tr),transform var(--tr),box-shadow var(--tr)}
+.sbtn:hover:not(:disabled){background:var(--accent-h);transform:translateY(-1px);box-shadow:0 6px 20px color-mix(in srgb,var(--accent) 28%,transparent)}
+.sbtn:disabled{background:var(--border);color:var(--ink3);cursor:not-allowed}
+.fnote{font-size:.7rem;color:var(--ink3);text-align:center;margin-top:.6rem;line-height:1.55;transition:color var(--tr)}
+.ferr{background:color-mix(in srgb,var(--red) 8%,var(--bg));border:1.5px solid color-mix(in srgb,var(--red) 30%,transparent);border-radius:10px;padding:.65rem .9rem;font-size:.8rem;color:var(--red);margin-top:.6rem;display:none}
+.win{display:none;text-align:center;padding:3rem 1rem}
+.win-circle{width:50px;height:50px;border-radius:50%;background:var(--green-bg);border:1.5px solid color-mix(in srgb,var(--green) 35%,transparent);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.win-circle svg{width:20px;height:20px;stroke:var(--green);fill:none;stroke-width:2.2;stroke-linecap:round}
+.win h3{font-family:'Instrument Serif',serif;font-size:1.75rem;font-style:italic;margin-bottom:.4rem}
+.win p{font-size:.85rem;color:var(--ink2);transition:color var(--tr)}
 
-    /* form shell */
-    .form-wrap {
-      background: var(--cream); border: 1.5px solid var(--border);
-      border-radius: 20px; padding: 2.25rem;
-    }
-    .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 1rem; }
-    label { font-size: .8rem; font-weight: 600; }
-    input[type=text], input[type=email], select, textarea {
-      font-family: 'Outfit', sans-serif; font-size: .9rem;
-      padding: .7rem .95rem; border-radius: var(--r);
-      border: 1.5px solid var(--border); background: var(--white);
-      color: var(--ink); outline: none; width: 100%;
-      transition: border-color .18s, box-shadow .18s;
-    }
-    input[type=text]:focus, input[type=email]:focus, select:focus, textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(29,78,216,.1);
-    }
-    textarea { resize: vertical; min-height: 110px; }
-    select { cursor: pointer; }
+/* ─── FOOTER ─── */
+footer{
+  background:var(--ink);padding:2.25rem clamp(1.25rem,5vw,4rem);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  border-top:1.5px solid var(--border);
+  transition:background var(--tr),border-color var(--tr);
+}
+[data-theme="dark"] footer{background:var(--bg2)}
+.flogo{font-family:'Instrument Serif',serif;font-size:1.2rem;font-style:italic;color:#fff;transition:color var(--tr)}
+[data-theme="dark"] .flogo{color:var(--ink)}
+.flogo b{font-style:normal;color:var(--accent);font-weight:400;transition:color var(--tr)}
+footer p{font-size:.75rem;color:rgba(255,255,255,.35);transition:color var(--tr)}
+[data-theme="dark"] footer p{color:var(--ink3)}
+footer a{color:rgba(255,255,255,.35);text-decoration:none;transition:color var(--tr)}
+footer a:hover{color:var(--accent)}
+[data-theme="dark"] footer a{color:var(--ink3)}
 
-    /* slider */
-    .sl-row { display: flex; justify-content: space-between; align-items: baseline; font-size: .8rem; font-weight: 600; margin-bottom: 8px; }
-    .sl-val { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--blue); line-height: 1; }
-    input[type=range] {
-      -webkit-appearance: none; width: 100%; height: 5px;
-      border-radius: 3px; background: var(--border);
-      cursor: pointer; padding: 0; border: none; outline: none;
-    }
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 20px; height: 20px;
-      border-radius: 50%; background: var(--blue); cursor: pointer;
-      box-shadow: 0 2px 8px rgba(29,78,216,.35); transition: transform .15s;
-    }
-    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
-    .sl-ends { display: flex; justify-content: space-between; font-size: .72rem; color: var(--mid); margin-top: 5px; }
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-    /* gmail button */
-    .gmail-btn {
-      width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: .85rem; border-radius: var(--pill);
-      background: var(--white); color: var(--ink);
-      border: 1.5px solid var(--border);
-      font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 600;
-      cursor: pointer; transition: border-color .18s, box-shadow .18s; margin-bottom: 1rem;
-    }
-    .gmail-btn:hover { border-color: #aaa; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+/* ─── INBOX MODAL ─── */
+.modal-ov{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center}
+.modal-ov.open{display:flex}
+.inbox-modal{background:var(--surface);width:100%;max-width:520px;border-radius:20px 20px 0 0;max-height:85svh;display:flex;flex-direction:column;overflow:hidden;border:1.5px solid var(--border);border-bottom:none;transition:background var(--tr),border-color var(--tr)}
+.inbox-hd{padding:1.25rem 1.5rem;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;transition:border-color var(--tr)}
+.inbox-hd h3{font-family:'Instrument Serif',serif;font-size:1.15rem;font-style:italic}
+.inbox-x{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:1.3rem;line-height:1;transition:color var(--tr)}
+.inbox-x:hover{color:var(--ink)}
+.inbox-list{flex:1;overflow-y:auto;padding:.75rem}
+.inbox-empty{text-align:center;padding:3rem 1rem;font-size:.82rem;color:var(--ink3);transition:color var(--tr)}
+.inbox-thread{padding:.8rem 1rem;border-radius:10px;border:1.5px solid var(--border);margin-bottom:.45rem;cursor:pointer;transition:background var(--tr),border-color var(--tr)}
+.inbox-thread:hover{background:var(--bg);border-color:var(--accent)}
+.inbox-thread-from{font-size:.8rem;font-weight:700;margin-bottom:2px}
+.inbox-thread-subj{font-size:.75rem;color:var(--ink2);transition:color var(--tr)}
+.inbox-thread-date{font-size:.65rem;color:var(--ink3);margin-top:2px;transition:color var(--tr)}
+.inbox-loading{text-align:center;padding:2rem;font-size:.82rem;color:var(--ink3);transition:color var(--tr)}
 
-    .submit-btn {
-      width: 100%; padding: .95rem; border-radius: var(--pill);
-      background: var(--ink); color: var(--white);
-      border: none; font-family: 'Outfit', sans-serif;
-      font-size: .9rem; font-weight: 700; cursor: pointer;
-      transition: background .18s, transform .14s, box-shadow .18s;
-    }
-    .submit-btn:hover:not(:disabled) { background: var(--blue); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(29,78,216,.22); }
-    .submit-btn:disabled { background: #bbb; cursor: not-allowed; }
-    .form-note { font-size: .775rem; color: var(--mid); text-align: center; margin-top: .75rem; }
-    .err { background: #fef2f2; border: 1.5px solid #fecaca; border-radius: var(--r); padding: .7rem .95rem; font-size: .84rem; color: var(--red); margin-top: .75rem; display: none; }
+/* ─── CHAT WIDGET ─── */
+#chatBubble{
+  position:fixed;bottom:22px;right:22px;z-index:400;
+  width:50px;height:50px;border-radius:var(--pill);
+  background:var(--accent);color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px color-mix(in srgb,var(--accent) 35%,transparent);
+  transition:background var(--tr),transform var(--tr),box-shadow var(--tr);
+}
+#chatBubble:hover{background:var(--accent-h);transform:scale(1.07)}
+#chatBubble svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#chatBadge{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;border-radius:var(--pill);background:var(--red);color:#fff;font-size:.58rem;font-weight:700;align-items:center;justify-content:center;border:2px solid var(--bg);padding:0 3px;display:none;transition:border-color var(--tr),background var(--tr)}
+#chatPanel{
+  position:fixed;bottom:82px;right:22px;z-index:400;
+  width:340px;max-width:calc(100vw - 28px);
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:18px;
+  box-shadow:0 8px 40px color-mix(in srgb,var(--ink) 18%,transparent);
+  display:none;flex-direction:column;height:460px;overflow:hidden;
+  transition:background var(--tr),border-color var(--tr),box-shadow var(--tr);
+}
+#chatPanel.open{display:flex}
+.chat-hd{
+  padding:.85rem 1.1rem;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;min-height:52px;
+  transition:background var(--tr);
+}
+.chat-hd-l{display:flex;align-items:center;gap:.6rem;min-width:0}
+.chat-hd-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);flex-shrink:0}
+.chat-hd h4{font-size:.85rem;font-weight:700;color:#fff}
+.chat-hd p{font-size:.65rem;color:rgba(255,255,255,.6)}
+.chat-hd-x{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.3rem;cursor:pointer;line-height:1;padding:.2rem;transition:color var(--tr)}
+.chat-hd-x:hover{color:#fff}
 
-    /* success */
-    .success-box { display: none; text-align: center; padding: 3rem 1rem; }
-    .success-box .ico { font-size: 3.5rem; margin-bottom: 1rem; }
-    .success-box h3 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; margin-bottom: .5rem; }
-    .success-box p { color: var(--dim); font-size: .9rem; }
+.chat-name-form{flex:1;padding:1.25rem;display:none;flex-direction:column;gap:.75rem;overflow-y:auto}
+.chat-name-form p{font-size:.83rem;color:var(--ink2);line-height:1.6;transition:color var(--tr)}
+.chat-name-input{font-family:'Manrope',sans-serif;font-size:16px;font-weight:500;padding:.62rem .85rem;border-radius:10px;border:1.5px solid var(--border);outline:none;width:100%;background:var(--bg);color:var(--ink);transition:border-color var(--tr),background var(--tr),color var(--tr)}
+.chat-name-input:focus{border-color:var(--accent)}
+.chat-start-btn{background:var(--accent);color:#fff;border:none;border-radius:var(--pill);padding:.7rem;font-family:'Manrope',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:background var(--tr)}
+.chat-start-btn:hover{background:var(--accent-h)}
 
-    /* ─────────────────────────── FOOTER */
-    footer {
-      background: var(--ink); color: #666;
-      padding: 2.5rem clamp(1.25rem, 5vw, 4rem);
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1rem;
-    }
-    .flogo { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.2rem; color: var(--white); }
-    .flogo b { color: var(--blue); font-weight: 400; }
-    footer p { font-size: .8rem; }
-    footer a { color: #666; text-decoration: none; transition: color .18s; }
-    footer a:hover { color: var(--white); }
+.chat-msgs{flex:1;overflow-y:auto;padding:.75rem;display:none;flex-direction:column;gap:.4rem;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.cbw{display:flex;width:100%}.cbw.user{justify-content:flex-end}.cbw.admin{justify-content:flex-start}
+.cbo{display:flex;flex-direction:column;max-width:82%}
+.cbw.user .cbo{align-items:flex-end}.cbw.admin .cbo{align-items:flex-start}
+.cbubble{padding:.52rem .82rem;border-radius:14px;font-size:.8rem;line-height:1.55;word-break:break-word;font-weight:500}
+.cbw.user .cbubble{background:var(--accent);color:#fff;border-bottom-right-radius:4px;transition:background var(--tr)}
+.cbw.admin .cbubble{background:var(--bg2);color:var(--ink);border-bottom-left-radius:4px;transition:background var(--tr),color var(--tr)}
+.cbtime{font-size:.58rem;color:var(--ink3);margin-top:2px;padding:0 2px;transition:color var(--tr)}
+.chat-sys{text-align:center;font-size:.65rem;color:var(--ink3);padding:.35rem;font-style:italic;width:100%;transition:color var(--tr)}
+.typing-b{display:flex;align-items:center;gap:4px;padding:.55rem .82rem;min-width:48px}
+.typing-b span{width:6px;height:6px;border-radius:50%;background:var(--ink3);animation:tdot 1.3s infinite ease-in-out;transition:background var(--tr)}
+.typing-b span:nth-child(2){animation-delay:.2s}.typing-b span:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
+.chat-input-row{display:none;gap:.5rem;padding:.6rem .75rem;border-top:1.5px solid var(--border);flex-shrink:0;background:var(--surface);align-items:center;min-height:56px;transition:background var(--tr),border-color var(--tr)}
+.chat-input{flex:1;font-family:'Manrope',sans-serif;font-size:15px;font-weight:500;padding:.46rem .72rem;border-radius:var(--pill);border:1.5px solid var(--border);outline:none;background:var(--bg);color:var(--ink);min-width:0;transition:border-color var(--tr),background var(--tr),color var(--tr)}
+.chat-input:focus{border-color:var(--accent)}
+.chat-input:disabled{opacity:.5;cursor:not-allowed}
+.chat-send{background:var(--accent);color:#fff;border:none;border-radius:50%;width:33px;height:33px;min-width:33px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--tr)}
+.chat-send:hover{background:var(--accent-h)}.chat-send:disabled{background:var(--border);cursor:not-allowed}
+.chat-send svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-    @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+/* ─── INSTALL BANNER ─── */
+#installBanner{display:none;position:fixed;bottom:0;left:0;right:0;z-index:450;background:var(--ink);color:#fff;padding:1rem 1.25rem;padding-bottom:calc(1rem + env(safe-area-inset-bottom));align-items:center;gap:.75rem;border-top:1.5px solid var(--border);transition:background var(--tr),border-color var(--tr)}
+[data-theme="dark"] #installBanner{background:var(--bg2);color:var(--ink)}
+#installBanner p{flex:1;font-size:.8rem;line-height:1.45;transition:color var(--tr)}
+#installBanner b{display:block;font-size:.85rem;margin-bottom:2px}
+.install-btn{background:var(--accent);color:#fff;border:none;border-radius:var(--pill);padding:.45rem 1rem;font-size:.75rem;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Manrope',sans-serif;transition:background var(--tr)}
+.install-btn:hover{background:var(--accent-h)}
+.install-dismiss{background:none;border:none;color:rgba(255,255,255,.35);font-size:1.2rem;cursor:pointer;line-height:1;flex-shrink:0;transition:color var(--tr)}
+.install-dismiss:hover{color:rgba(255,255,255,.7)}
+[data-theme="dark"] .install-dismiss{color:var(--ink3)}
 
-    /* ─────────────────────────── RESPONSIVE */
-    @media (max-width: 960px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .step:nth-child(3), .step:nth-child(4) { border-top: 1.5px solid var(--border); }
-      .step:nth-child(3) { border-left: none; }
-      .price-grid, .ex-grid { grid-template-columns: 1fr; }
-      .book-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .f2 { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-    }
-    @media (max-width: 500px) {
-      .steps { grid-template-columns: 1fr; }
-      .step + .step { border-left: none; border-top: 1.5px solid var(--border); }
-    }
-  </style>
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .how-layout,.pricing-layout,.for-layout{grid-template-columns:1fr;gap:3rem}
+  .how-sticky,.pricing-sticky,.for-sticky{position:static}
+  .for-grid{grid-template-columns:repeat(2,1fr)}
+  .book-layout{grid-template-columns:1fr;gap:3rem}
+}
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr}.hero-r{display:none}.nav-links{display:none}
+  #inboxNavBtn{display:block}
+  .pcard{grid-template-columns:1fr;gap:.75rem}.pcard-r{align-items:flex-start}.pfeats{justify-content:flex-start}
+}
+@media(max-width:600px){
+  .for-grid{grid-template-columns:1fr}.f2{grid-template-columns:1fr}
+  #chatPanel{width:calc(100vw - 20px);right:10px;bottom:80px;height:430px}
+}
+</style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">Liam's<b>.</b></a>
+  <a href="#" class="logo">Liam's <b>Websites</b></a>
   <ul class="nav-links">
     <li><a href="#how">Process</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#examples">Examples</a></li>
+    <li><a href="#for">Who I Help</a></li>
     <li><a href="#book">Book</a></li>
   </ul>
-  <a href="#book" class="nav-cta">Get a Site →</a>
+  <div class="nav-r">
+    <button class="tog" onclick="toggleTheme()" aria-label="Toggle theme">
+      <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <button id="inboxNavBtn" onclick="openInbox()">My Emails</button>
+    <a href="#book" class="nav-cta">Get a Site &rarr;</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <div class="badge"><span class="badge-dot"></span>Taking new clients now</div>
-    <h1>Your business.<br/>A real <span class="accent">website.</span><br/>Under $200.</h1>
-    <p class="hero-sub">I build clean, professional websites for any business — restaurant, salon, contractor, freelancer — starting at just $50. No templates. No fluff.</p>
-    <div class="hero-actions">
-      <a href="#book" class="btn btn-solid">Book Your Site →</a>
-      <a href="#pricing" class="btn btn-ghost">See Pricing</a>
+  <div class="hero-l">
+    <div class="status-pill"><span class="live-dot"></span>Taking new clients now</div>
+    <h1>Your business<br/>deserves a real<br/><em>website.</em></h1>
+    <p class="hero-sub">Clean, professional websites for any business — restaurant, salon, contractor, freelancer. Starting at just $50. Delivered in under a week.</p>
+    <div class="hero-btns">
+      <a href="#book" class="btn btn-primary">Book Your Site &rarr;</a>
+      <a href="#pricing" class="btn btn-outline">See Pricing</a>
     </div>
-    <div class="hero-stats">
-      <div><div class="hstat-v">$50</div><div class="hstat-l">Starting price</div></div>
-      <div><div class="hstat-v">&lt;7d</div><div class="hstat-l">Delivery time</div></div>
-      <div><div class="hstat-v">Any</div><div class="hstat-l">Business type</div></div>
+    <div class="hero-proof">
+      <div><div class="proof-n">$50</div><div class="proof-l">Starting price</div></div>
+      <div><div class="proof-n">&lt;7d</div><div class="proof-l">Avg. delivery</div></div>
+      <div><div class="proof-n">$200</div><div class="proof-l">Max, ever</div></div>
     </div>
   </div>
-  <div class="hero-right">
+  <div class="hero-r">
     <div class="hero-card">
-      <div class="hcard-head">
-        <span class="hcard-lbl">What you get</span>
-        <span class="hcard-price">$50–$200</span>
+      <div class="hc-head">
+        <span class="hc-label">What you get</span>
+        <span class="hc-price">$50–$200</span>
       </div>
-      <div class="hcard-row">
-        <span>🎨</span>
-        <div><div>Custom design</div><div class="hcard-row-sub">Built just for your brand</div></div>
+      <div class="hc-row">
+        <div class="hc-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <div><div class="hc-title">Custom design</div><div class="hc-sub">Built just for your brand</div></div>
       </div>
-      <div class="hcard-row">
-        <span>📱</span>
-        <div><div>Mobile ready</div><div class="hcard-row-sub">Looks great everywhere</div></div>
+      <div class="hc-row">
+        <div class="hc-ico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <div><div class="hc-title">Mobile ready</div><div class="hc-sub">Looks great on every device</div></div>
       </div>
-      <div class="hcard-row">
-        <span>⚡</span>
-        <div><div>Fast delivery</div><div class="hcard-row-sub">Live in under a week</div></div>
+      <div class="hc-row">
+        <div class="hc-ico"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div><div class="hc-title">Fast delivery</div><div class="hc-sub">Live in under a week</div></div>
       </div>
-      <div class="hcard-row">
-        <span>🔒</span>
-        <div><div>One flat price</div><div class="hcard-row-sub">No hidden fees, ever</div></div>
+      <div class="hc-row">
+        <div class="hc-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div><div class="hc-title">One flat price</div><div class="hc-sub">No hidden fees, ever</div></div>
       </div>
-      <button class="hcard-btn" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Start My Project</button>
+      <button class="hc-btn" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Start My Project &rarr;</button>
     </div>
   </div>
 </section>
 
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="m-item">Restaurants</span><span class="m-item">Barbershops</span><span class="m-item">Contractors</span><span class="m-item">Salons</span><span class="m-item">Freelancers</span><span class="m-item">Retail Shops</span><span class="m-item">Fitness Studios</span><span class="m-item">Real Estate</span><span class="m-item">Photographers</span>
+    <span class="m-item">Restaurants</span><span class="m-item">Barbershops</span><span class="m-item">Contractors</span><span class="m-item">Salons</span><span class="m-item">Freelancers</span><span class="m-item">Retail Shops</span><span class="m-item">Fitness Studios</span><span class="m-item">Real Estate</span><span class="m-item">Photographers</span>
+  </div>
+</div>
+
 <!-- PROCESS -->
-<section id="how">
-  <div class="sec-lbl">Process</div>
-  <h2 class="sec-h">Three steps to launch.</h2>
-  <p class="sec-sub">No confusing contracts. No back-and-forth. Just a clean simple process from idea to live site.</p>
-  <div class="steps">
-    <div class="step"><div class="step-n">01</div><h3>Fill out the form</h3><p>Tell me about your business and what you need. Set your budget anywhere from $50–$200.</p></div>
-    <div class="step"><div class="step-n">02</div><h3>I get to work</h3><p>I'll reply within 24 hours and start building your custom site immediately.</p></div>
-    <div class="step"><div class="step-n">03</div><h3>Review & launch</h3><p>You review the site, request any changes, and you're live — all within a week.</p></div>
-    <div class="step"><div class="step-n">04</div><h3>It's yours forever</h3><p>One flat payment. No monthly fees from me. The site belongs to you, always.</p></div>
+<section id="how" class="sec">
+  <div class="how-layout">
+    <div class="how-sticky">
+      <div class="eyebrow">How It Works</div>
+      <h2 class="sec-h">Simple from start to launch.</h2>
+      <p class="sec-sub">No confusing process. A straight line from your idea to a live website.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div><h3>Fill out the form</h3><p>Tell me about your business and set your budget from $50–$200. The more detail the better.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div><h3>I start building</h3><p>I'll reply within 24 hours and get straight to work on your custom site.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div><h3>Review &amp; refine</h3><p>You review the site, I make any changes until you're completely happy.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div><h3>Go live — it's yours</h3><p>Your site goes live in under a week. One flat payment. No monthly fees from me, ever.</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section id="pricing">
-  <div class="sec-lbl">Pricing</div>
-  <h2 class="sec-h">Always under $200.</h2>
-  <p class="sec-sub">Pick a tier or use the slider on the booking form to set your own exact budget.</p>
-  <div class="price-grid">
-    <div class="pcard">
-      <div class="ptier">Starter</div>
-      <div class="pamount"><sup>$</sup>50</div>
-      <div class="pdesc">Get online fast with a clean, simple site.</div>
-      <ul class="pfeats">
-        <li class="pfeat">1–2 page website</li>
-        <li class="pfeat">Mobile responsive</li>
-        <li class="pfeat">Contact section</li>
-        <li class="pfeat">1 revision round</li>
-      </ul>
-      <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Starter</button>
+<section id="pricing" class="sec">
+  <div class="pricing-layout">
+    <div class="pricing-sticky">
+      <div class="eyebrow">Pricing</div>
+      <h2 class="sec-h">Always under $200.</h2>
+      <p class="sec-sub">Pick a tier — or set your own exact price with the slider in the booking form.</p>
     </div>
-    <div class="pcard hot">
-      <div class="pbadge">Most Popular</div>
-      <div class="ptier">Standard</div>
-      <div class="pamount"><sup>$</sup>120</div>
-      <div class="pdesc">The sweet spot for most businesses.</div>
-      <ul class="pfeats">
-        <li class="pfeat">3–5 pages</li>
-        <li class="pfeat">Mobile responsive</li>
-        <li class="pfeat">Contact form</li>
-        <li class="pfeat">Basic SEO setup</li>
-        <li class="pfeat">3 revision rounds</li>
-      </ul>
-      <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Standard</button>
-    </div>
-    <div class="pcard">
-      <div class="ptier">Pro</div>
-      <div class="pamount"><sup>$</sup>200</div>
-      <div class="pdesc">Full-featured for serious businesses.</div>
-      <ul class="pfeats">
-        <li class="pfeat">5–8 pages</li>
-        <li class="pfeat">Mobile responsive</li>
-        <li class="pfeat">Contact form + booking</li>
-        <li class="pfeat">Full SEO setup</li>
-        <li class="pfeat">Google Maps & socials</li>
-        <li class="pfeat">Unlimited revisions</li>
-      </ul>
-      <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Pro</button>
+    <div class="pcards">
+      <div class="pcard">
+        <div class="pcard-l">
+          <div class="ptier">Starter</div>
+          <div class="pamount"><sup>$</sup>50</div>
+          <div class="pdesc">Get online fast with a clean, simple site.</div>
+        </div>
+        <div class="pcard-r">
+          <ul class="pfeats">
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>1–2 pages</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Mobile ready</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Contact section</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>1 revision round</li>
+          </ul>
+          <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Get Started</button>
+        </div>
+      </div>
+      <div class="pcard hot">
+        <div class="pcard-l">
+          <div class="ptier">Standard</div>
+          <div class="pamount"><sup>$</sup>120</div>
+          <div class="pdesc">The sweet spot for most businesses.</div>
+        </div>
+        <div class="pcard-r">
+          <div class="pbadge">Most Popular</div>
+          <ul class="pfeats">
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>3–5 pages</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Mobile ready</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Contact form</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Basic SEO</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>3 revisions</li>
+          </ul>
+          <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Get Started</button>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-l">
+          <div class="ptier">Pro</div>
+          <div class="pamount"><sup>$</sup>200</div>
+          <div class="pdesc">Full-featured for serious businesses.</div>
+        </div>
+        <div class="pcard-r">
+          <ul class="pfeats">
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>5–8 pages</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Mobile ready</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Form + booking</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Full SEO</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Maps + socials</li>
+            <li class="pfeat"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Unlimited revisions</li>
+          </ul>
+          <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Get Started</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- EXAMPLES -->
-<section id="examples">
-  <div class="sec-lbl">Examples</div>
-  <h2 class="sec-h">Built for every business.</h2>
-  <p class="sec-sub">Restaurants, trades, studios, shops — if you run it, I can build it.</p>
-  <div class="ex-grid">
-    <div class="excard"><div class="exthumb a">🍕</div><div class="exbody"><h3>Restaurant / Café</h3><p>Menu, hours, location & online presence</p><span class="extag">Food & Drink</span></div></div>
-    <div class="excard"><div class="exthumb b">💈</div><div class="exbody"><h3>Barbershop / Salon</h3><p>Services, gallery & booking links</p><span class="extag">Beauty & Wellness</span></div></div>
-    <div class="excard"><div class="exthumb c">🏠</div><div class="exbody"><h3>Contractor / Trades</h3><p>Portfolio, services & lead generation</p><span class="extag">Home Services</span></div></div>
+<!-- WHO -->
+<section id="for" class="sec">
+  <div class="for-layout">
+    <div class="for-sticky">
+      <div class="eyebrow">Who I Help</div>
+      <h2 class="sec-h">Any business. Any idea.</h2>
+      <p class="sec-sub">If you can describe it, I can build it.</p>
+    </div>
+    <div class="for-grid">
+      <div class="for-card"><div class="for-ico"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><line x1="7" y1="2" x2="7" y2="22"/><path d="M21 15V2s-5 2-5 7v6"/><line x1="16" y1="15" x2="21" y2="15"/><line x1="18.5" y1="15" x2="18.5" y2="22"/></svg></div><h3>Restaurants &amp; Cafés</h3><p>Menus, hours, location, online ordering</p></div>
+      <div class="for-card"><div class="for-ico"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div><h3>Salons &amp; Barbershops</h3><p>Services, gallery, booking &amp; socials</p></div>
+      <div class="for-card"><div class="for-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><h3>Contractors &amp; Trades</h3><p>Portfolio, services, quote forms</p></div>
+      <div class="for-card"><div class="for-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><h3>Photographers &amp; Creatives</h3><p>Portfolio, galleries, contact &amp; pricing</p></div>
+      <div class="for-card"><div class="for-ico"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><h3>Fitness &amp; Wellness</h3><p>Schedules, trainers, sign-up forms</p></div>
+      <div class="for-card"><div class="for-ico"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><h3>Retail &amp; Shops</h3><p>Products, hours, contact &amp; maps</p></div>
+    </div>
   </div>
 </section>
 
 <!-- BOOKING -->
-<section id="book">
-  <div class="book-grid">
-    <!-- left -->
-    <div class="book-copy">
-      <div class="sec-lbl">Book Now</div>
-      <h2 class="sec-h">Let's build your site.</h2>
-      <p>Fill out the form and I'll be in touch within 24 hours. Sign in with Google so your booking is actually delivered to my email.</p>
-      <div class="trust-list">
-        <div class="titem"><div class="ticon">⚡</div><div><h4>Fast turnaround</h4><p>Most sites delivered in under 7 days.</p></div></div>
-        <div class="titem"><div class="ticon">💬</div><div><h4>Direct communication</h4><p>You work directly with me, not a team.</p></div></div>
-        <div class="titem"><div class="ticon">🔒</div><div><h4>No hidden fees</h4><p>One flat price. No subscriptions.</p></div></div>
-        <div class="titem"><div class="ticon">✏️</div><div><h4>Any business, any idea</h4><p>If you can describe it, I can build it.</p></div></div>
+<section id="book" class="sec">
+  <div class="book-layout">
+    <div class="book-l">
+      <div class="eyebrow">Book Now</div>
+      <h2 class="sec-h">Let's get your site built.</h2>
+      <p class="sec-sub">Sign in with Google, fill in the details, and I'll be in touch within 24 hours.</p>
+      <div class="tlist">
+        <div class="titem"><div class="ticon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><h4>Fast turnaround</h4><p>Most sites live in under 7 days.</p></div></div>
+        <div class="titem"><div class="ticon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><h4>Work directly with me</h4><p>No middlemen, no agencies.</p></div></div>
+        <div class="titem"><div class="ticon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>Flat rate, no surprises</h4><p>You agree on the price upfront.</p></div></div>
+        <div class="titem"><div class="ticon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div><div><h4>Any business welcome</h4><p>Seriously — any business, any idea.</p></div></div>
       </div>
     </div>
-
-    <!-- right -->
     <div>
-      <div class="auth-bar warn" id="warnBar">🔐 &nbsp;Sign in with Google first — it's how your booking reaches me.</div>
-      <div class="auth-bar ok"  id="okBar">✅ &nbsp;<span id="signedInAs">Signed in</span> — ready to send!</div>
-
-      <div class="form-wrap">
-        <div id="gSignArea">
-          <button class="gmail-btn" onclick="doGoogleSignIn()">
-            <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-            </svg>
-            Sign in with Google to send your booking
+      <div class="abar warn" id="warnBar"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Sign in with Google first — it's how your booking reaches me.</div>
+      <div class="abar ok" id="okBar"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="whoSignedIn">Signed in</span> — ready to go!</div>
+      <div class="form-card">
+        <div id="gArea">
+          <button class="gbtn" id="gBtn" onclick="doSignIn()">
+            <svg width="17" height="17" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Sign in with Google to continue
           </button>
         </div>
-
         <form id="bookForm">
           <div class="f2">
-            <div class="fg"><label for="fn">First Name *</label><input type="text" id="fn" required placeholder="John" /></div>
-            <div class="fg"><label for="ln">Last Name *</label><input type="text" id="ln" required placeholder="Smith" /></div>
+            <div class="fg"><label for="fn">First Name *</label><input type="text" id="fn" required placeholder="John"/></div>
+            <div class="fg"><label for="ln">Last Name *</label><input type="text" id="ln" required placeholder="Smith"/></div>
           </div>
-          <div class="fg"><label for="em">Your Email *</label><input type="email" id="em" required placeholder="john@yourbusiness.com" /></div>
-          <div class="fg"><label for="biz">Business / Project Name *</label><input type="text" id="biz" required placeholder="Smith's BBQ, Studio Zen..." /></div>
+          <div class="fg"><label for="em">Your Email *</label><input type="email" id="em" required placeholder="john@yourbusiness.com"/></div>
+          <div class="fg"><label for="biz">Business / Project Name *</label><input type="text" id="biz" required placeholder="Smith's BBQ, Studio Zen..."/></div>
           <div class="fg">
             <label for="btype">Type of Business *</label>
             <select id="btype" required>
               <option value="" disabled selected>Select a category…</option>
-              <option>Restaurant / Food & Drink</option>
-              <option>Retail / Shop</option>
-              <option>Beauty / Salon / Barbershop</option>
-              <option>Contractor / Home Services</option>
-              <option>Fitness / Wellness</option>
-              <option>Healthcare / Medical</option>
-              <option>Real Estate</option>
-              <option>Photography / Creative</option>
-              <option>Freelancer / Consultant</option>
-              <option>Other</option>
+              <option>Restaurant / Food &amp; Drink</option><option>Retail / Shop</option>
+              <option>Beauty / Salon / Barbershop</option><option>Contractor / Home Services</option>
+              <option>Fitness / Wellness</option><option>Healthcare / Medical</option>
+              <option>Real Estate</option><option>Photography / Creative</option>
+              <option>Freelancer / Consultant</option><option>Other</option>
             </select>
           </div>
           <div class="fg">
-            <div class="sl-row"><label>Your Budget</label><span class="sl-val" id="slVal">$120</span></div>
-            <input type="range" id="budgetSlider" min="50" max="200" step="5" value="120" />
+            <div class="sl-row"><span class="sl-lbl">Your Budget</span><span class="sl-val" id="slVal">$120</span></div>
+            <input type="range" id="budgetSlider" min="50" max="200" step="5" value="120"/>
             <div class="sl-ends"><span>$50 — Starter</span><span>$200 — Pro</span></div>
           </div>
-          <div class="fg">
-            <label for="notes">Tell me about your project *</label>
-            <textarea id="notes" required placeholder="What does your business do? What pages do you want? Any features, colors, or inspiration? The more detail the better!"></textarea>
-          </div>
-          <button type="submit" class="submit-btn" id="subBtn" disabled>Sign in with Google first ↑</button>
-          <p class="form-note">Your booking goes directly to LiamsSites@proton.me. You'll also get a confirmation at your email.</p>
-          <div class="err" id="errBox"></div>
+          <div class="fg"><label for="notes">Tell me about your project *</label><textarea id="notes" required placeholder="What does your business do? What pages do you need? Any features, colors, or inspiration?"></textarea></div>
+          <button type="submit" class="sbtn" id="subBtn" disabled>Sign in with Google first ↑</button>
+          <p class="fnote">Booking goes directly to LiamsSites@proton.me. You'll also get a confirmation email.</p>
+          <div class="ferr" id="errBox"></div>
         </form>
-
-        <div class="success-box" id="successBox">
-          <div class="ico">🎉</div>
+        <div class="win" id="winBox">
+          <div class="win-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h3>Booking sent!</h3>
-          <p>I'll be in touch at your email within 24 hours. Talk soon!</p>
+          <p>I'll be in touch within 24 hours. Talk soon!</p>
         </div>
       </div>
     </div>
@@ -619,166 +791,199 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="flogo">Liam's<b>.</b></div>
+  <div class="flogo">Liam's <b>Websites</b></div>
   <p>Professional websites for any business — always under $200.</p>
   <p><a href="mailto:LiamsSites@proton.me">LiamsSites@proton.me</a></p>
 </footer>
 
-<!-- Google Identity Services -->
+<!-- INBOX MODAL -->
+<div class="modal-ov" id="inboxOverlay" onclick="if(event.target===this)closeInbox()">
+  <div class="inbox-modal">
+    <div class="inbox-hd"><h3>Your Emails from Liam</h3><button class="inbox-x" onclick="closeInbox()">&times;</button></div>
+    <div class="inbox-list" id="inboxList"><div class="inbox-empty">Loading…</div></div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<button id="chatBubble" aria-label="Open chat">
+  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  <div id="chatBadge"></div>
+</button>
+<div id="chatPanel">
+  <div class="chat-hd">
+    <div class="chat-hd-l"><div class="chat-hd-dot"></div><div><h4>Support Chat</h4><p>We reply fast!</p></div></div>
+    <button class="chat-hd-x" id="chatCloseBtn">&times;</button>
+  </div>
+  <div class="chat-name-form" id="chatNameForm">
+    <p>What's your name? We'll get you connected right away.</p>
+    <input class="chat-name-input" id="chatNameInput" placeholder="Your name…" maxlength="40"/>
+    <button class="chat-start-btn" id="chatStartBtn">Start Chat →</button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs"></div>
+  <div class="chat-input-row" id="chatInputRow">
+    <input class="chat-input" id="chatInput" placeholder="Type a message…" maxlength="500"/>
+    <button class="chat-send" id="chatSendBtn"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+
+<!-- INSTALL -->
+<div id="installBanner">
+  <p><b>Add to Home Screen</b>Get quick access like a real app</p>
+  <button class="install-btn" id="installBtn">Install</button>
+  <button class="install-dismiss" onclick="dismissInstall()">&times;</button>
+</div>
+
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-
 <script>
-  /* ── Slider ── */
-  const sl = document.getElementById('budgetSlider');
-  const sv = document.getElementById('slVal');
-  sl.addEventListener('input', () => sv.textContent = '$' + sl.value);
+/* THEME */
+function toggleTheme(){const h=document.documentElement,t=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',t);localStorage.setItem('lw_theme',t)}
+(function(){const t=localStorage.getItem('lw_theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
 
-  /* ── Google OAuth ── */
-  let gToken = null, senderEmail = null;
+/* SLIDER */
+const sl=document.getElementById('budgetSlider'),sv=document.getElementById('slVal');
+sl.addEventListener('input',()=>sv.textContent='$'+sl.value);
 
-  function doGoogleSignIn() {
-    // Fetch the client ID from our server then open the OAuth popup
-    fetch('/google-client-id')
-      .then(r => r.json())
-      .then(({ clientId }) => {
-        const client = google.accounts.oauth2.initTokenClient({
-          client_id: clientId,
-          scope: 'https://www.googleapis.com/auth/gmail.send',
-          callback(resp) {
-            if (resp.error) { alert('Sign-in failed: ' + resp.error); return; }
-            gToken = resp.access_token;
-            fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-              headers: { Authorization: 'Bearer ' + gToken }
-            })
-            .then(r => r.json())
-            .then(info => {
-              senderEmail = info.email;
-              const name = info.name || info.email;
-              document.getElementById('warnBar').style.display = 'none';
-              document.getElementById('okBar').style.display = 'flex';
-              document.getElementById('signedInAs').textContent = name + ' signed in';
-              document.getElementById('gSignArea').style.display = 'none';
-              const btn = document.getElementById('subBtn');
-              btn.disabled = false;
-              btn.textContent = 'Send Booking Request →';
-              if (!document.getElementById('em').value) {
-                document.getElementById('em').value = senderEmail;
-              }
-            });
-          }
-        });
-        client.requestAccessToken();
-      })
-      .catch(() => alert('Could not connect to server. Make sure the server is running.'));
-  }
-
-  /* ── Build RFC 2822 email encoded as base64url ── */
-  function buildRaw(to, subject, html, from, replyTo) {
-    const msg =
-      'From: ' + from + '\r\n' +
-      'To: ' + to + '\r\n' +
-      (replyTo ? 'Reply-To: ' + replyTo + '\r\n' : '') +
-      'Subject: ' + subject + '\r\n' +
-      'MIME-Version: 1.0\r\n' +
-      'Content-Type: text/html; charset=UTF-8\r\n\r\n' +
-      html;
-    return btoa(unescape(encodeURIComponent(msg)))
-      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  }
-
-  async function gmailSend(raw) {
-    const r = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
-      method: 'POST',
-      headers: { Authorization: 'Bearer ' + gToken, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ raw })
-    });
-    if (!r.ok) throw new Error('Gmail API ' + r.status);
-  }
-
-  /* ── Form submit ── */
-  document.getElementById('bookForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const btn = document.getElementById('subBtn');
-    const err = document.getElementById('errBox');
-    err.style.display = 'none';
-
-    if (!gToken) {
-      err.textContent = 'Please sign in with Google first.';
-      err.style.display = 'block'; return;
+/* AUTH */
+let gToken=null,senderEmail=null,userName=null;
+const SCOPES='https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly openid profile email';
+function saveAuth(t,e,n){gToken=t;senderEmail=e;userName=n;localStorage.setItem('lw_token',t);localStorage.setItem('lw_email',e);localStorage.setItem('lw_name',n);localStorage.setItem('lw_token_ts',Date.now().toString())}
+function loadAuth(){const ts=parseInt(localStorage.getItem('lw_token_ts')||'0');if(Date.now()-ts>55*60*1000){clearAuth();return false}const t=localStorage.getItem('lw_token'),e=localStorage.getItem('lw_email'),n=localStorage.getItem('lw_name');if(!t||!e)return false;gToken=t;senderEmail=e;userName=n;return true}
+function clearAuth(){gToken=null;senderEmail=null;userName=null;['lw_token','lw_email','lw_name','lw_token_ts'].forEach(k=>localStorage.removeItem(k))}
+function activateForm(name,email){
+  document.getElementById('warnBar').style.display='none';document.getElementById('okBar').style.display='flex';
+  document.getElementById('whoSignedIn').textContent=name+' signed in';document.getElementById('gArea').style.display='none';
+  const fn=name.split(' ')[0]||'',ln=name.split(' ').slice(1).join(' ')||'';
+  if(fn&&!document.getElementById('fn').value)document.getElementById('fn').value=fn;
+  if(ln&&!document.getElementById('ln').value)document.getElementById('ln').value=ln;
+  if(email&&!document.getElementById('em').value)document.getElementById('em').value=email;
+  const btn=document.getElementById('subBtn');btn.disabled=false;btn.textContent='Send Booking Request →';
+  if(window.innerWidth<960)document.getElementById('inboxNavBtn').style.display='block';
+}
+function isMobile(){return/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||window.innerWidth<768}
+function saveFormToSession(){['fn','ln','em','biz','notes'].forEach(id=>{const el=document.getElementById(id);if(el)sessionStorage.setItem('lw_f_'+id,el.value)});sessionStorage.setItem('lw_f_btype',document.getElementById('btype').value);sessionStorage.setItem('lw_f_budget',sl.value)}
+function restoreFormFromSession(){['fn','ln','em','biz','notes'].forEach(id=>{const v=sessionStorage.getItem('lw_f_'+id),el=document.getElementById(id);if(v&&el)el.value=v});const bt=sessionStorage.getItem('lw_f_btype');if(bt)document.getElementById('btype').value=bt;const bg=sessionStorage.getItem('lw_f_budget');if(bg){sl.value=bg;sv.textContent='$'+bg}['fn','ln','em','biz','notes','btype','budget'].forEach(k=>sessionStorage.removeItem('lw_f_'+k))}
+function doSignIn(){
+  fetch('/google-client-id').then(r=>r.json()).then(({clientId})=>{
+    if(isMobile()){saveFormToSession();const ru=encodeURIComponent(location.origin+'/oauth-callback'),sc=encodeURIComponent(SCOPES);location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(clientId)+'&redirect_uri='+ru+'&response_type=token&scope='+sc+'&prompt=consent&access_type=online'}
+    else{const c=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:SCOPES,callback(r){if(r.error){alert('Sign-in failed: '+r.error);return}fetchUserInfo(r.access_token)}});c.requestAccessToken({prompt:'consent'})}
+  }).catch(()=>alert('Could not connect to server.'))
+}
+function fetchUserInfo(token){fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+token}}).then(r=>r.json()).then(i=>{const n=i.name||i.email;saveAuth(token,i.email,n);activateForm(n,i.email);restoreFormFromSession()})}
+function handleOAuthCallback(){const h=location.hash.slice(1);if(!h)return false;const p=new URLSearchParams(h),t=p.get('access_token');if(!t)return false;history.replaceState(null,'',location.pathname+location.search);fetchUserInfo(t);return true}
+function buildRaw(to,sub,html,from,replyTo){const m='From: '+from+'\r\nTo: '+to+'\r\n'+(replyTo?'Reply-To: '+replyTo+'\r\n':'')+'Subject: '+sub+'\r\nMIME-Version: 1.0\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n'+html;return btoa(unescape(encodeURIComponent(m))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+async function gmailSend(raw){const r=await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send',{method:'POST',headers:{Authorization:'Bearer '+gToken,'Content-Type':'application/json'},body:JSON.stringify({raw})});if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error('Gmail API '+r.status+': '+(e?.error?.message||'unknown'))}}
+document.getElementById('bookForm').addEventListener('submit',async e=>{
+  e.preventDefault();const btn=document.getElementById('subBtn'),err=document.getElementById('errBox');err.style.display='none';
+  if(!gToken){err.textContent='Please sign in with Google first.';err.style.display='block';return}
+  const fn=document.getElementById('fn').value.trim(),ln=document.getElementById('ln').value.trim(),email=document.getElementById('em').value.trim(),biz=document.getElementById('biz').value.trim(),btype=document.getElementById('btype').value,budget=sl.value,notes=document.getElementById('notes').value.trim();
+  btn.disabled=true;btn.textContent='Sending…';
+  try{
+    await gmailSend(buildRaw('LiamsSites@proton.me','New Booking — '+biz+' ($'+budget+')',`<div style="font-family:sans-serif;max-width:600px;margin:auto;padding:32px;color:#111"><h2 style="margin:0 0 6px">New Website Booking</h2><p style="color:#888;font-size:14px;margin:0 0 24px">Submitted via Liam's Websites</p><table style="width:100%;border-collapse:collapse;font-size:15px"><tr><td style="padding:10px 0;color:#888;width:130px;border-top:1px solid #f0f0f0">Name</td><td style="padding:10px 0;font-weight:600;border-top:1px solid #f0f0f0">${fn} ${ln}</td></tr><tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0">Email</td><td style="padding:10px 0;border-top:1px solid #f0f0f0"><a href="mailto:${email}">${email}</a></td></tr><tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0">Business</td><td style="padding:10px 0;font-weight:600;border-top:1px solid #f0f0f0">${biz}</td></tr><tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0">Type</td><td style="padding:10px 0;border-top:1px solid #f0f0f0">${btype}</td></tr><tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0">Budget</td><td style="padding:10px 0;font-weight:700;color:#1a56db;border-top:1px solid #f0f0f0">$${budget}</td></tr></table><div style="margin-top:24px"><p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Project Notes</p><div style="background:#f5f5f3;border-radius:8px;padding:18px;font-size:14px;line-height:1.7;white-space:pre-wrap">${notes}</div></div><p style="margin-top:24px;font-size:13px;color:#aaa">Reply to contact ${fn} directly.</p></div>`,senderEmail,email));
+    await gmailSend(buildRaw(email,'Got your request, '+fn+'!',`<div style="font-family:sans-serif;max-width:560px;margin:auto;padding:32px;color:#111"><h2 style="margin:0 0 8px">You're all set, ${fn}!</h2><p style="color:#555;font-size:15px;line-height:1.7;margin-bottom:20px">Thanks for reaching out about <strong>${biz}</strong>. I'll reply within <strong>24 hours</strong>.</p><div style="background:#f5f5f3;border-radius:10px;padding:20px;font-size:14px;margin-bottom:20px"><strong>Summary</strong><br/><br/>Business: <strong>${biz}</strong><br/>Type: ${btype}<br/>Budget: <strong style="color:#1a56db">$${budget}</strong><br/><br/><em style="color:#888">Notes: ${notes}</em></div><p style="color:#555;font-size:14px;line-height:1.7">Reply to this email with any extra details.<br/><br/>— Liam<br/><a href="mailto:LiamsSites@proton.me" style="color:#1a56db">LiamsSites@proton.me</a></p></div>`,senderEmail,'LiamsSites@proton.me'));
+    document.getElementById('bookForm').style.display='none';document.getElementById('winBox').style.display='block';
+  }catch(ex){err.textContent='Failed to send. Email LiamsSites@proton.me directly. ('+ex.message+')';err.style.display='block';btn.disabled=false;btn.textContent='Send Booking Request →'}
+});
+/* INBOX */
+function openInbox(){document.getElementById('inboxOverlay').classList.add('open');loadInbox()}
+function closeInbox(){document.getElementById('inboxOverlay').classList.remove('open')}
+async function loadInbox(){
+  const list=document.getElementById('inboxList');list.innerHTML='<div class="inbox-loading">Loading…</div>';
+  if(!gToken){list.innerHTML='<div class="inbox-empty">Sign in first to see emails.</div>';return}
+  try{
+    const q=encodeURIComponent('from:LiamsSites@proton.me');
+    const r=await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages?q=${q}&maxResults=15`,{headers:{Authorization:'Bearer '+gToken}});
+    if(!r.ok)throw new Error('API '+r.status);
+    const data=await r.json();
+    if(!data.messages||!data.messages.length){list.innerHTML='<div class="inbox-empty">No emails from Liam yet.</div>';return}
+    list.innerHTML='';
+    for(const m of data.messages){
+      const mr=await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${m.id}?format=metadata&metadataHeaders=Subject&metadataHeaders=Date`,{headers:{Authorization:'Bearer '+gToken}});
+      const md=await mr.json();const hd=md.payload?.headers||[];
+      const subj=hd.find(h=>h.name==='Subject')?.value||'(no subject)';
+      const date=hd.find(h=>h.name==='Date')?.value||'';
+      const d=date?new Date(date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
+      const div=document.createElement('div');div.className='inbox-thread';
+      div.innerHTML=`<div class="inbox-thread-from">Liam's Websites</div><div class="inbox-thread-subj">${subj}</div><div class="inbox-thread-date">${d}</div>`;
+      div.onclick=()=>openEmailThread(m.id,subj);list.appendChild(div);
     }
-
-    const fn    = document.getElementById('fn').value.trim();
-    const ln    = document.getElementById('ln').value.trim();
-    const email = document.getElementById('em').value.trim();
-    const biz   = document.getElementById('biz').value.trim();
-    const btype = document.getElementById('btype').value;
-    const budget= sl.value;
-    const notes = document.getElementById('notes').value.trim();
-
-    btn.disabled = true; btn.textContent = 'Sending…';
-
-    try {
-      // Email to Liam
-      await gmailSend(buildRaw(
-        'LiamsSites@proton.me',
-        '🌐 New Booking — ' + biz + ' ($' + budget + ')',
-        `<div style="font-family:sans-serif;max-width:600px;margin:auto;padding:32px;color:#111;">
-          <h2 style="margin:0 0 6px;font-size:22px;">New Website Booking</h2>
-          <p style="color:#888;font-size:14px;margin:0 0 24px;">Submitted via Liam's Websites</p>
-          <table style="width:100%;border-collapse:collapse;font-size:15px;">
-            <tr><td style="padding:10px 0;color:#888;width:130px;border-top:1px solid #f0f0f0;">Name</td><td style="padding:10px 0;font-weight:600;border-top:1px solid #f0f0f0;">${fn} ${ln}</td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Email</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;"><a href="mailto:${email}">${email}</a></td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Business</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;font-weight:600;">${biz}</td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Type</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;">${btype}</td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Budget</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;font-weight:700;color:#1d4ed8;">$${budget}</td></tr>
-          </table>
-          <div style="margin-top:24px;">
-            <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Project Notes</p>
-            <div style="background:#f9f8f6;border-radius:10px;padding:18px;font-size:14px;line-height:1.7;white-space:pre-wrap;">${notes}</div>
-          </div>
-          <p style="margin-top:24px;font-size:13px;color:#aaa;">Reply to this email to contact ${fn} directly.</p>
-        </div>`,
-        senderEmail,
-        email
-      ));
-
-      // Confirmation to client
-      await gmailSend(buildRaw(
-        email,
-        'Got your request, ' + fn + '! 🎉',
-        `<div style="font-family:sans-serif;max-width:560px;margin:auto;padding:32px;color:#111;">
-          <h2 style="margin:0 0 8px;">You're all set, ${fn}! 🎉</h2>
-          <p style="color:#555;font-size:15px;line-height:1.7;margin-bottom:20px;">
-            Thanks for reaching out about <strong>${biz}</strong>. I've received your booking and will be in touch within <strong>24 hours</strong>.
-          </p>
-          <div style="background:#f9f8f6;border-radius:12px;padding:20px;font-size:14px;margin-bottom:20px;">
-            <strong>Your summary</strong><br/><br/>
-            Business: <strong>${biz}</strong><br/>
-            Type: ${btype}<br/>
-            Budget: <strong style="color:#1d4ed8;">$${budget}</strong><br/><br/>
-            <em style="color:#888;">Notes: ${notes}</em>
-          </div>
-          <p style="color:#555;font-size:14px;line-height:1.7;">
-            Have more details or files to share? Just reply to this email.<br/><br/>
-            — Liam<br/>
-            <a href="mailto:LiamsSites@proton.me" style="color:#1d4ed8;">LiamsSites@proton.me</a>
-          </p>
-        </div>`,
-        senderEmail,
-        'LiamsSites@proton.me'
-      ));
-
-      document.getElementById('bookForm').style.display = 'none';
-      document.getElementById('successBox').style.display = 'block';
-
-    } catch(ex) {
-      err.textContent = 'Failed to send. Please email LiamsSites@proton.me directly. (' + ex.message + ')';
-      err.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = 'Send Booking Request →';
+  }catch(ex){list.innerHTML='<div class="inbox-empty">Could not load. Try signing in again.</div>'}
+}
+async function openEmailThread(id,subj){
+  const list=document.getElementById('inboxList');list.innerHTML='<div class="inbox-loading">Loading…</div>';
+  try{
+    const r=await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=full`,{headers:{Authorization:'Bearer '+gToken}});
+    const data=await r.json();
+    function dec(parts){if(!parts)return'';for(const p of parts){if(p.mimeType==='text/html'&&p.body?.data)return atob(p.body.data.replace(/-/g,'+').replace(/_/g,'/'));if(p.parts){const r=dec(p.parts);if(r)return r}}if(data.payload?.body?.data)return atob(data.payload.body.data.replace(/-/g,'+').replace(/_/g,'/'));return'<p>Could not decode.</p>'}
+    const body=dec(data.payload?.parts)||dec([data.payload]);
+    list.innerHTML=`<div style="padding:.75rem 0;display:flex;align-items:center;gap:.5rem"><button onclick="loadInbox()" style="background:none;border:none;cursor:pointer;color:var(--accent);font-family:'Manrope',sans-serif;font-size:.78rem;font-weight:700">← Back</button><strong style="font-size:.78rem">${subj}</strong></div><div style="font-size:.82rem;line-height:1.65;overflow-x:auto">${body}</div>`;
+  }catch(ex){list.innerHTML='<div class="inbox-empty">Could not load email.</div>'}
+}
+/* CHAT */
+(function(){
+  var ws=null,chatSid=localStorage.getItem('lw_chat_sid')||null,chatState='IDLE',panelOpen=false,unread=0;
+  function el(id){return document.getElementById(id)}
+  function wsUrl(){return(location.protocol==='https:'?'wss':'ws')+'://'+location.host}
+  function showSec(s){var nf=el('chatNameForm'),cm=el('chatMsgs'),ir=el('chatInputRow');if(s==='name'){nf.style.display='flex';cm.style.display='none';ir.style.display='none'}else{nf.style.display='none';cm.style.display='flex';ir.style.display='flex'}}
+  function scrollBot(){var m=el('chatMsgs');if(m)setTimeout(()=>{m.scrollTop=m.scrollHeight},40)}
+  function addBubble(from,text){
+    var msgs=el('chatMsgs');if(!msgs)return;
+    if(from==='system'){var s=document.createElement('div');s.className='chat-sys';s.textContent=text;msgs.appendChild(s);scrollBot();return}
+    var w=document.createElement('div');w.className='cbw '+(from==='user'?'user':'admin');
+    var o=document.createElement('div');o.className='cbo';
+    var b=document.createElement('div');b.className='cbubble';
+    b.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    var t=document.createElement('div');t.className='cbtime';
+    t.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    o.appendChild(b);o.appendChild(t);w.appendChild(o);msgs.appendChild(w);scrollBot();
+  }
+  function addTyping(){var m=el('chatMsgs');if(!m||el('typingDots'))return;var w=document.createElement('div');w.id='typingDots';w.className='cbw admin';w.innerHTML='<div class="cbo"><div class="cbubble typing-b"><span></span><span></span><span></span></div></div>';m.appendChild(w);scrollBot()}
+  function rmTyping(){var t=el('typingDots');if(t)t.remove()}
+  function showAdminTyping(){var m=el('chatMsgs');if(!m||el('adminTypingDots'))return;var w=document.createElement('div');w.id='adminTypingDots';w.className='cbw admin';w.innerHTML='<div class="cbo"><div class="cbubble typing-b"><span></span><span></span><span></span></div></div>';m.appendChild(w);setTimeout(()=>{m.scrollTop=m.scrollHeight},30)}
+  function rmAdminTyping(){var t=el('adminTypingDots');if(t)t.remove()}
+  var tt=null,isTyping=false;
+  function onTyping(){if(!ws||ws.readyState!==WebSocket.OPEN)return;if(!isTyping){isTyping=true;ws.send(JSON.stringify({type:'user_typing',typing:true}))}clearTimeout(tt);tt=setTimeout(()=>{isTyping=false;if(ws&&ws.readyState===WebSocket.OPEN)ws.send(JSON.stringify({type:'user_typing',typing:false}))},1500)}
+  function connect(){
+    if(ws&&ws.readyState===WebSocket.OPEN)return;chatState='CONNECTING';
+    try{ws=new WebSocket(wsUrl())}catch(e){chatState='IDLE';return}
+    ws.onopen=function(){ws.send(JSON.stringify({type:'user_join',sessionId:chatSid,name:window.userName||localStorage.getItem('lw_chat_name')||'Visitor',email:window.senderEmail||''}))}
+    ws.onmessage=function(e){
+      var msg;try{msg=JSON.parse(e.data)}catch(err){return}
+      if(msg.type==='joined'){chatSid=msg.sessionId;chatState='CHATTING';localStorage.setItem('lw_chat_sid',chatSid);var m=el('chatMsgs');if(m)m.innerHTML='';showSec('chat');
+        if(msg.history&&msg.history.length){msg.history.forEach(h=>addBubble(h.from,h.text));scrollBot()}
+        else{addTyping();setTimeout(()=>{rmTyping();addBubble('admin',"Hey! Thanks for reaching out to Liam's Websites.");setTimeout(()=>{addTyping();setTimeout(()=>{rmTyping();addBubble('admin',"Someone will be with you shortly! We usually reply within a few minutes — but during busy periods it can take up to 15 hours. We'll get back to you ASAP.")},1200)},600)},900)}return}
+      if(msg.type==='msg'){rmAdminTyping();addBubble(msg.from,msg.text);if(msg.from==='admin'&&!panelOpen){unread++;badge()}return}
+      if(msg.type==='admin_typing'){if(msg.typing)showAdminTyping();else rmAdminTyping();return}
+      if(msg.type==='ticket_closed'){chatState='CLOSED';addBubble('system','Redirecting you to start a new chat...');setTimeout(()=>{localStorage.removeItem('lw_chat_sid');localStorage.removeItem('lw_chat_name');chatSid=null;chatState='IDLE';if(ws){ws.close();ws=null}var m=el('chatMsgs');if(m)m.innerHTML='';showSec('name');var ni=el('chatNameInput');if(ni)ni.value=''},2500);return}
     }
-  });
+    ws.onclose=function(){ws=null;if(chatState!=='CLOSED')chatState='IDLE'}
+    ws.onerror=function(){ws=null;if(chatState!=='CLOSED')chatState='IDLE'}
+  }
+  function badge(){var b=el('chatBadge');if(!b)return;if(unread>0){b.textContent=unread;b.style.display='flex'}else b.style.display='none'}
+  window.toggleChat=function(){panelOpen=!panelOpen;var p=el('chatPanel');if(!p)return;p.classList.toggle('open',panelOpen);if(!panelOpen)return;unread=0;badge();
+    if(chatState==='CHATTING'||chatState==='CLOSED'){showSec('chat');scrollBot();return}
+    var sn=localStorage.getItem('lw_chat_name')||window.userName;
+    if(chatSid||sn){showSec('chat');el('chatMsgs').innerHTML='<div class="chat-sys">Connecting…</div>';connect()}
+    else{chatState='NAME_FORM';showSec('name')}
+  }
+  window.startChat=function(){var i=el('chatNameInput');if(!i)return;var n=i.value.trim();if(!n){i.focus();return}localStorage.setItem('lw_chat_name',n);showSec('chat');el('chatMsgs').innerHTML='<div class="chat-sys">Connecting…</div>';connect()}
+  window.sendMsg=function(){var i=el('chatInput');if(!i)return;var t=i.value.trim();if(!t||chatState==='CLOSED')return;if(!ws||ws.readyState!==WebSocket.OPEN){if(chatState!=='CONNECTING')connect();return}clearTimeout(tt);isTyping=false;ws.send(JSON.stringify({type:'user_typing',typing:false}));ws.send(JSON.stringify({type:'user_msg',text:t}));i.value='';i.focus()}
+  function wire(){
+    var b=el('chatBubble'),cx=el('chatCloseBtn'),sb=el('chatStartBtn'),sd=el('chatSendBtn'),ci=el('chatInput'),ni=el('chatNameInput');
+    if(b)b.addEventListener('click',window.toggleChat);if(cx)cx.addEventListener('click',window.toggleChat);if(sb)sb.addEventListener('click',window.startChat);if(sd)sd.addEventListener('click',window.sendMsg);
+    if(ci){ci.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();window.sendMsg()}else onTyping()});ci.addEventListener('input',onTyping)}
+    if(ni)ni.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();window.startChat()}})
+  }
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',wire):wire();
+})();
+/* PWA */
+let dp=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;if(!localStorage.getItem('lw_install_dismissed')&&isMobile())document.getElementById('installBanner').style.display='flex'});
+document.getElementById('installBtn').addEventListener('click',async()=>{if(!dp)return;dp.prompt();await dp.userChoice;dp=null;document.getElementById('installBanner').style.display='none'});
+function dismissInstall(){localStorage.setItem('lw_install_dismissed','1');document.getElementById('installBanner').style.display='none'}
+window.addEventListener('load',()=>{
+  if(!handleOAuthCallback()&&loadAuth())activateForm(userName||senderEmail,senderEmail);
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
+});
 </script>
-
 </body>
 </html>
