@@ -1,508 +1,407 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Liam's Websites — Professional Sites Under $200</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #f5f3ef;
-      --surface:   #ffffff;
-      --surface2:  #edebe6;
-      --border:    #dedad3;
-      --ink:       #1a1916;
-      --ink2:      #4a4843;
-      --ink3:      #8a8782;
-      --accent:    #c9472b;
-      --accent-bg: #fdf1ee;
-      --accent2:   #2b5fc9;
-      --green:     #1e7b4d;
-      --r:         10px;
+      --ink:       #111110;
+      --white:     #ffffff;
+      --cream:     #f9f8f6;
+      --mist:      #f2f1ee;
+      --border:    #e8e6e1;
+      --mid:       #9b9890;
+      --dim:       #6b6966;
+      --blue:      #1d4ed8;
+      --blue-soft: #eff4ff;
+      --green:     #16a34a;
+      --red:       #dc2626;
+      --r:         12px;
       --pill:      999px;
-      --nav-h:     64px;
-      --transition: .22s cubic-bezier(.4,0,.2,1);
-    }
-
-    [data-theme="dark"] {
-      --bg:        #111210;
-      --surface:   #1c1c1a;
-      --surface2:  #242422;
-      --border:    #2e2e2b;
-      --ink:       #f0ede8;
-      --ink2:      #b0ada8;
-      --ink3:      #6a6864;
-      --accent:    #e05a3a;
-      --accent-bg: #271d1a;
-      --accent2:   #4f82e8;
-      --green:     #3db87a;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
+      font-family: 'Outfit', sans-serif;
+      background: var(--white);
       color: var(--ink);
       line-height: 1.6;
       overflow-x: hidden;
-      transition: background var(--transition), color var(--transition);
     }
 
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-    /* ─── THEME TOGGLE ─── */
-    .theme-btn {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      background: var(--surface);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color var(--transition), background var(--transition);
-      flex-shrink: 0;
-    }
-    .theme-btn:hover { border-color: var(--ink3); }
-    .theme-btn svg { width: 16px; height: 16px; stroke: var(--ink2); fill: none; stroke-width: 1.8; stroke-linecap: round; transition: stroke var(--transition); }
-    .icon-sun { display: block; }
-    .icon-moon { display: none; }
-    [data-theme="dark"] .icon-sun { display: none; }
-    [data-theme="dark"] .icon-moon { display: block; }
-
-    /* ─── NAV ─── */
+    /* ─────────────────────────── NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: var(--nav-h);
+      height: 62px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 clamp(1.5rem, 5vw, 4.5rem);
-      background: color-mix(in srgb, var(--bg) 88%, transparent);
-      backdrop-filter: blur(20px) saturate(180%);
+      padding: 0 clamp(1.25rem, 5vw, 4rem);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(18px) saturate(180%);
       border-bottom: 1px solid var(--border);
-      transition: background var(--transition), border-color var(--transition);
     }
     .logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.25rem;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic; font-size: 1.3rem;
       color: var(--ink); text-decoration: none;
-      letter-spacing: -.01em;
     }
-    .logo em { font-style: italic; color: var(--accent); }
+    .logo b { color: var(--blue); font-style: normal; font-weight: 400; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
-      font-size: .84rem; font-weight: 500; color: var(--ink3);
-      text-decoration: none; letter-spacing: .01em;
-      transition: color var(--transition);
+      font-size: 0.875rem; font-weight: 500; color: var(--dim);
+      text-decoration: none; transition: color .18s;
     }
     .nav-links a:hover { color: var(--ink); }
-    .nav-right { display: flex; align-items: center; gap: .75rem; }
     .nav-cta {
-      background: var(--ink); color: var(--bg);
-      padding: .5rem 1.25rem; border-radius: var(--pill);
-      font-size: .84rem; font-weight: 500;
+      background: var(--ink); color: var(--white);
+      padding: .52rem 1.3rem; border-radius: var(--pill);
+      font-size: .875rem; font-weight: 600;
       text-decoration: none; border: none; cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      letter-spacing: .01em;
-      transition: background var(--transition), transform var(--transition), color var(--transition);
+      font-family: 'Outfit', sans-serif;
+      transition: background .18s, transform .14s;
     }
-    .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+    .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
 
-    /* ─── HERO ─── */
+    /* ─────────────────────────── HERO */
     .hero {
       min-height: 100svh;
-      padding: calc(var(--nav-h) + 80px) clamp(1.5rem, 5vw, 4.5rem) 80px;
+      padding: 105px clamp(1.25rem, 5vw, 4rem) 80px;
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
-      gap: 6rem;
-      position: relative;
+      gap: 4rem;
+      position: relative; overflow: hidden;
     }
-
-    /* geometric accent line */
     .hero::before {
       content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 50%;
-      height: 100%;
-      background: var(--surface);
-      z-index: 0;
-      transition: background var(--transition);
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 40%, #dce8ff 0%, transparent 65%),
+        radial-gradient(ellipse 30% 40% at 10% 90%, #eef4ff 0%, transparent 60%);
     }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 0; opacity: .5;
+      background-image: radial-gradient(circle, #ccc8c0 1px, transparent 1px);
+      background-size: 28px 28px;
+      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 80% 50%, black 0%, transparent 70%);
+      mask-image: radial-gradient(ellipse 70% 80% at 80% 50%, black 0%, transparent 70%);
+    }
+    .hero-left, .hero-right { position: relative; z-index: 1; }
 
-    .hero-left { position: relative; z-index: 1; }
-    .hero-right { position: relative; z-index: 1; }
-
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: .74rem; font-weight: 600; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--accent);
+    .badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      border: 1px solid var(--border); border-radius: var(--pill);
+      background: var(--white); padding: 5px 14px;
+      font-size: .775rem; font-weight: 600; color: var(--blue);
       margin-bottom: 1.75rem;
-      animation: fadeUp .6s ease both;
+      animation: rise .7s ease both;
     }
-    .dot-live {
-      width: 6px; height: 6px; border-radius: 50%;
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
       background: var(--green);
-      animation: pulse 2.4s infinite;
+      animation: glow 2s infinite;
     }
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 0 0 2px color-mix(in srgb, var(--green) 30%, transparent); }
-      50%      { box-shadow: 0 0 0 6px color-mix(in srgb, var(--green) 10%, transparent); }
+    @keyframes glow {
+      0%,100% { box-shadow: 0 0 0 2px rgba(22,163,74,.25); }
+      50%      { box-shadow: 0 0 0 5px rgba(22,163,74,.1); }
     }
 
     h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(3rem, 5.5vw, 5.2rem);
-      line-height: 1.04; letter-spacing: -.025em;
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      line-height: 1.07; letter-spacing: -.02em;
       margin-bottom: 1.5rem;
-      animation: fadeUp .6s .08s ease both;
+      animation: rise .7s .1s ease both;
     }
-    h1 i { font-style: italic; color: var(--accent); }
+    h1 .accent { font-style: italic; color: var(--blue); }
 
     .hero-sub {
-      font-size: 1rem; color: var(--ink2); max-width: 420px;
-      line-height: 1.8; margin-bottom: 2.5rem;
-      font-weight: 400;
-      animation: fadeUp .6s .16s ease both;
+      font-size: 1.05rem; color: var(--dim); max-width: 440px;
+      line-height: 1.72; margin-bottom: 2.25rem;
+      animation: rise .7s .2s ease both;
     }
     .hero-actions {
-      display: flex; gap: .75rem; flex-wrap: wrap;
-      animation: fadeUp .6s .24s ease both;
+      display: flex; gap: .875rem; flex-wrap: wrap;
+      animation: rise .7s .3s ease both;
     }
     .btn {
-      padding: .8rem 1.75rem; border-radius: var(--pill);
-      font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 500;
+      padding: .8rem 1.85rem; border-radius: var(--pill);
+      font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 600;
       text-decoration: none; border: none; cursor: pointer;
       display: inline-flex; align-items: center; gap: 6px;
-      letter-spacing: .01em;
-      transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition), color var(--transition);
+      transition: background .18s, border-color .18s, transform .14s, box-shadow .18s;
     }
-    .btn-solid { background: var(--ink); color: var(--bg); }
-    .btn-solid:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 25%, transparent); }
-    .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
-    .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
-
-    .hero-divider { width: 40px; height: 2px; background: var(--border); margin: 2.75rem 0; animation: fadeUp .6s .32s ease both; }
+    .btn-solid { background: var(--ink); color: var(--white); }
+    .btn-solid:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(29,78,216,.22); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
 
     .hero-stats {
-      display: flex; gap: 3rem;
-      animation: fadeUp .6s .4s ease both;
+      display: flex; gap: 2.5rem; margin-top: 3.5rem;
+      animation: rise .7s .4s ease both;
     }
     .hstat-v {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.4rem; line-height: 1; color: var(--ink);
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.2rem; line-height: 1;
     }
-    .hstat-l { font-size: .74rem; color: var(--ink3); margin-top: 5px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+    .hstat-l { font-size: .775rem; color: var(--mid); margin-top: 4px; font-weight: 500; }
 
-    /* hero right panel */
-    .hero-panel {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      animation: fadeUp .6s .12s ease both;
-      transition: background var(--transition), border-color var(--transition);
+    /* floating card */
+    .hero-card {
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.09);
+      animation: rise .7s .2s ease both;
     }
-    .hp-header {
-      padding: 2rem 2rem 1.5rem;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: baseline; justify-content: space-between;
+    .hcard-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem;
     }
-    .hp-title { font-size: .74rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink3); }
-    .hp-range { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent); }
-    .hp-row {
-      padding: 1.1rem 2rem;
-      display: flex; align-items: center; gap: 1rem;
-      border-bottom: 1px solid var(--border);
-      transition: background var(--transition);
+    .hcard-lbl { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
+    .hcard-price { font-family: 'Instrument Serif', serif; font-size: 2.4rem; line-height: 1; color: var(--blue); }
+    .hcard-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: .72rem 0; border-top: 1px solid var(--mist);
+      font-size: .875rem; font-weight: 500;
     }
-    .hp-row:last-child { border-bottom: none; }
-    .hp-row:hover { background: var(--surface2); }
-    .hp-icon {
-      width: 34px; height: 34px; border-radius: 8px;
-      background: var(--accent-bg);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      transition: background var(--transition);
+    .hcard-row-sub { font-size: .75rem; color: var(--mid); }
+    .hcard-btn {
+      margin-top: 1.5rem; width: 100%;
+      padding: .85rem; border-radius: var(--pill);
+      background: var(--blue); color: var(--white);
+      border: none; font-family: 'Outfit', sans-serif;
+      font-size: .9rem; font-weight: 700; cursor: pointer;
+      transition: opacity .18s, transform .14s;
     }
-    .hp-icon svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .hp-label { font-size: .9rem; font-weight: 500; }
-    .hp-sub { font-size: .77rem; color: var(--ink3); margin-top: 1px; }
-    .hp-btn {
-      display: block; margin: 1.5rem 2rem 2rem;
-      text-align: center; padding: .85rem;
-      border-radius: var(--pill); border: none; cursor: pointer;
-      background: var(--ink); color: var(--bg);
-      font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 500;
-      letter-spacing: .01em;
-      transition: background var(--transition), color var(--transition), transform var(--transition);
-    }
-    .hp-btn:hover { background: var(--accent); transform: translateY(-1px); }
+    .hcard-btn:hover { opacity: .88; transform: translateY(-1px); }
 
-    /* ─── SECTIONS ─── */
-    section { padding: 100px clamp(1.5rem, 5vw, 4.5rem); }
-    .sec-eyebrow { font-size: .74rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; }
+    /* ─────────────────────────── SECTIONS */
+    section { padding: 90px clamp(1.25rem, 5vw, 4rem); }
+    .sec-lbl { font-size: .73rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: .75rem; }
     .sec-h {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 3.8vw, 3rem);
-      line-height: 1.08; letter-spacing: -.025em; margin-bottom: .75rem;
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2rem, 3.8vw, 2.9rem);
+      line-height: 1.1; letter-spacing: -.02em; margin-bottom: .75rem;
     }
-    .sec-sub { color: var(--ink2); font-size: .95rem; max-width: 420px; line-height: 1.75; }
+    .sec-sub { color: var(--dim); font-size: .975rem; max-width: 440px; line-height: 1.7; }
 
-    /* ─── PROCESS ─── */
-    #how { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); transition: background var(--transition), border-color var(--transition); }
-    .how-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
-    .steps-list { display: flex; flex-direction: column; gap: 0; margin-top: 0; }
-    .step {
-      display: grid; grid-template-columns: 56px 1fr; gap: 1.25rem;
-      padding: 2rem 0; border-bottom: 1px solid var(--border);
-      align-items: start;
+    /* ─────────────────────────── PROCESS */
+    #how { background: var(--cream); }
+    .steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden;
+      margin-top: 3rem;
     }
-    .step:first-child { padding-top: 0; }
-    .step:last-child { border-bottom: none; padding-bottom: 0; }
+    .step { padding: 2.25rem 1.75rem; background: var(--white); }
+    .step + .step { border-left: 1.5px solid var(--border); }
     .step-n {
-      font-family: 'DM Serif Display', serif; font-style: italic;
-      font-size: 1.8rem; color: var(--border); line-height: 1; padding-top: 2px;
-      transition: color var(--transition);
+      font-family: 'Instrument Serif', serif; font-style: italic;
+      font-size: 3.5rem; color: var(--mist); line-height: 1; margin-bottom: 1rem;
     }
-    .step h3 { font-size: .95rem; font-weight: 600; margin-bottom: 4px; }
-    .step p { font-size: .85rem; color: var(--ink2); line-height: 1.7; }
+    .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; }
+    .step p { font-size: .85rem; color: var(--dim); line-height: 1.65; }
 
-    /* ─── PRICING ─── */
-    #pricing { background: var(--bg); transition: background var(--transition); }
-    .pricing-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
+    /* ─────────────────────────── PRICING */
+    #pricing { background: var(--white); }
     .price-grid {
-      display: flex; flex-direction: column; gap: .875rem;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem; margin-top: 3rem;
     }
     .pcard {
-      border: 1.5px solid var(--border); border-radius: 14px;
-      padding: 1.75rem 2rem; position: relative;
-      background: var(--surface);
-      transition: box-shadow var(--transition), transform var(--transition), background var(--transition), border-color var(--transition);
-      cursor: default;
+      border: 1.5px solid var(--border); border-radius: 16px;
+      padding: 2.25rem 1.75rem; position: relative;
+      transition: box-shadow .2s, transform .2s;
     }
-    .pcard:hover { box-shadow: 0 12px 40px color-mix(in srgb, var(--ink) 8%, transparent); transform: translateY(-3px); }
-    .pcard.hot { background: var(--ink); border-color: var(--ink); }
-    [data-theme="dark"] .pcard.hot { background: var(--surface); border-color: var(--accent); }
+    .pcard:hover { box-shadow: 0 16px 50px rgba(0,0,0,.1); transform: translateY(-4px); }
+    .pcard.hot { background: var(--ink); color: var(--white); border-color: var(--ink); }
     .pbadge {
-      position: absolute; top: 1.5rem; right: 1.5rem;
-      background: var(--accent); color: #fff;
-      font-size: .64rem; font-weight: 700; padding: 3px 9px;
-      border-radius: var(--pill); letter-spacing: .08em; text-transform: uppercase;
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      background: var(--blue); color: var(--white);
+      font-size: .68rem; font-weight: 800; padding: 3px 10px;
+      border-radius: var(--pill); letter-spacing: .07em; text-transform: uppercase;
     }
-    .pcard-top { display: flex; align-items: baseline; gap: 1rem; margin-bottom: .5rem; }
-    .ptier { font-size: .74rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink3); }
-    .pcard.hot .ptier { color: #888; }
-    [data-theme="dark"] .pcard.hot .ptier { color: var(--ink3); }
-    .pamount { font-family: 'DM Serif Display', serif; font-size: 2.8rem; line-height: 1; color: var(--ink); }
-    .pamount sup { font-size: 1.2rem; vertical-align: super; }
-    .pcard.hot .pamount { color: var(--bg); }
-    [data-theme="dark"] .pcard.hot .pamount { color: var(--ink); }
-    .pdesc { font-size: .84rem; color: var(--ink3); margin-bottom: 1.5rem; line-height: 1.65; }
-    .pcard.hot .pdesc { color: #666; }
-    [data-theme="dark"] .pcard.hot .pdesc { color: var(--ink3); }
-    .pfeats { list-style: none; margin-bottom: 1.75rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+    .ptier { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: .75rem; }
+    .pcard.hot .ptier { color: #666; }
+    .pamount { font-family: 'Instrument Serif', serif; font-size: 3.5rem; line-height: 1; margin-bottom: .25rem; }
+    .pamount sup { font-size: 1.6rem; vertical-align: super; }
+    .pdesc { font-size: .85rem; color: var(--dim); margin-bottom: 1.75rem; line-height: 1.6; }
+    .pcard.hot .pdesc { color: #999; }
+    .pfeats { list-style: none; margin-bottom: 2rem; }
     .pfeat {
-      font-size: .78rem; color: var(--ink2);
-      background: var(--surface2); border-radius: var(--pill);
-      padding: 4px 10px;
-      display: flex; align-items: center; gap: 5px;
-      transition: background var(--transition), color var(--transition);
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: .875rem; color: var(--dim);
+      padding: .45rem 0; border-top: 1px solid var(--border);
     }
-    .pcard.hot .pfeat { background: rgba(255,255,255,.08); color: rgba(255,255,255,.7); }
-    [data-theme="dark"] .pcard.hot .pfeat { background: var(--surface2); color: var(--ink2); }
-    .pfeat-check { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; stroke-linecap: round; flex-shrink: 0; }
-    .pcard.hot .pfeat-check { stroke: #4ade80; }
-    [data-theme="dark"] .pcard.hot .pfeat-check { stroke: var(--green); }
+    .pcard.hot .pfeat { border-color: #2a2a2a; color: #aaa; }
+    .pfeat::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .pcard.hot .pfeat::before { color: #4ade80; }
     .pcta {
       display: block; width: 100%; text-align: center;
-      text-decoration: none; padding: .75rem; border-radius: var(--pill);
-      font-size: .86rem; font-weight: 500; letter-spacing: .01em;
-      font-family: 'DM Sans', sans-serif; border: none; cursor: pointer;
-      transition: background var(--transition), color var(--transition), transform var(--transition);
+      text-decoration: none; padding: .8rem; border-radius: var(--pill);
+      font-size: .9rem; font-weight: 700; transition: all .18s;
+      font-family: 'Outfit', sans-serif; border: none; cursor: pointer;
     }
-    .pcard:not(.hot) .pcta { background: var(--ink); color: var(--bg); }
-    .pcard:not(.hot) .pcta:hover { background: var(--accent); }
-    .pcard.hot .pcta { background: var(--bg); color: var(--ink); }
-    .pcard.hot .pcta:hover { background: var(--accent); color: #fff; }
-    [data-theme="dark"] .pcard.hot .pcta { background: var(--accent); color: #fff; }
+    .pcard:not(.hot) .pcta { background: var(--ink); color: var(--white); }
+    .pcard:not(.hot) .pcta:hover { background: var(--blue); }
+    .pcard.hot .pcta { background: var(--white); color: var(--ink); }
+    .pcard.hot .pcta:hover { background: var(--blue); color: var(--white); }
 
-    /* ─── EXAMPLES ─── */
-    #examples { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); transition: background var(--transition), border-color var(--transition); }
-    .ex-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
-    .ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    /* ─────────────────────────── EXAMPLES */
+    #examples { background: var(--cream); }
+    .ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
     .excard {
-      background: var(--bg); border: 1.5px solid var(--border);
-      border-radius: 14px; overflow: hidden;
-      transition: box-shadow var(--transition), transform var(--transition), background var(--transition), border-color var(--transition);
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
     }
-    .excard:hover { box-shadow: 0 12px 36px color-mix(in srgb, var(--ink) 10%, transparent); transform: translateY(-4px); }
-    .exthumb {
-      height: 110px; display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .exthumb svg { width: 36px; height: 36px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .exthumb.a { background: color-mix(in srgb, var(--accent2) 12%, var(--bg)); color: var(--accent2); }
-    .exthumb.b { background: color-mix(in srgb, var(--green) 12%, var(--bg)); color: var(--green); }
-    .exthumb.c { background: color-mix(in srgb, var(--accent) 12%, var(--bg)); color: var(--accent); }
-    .exbody { padding: 1.1rem 1.25rem 1.25rem; }
-    .exbody h3 { font-size: .9rem; font-weight: 600; margin-bottom: 3px; }
-    .exbody p { font-size: .78rem; color: var(--ink3); line-height: 1.55; }
+    .excard:hover { box-shadow: 0 14px 40px rgba(0,0,0,.09); transform: translateY(-4px); }
+    .exthumb { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .exthumb.a { background: linear-gradient(135deg,#dbeafe,#bfdbfe); }
+    .exthumb.b { background: linear-gradient(135deg,#dcfce7,#bbf7d0); }
+    .exthumb.c { background: linear-gradient(135deg,#fef9c3,#fef08a); }
+    .exbody { padding: 1.25rem 1.5rem; }
+    .exbody h3 { font-size: .95rem; font-weight: 600; margin-bottom: 4px; }
+    .exbody p { font-size: .8rem; color: var(--mid); }
     .extag {
       display: inline-block; margin-top: 8px;
-      font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--accent); background: var(--accent-bg); padding: 3px 8px; border-radius: 4px;
+      font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+      color: var(--blue); background: var(--blue-soft); padding: 3px 8px; border-radius: 4px;
     }
 
-    /* ─── BOOKING ─── */
-    #book { background: var(--bg); transition: background var(--transition); }
-    .book-inner {
-      display: grid; grid-template-columns: 1fr 1.2fr;
-      gap: 6rem; align-items: start; max-width: 1200px; margin: 0 auto;
+    /* ─────────────────────────── BOOKING */
+    #book { background: var(--white); }
+    .book-grid {
+      display: grid; grid-template-columns: 1fr 1.15fr;
+      gap: 5rem; align-items: start; max-width: 1100px; margin: 0 auto;
     }
-    .book-copy p { color: var(--ink2); font-size: .95rem; margin-bottom: 2.5rem; line-height: 1.8; }
-    .trust-list { display: flex; flex-direction: column; gap: 1.5rem; }
-    .titem { display: flex; align-items: flex-start; gap: 14px; }
+    .book-copy p { color: var(--dim); font-size: .975rem; margin-bottom: 2.25rem; line-height: 1.7; }
+    .trust-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .titem { display: flex; align-items: flex-start; gap: 12px; }
     .ticon {
-      width: 36px; height: 36px; flex-shrink: 0; border-radius: 9px;
-      background: var(--accent-bg); display: flex; align-items: center; justify-content: center;
-      transition: background var(--transition);
+      width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px;
+      background: var(--blue-soft); display: flex; align-items: center; justify-content: center; font-size: 1rem;
     }
-    .ticon svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .titem h4 { font-size: .88rem; font-weight: 600; margin-bottom: 2px; }
-    .titem p { font-size: .8rem; color: var(--ink3); margin: 0; }
+    .titem h4 { font-size: .9rem; font-weight: 600; margin-bottom: 2px; }
+    .titem p { font-size: .8rem; color: var(--mid); margin: 0; }
 
-    /* auth bars */
+    /* auth banners */
     .auth-bar {
       display: flex; align-items: center; gap: 10px;
       padding: .8rem 1rem; border-radius: var(--r);
-      font-size: .83rem; font-weight: 500; margin-bottom: 1.25rem;
-      transition: background var(--transition), border-color var(--transition);
+      font-size: .85rem; font-weight: 500; margin-bottom: 1.25rem;
     }
-    .auth-bar.warn { background: color-mix(in srgb, var(--accent) 8%, var(--bg)); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); color: var(--accent); }
-    .auth-bar.ok   { background: color-mix(in srgb, var(--green) 10%, var(--bg)); border: 1px solid color-mix(in srgb, var(--green) 30%, transparent); color: var(--green); display: none; }
-    .auth-icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; flex-shrink: 0; }
+    .auth-bar.warn { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+    .auth-bar.ok   { background: #f0fdf4; border: 1px solid #86efac; color: #166534; display: none; }
 
-    /* form */
+    /* form shell */
     .form-wrap {
-      background: var(--surface); border: 1.5px solid var(--border);
-      border-radius: 18px; padding: 2.25rem;
-      transition: background var(--transition), border-color var(--transition);
+      background: var(--cream); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 2.25rem;
     }
     .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 1rem; }
-    label { font-size: .78rem; font-weight: 600; letter-spacing: .02em; color: var(--ink2); }
+    label { font-size: .8rem; font-weight: 600; }
     input[type=text], input[type=email], select, textarea {
-      font-family: 'DM Sans', sans-serif; font-size: .88rem;
-      padding: .72rem 1rem; border-radius: var(--r);
-      border: 1.5px solid var(--border); background: var(--bg);
+      font-family: 'Outfit', sans-serif; font-size: .9rem;
+      padding: .7rem .95rem; border-radius: var(--r);
+      border: 1.5px solid var(--border); background: var(--white);
       color: var(--ink); outline: none; width: 100%;
-      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+      transition: border-color .18s, box-shadow .18s;
     }
     input[type=text]:focus, input[type=email]:focus, select:focus, textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(29,78,216,.1);
     }
     textarea { resize: vertical; min-height: 110px; }
     select { cursor: pointer; }
-    ::placeholder { color: var(--ink3); }
 
     /* slider */
-    .sl-row { display: flex; justify-content: space-between; align-items: baseline; font-size: .78rem; font-weight: 600; letter-spacing: .02em; color: var(--ink2); margin-bottom: 8px; }
-    .sl-val { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--accent); line-height: 1; }
+    .sl-row { display: flex; justify-content: space-between; align-items: baseline; font-size: .8rem; font-weight: 600; margin-bottom: 8px; }
+    .sl-val { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--blue); line-height: 1; }
     input[type=range] {
-      -webkit-appearance: none; width: 100%; height: 4px;
-      border-radius: 2px; background: var(--border);
+      -webkit-appearance: none; width: 100%; height: 5px;
+      border-radius: 3px; background: var(--border);
       cursor: pointer; padding: 0; border: none; outline: none;
-      transition: background var(--transition);
     }
     input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 18px; height: 18px;
-      border-radius: 50%; background: var(--accent); cursor: pointer;
-      box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 40%, transparent);
-      transition: transform .15s;
+      -webkit-appearance: none; width: 20px; height: 20px;
+      border-radius: 50%; background: var(--blue); cursor: pointer;
+      box-shadow: 0 2px 8px rgba(29,78,216,.35); transition: transform .15s;
     }
     input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
-    .sl-ends { display: flex; justify-content: space-between; font-size: .7rem; color: var(--ink3); margin-top: 6px; }
+    .sl-ends { display: flex; justify-content: space-between; font-size: .72rem; color: var(--mid); margin-top: 5px; }
 
+    /* gmail button */
     .gmail-btn {
       width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
       padding: .85rem; border-radius: var(--pill);
-      background: var(--bg); color: var(--ink);
+      background: var(--white); color: var(--ink);
       border: 1.5px solid var(--border);
-      font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 500;
-      cursor: pointer; letter-spacing: .01em;
-      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
-      margin-bottom: 1rem;
+      font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 600;
+      cursor: pointer; transition: border-color .18s, box-shadow .18s; margin-bottom: 1rem;
     }
-    .gmail-btn:hover { border-color: var(--ink3); box-shadow: 0 2px 10px color-mix(in srgb, var(--ink) 8%, transparent); }
+    .gmail-btn:hover { border-color: #aaa; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
 
     .submit-btn {
-      width: 100%; padding: .9rem; border-radius: var(--pill);
-      background: var(--ink); color: var(--bg);
-      border: none; font-family: 'DM Sans', sans-serif;
-      font-size: .88rem; font-weight: 500; letter-spacing: .01em; cursor: pointer;
-      transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+      width: 100%; padding: .95rem; border-radius: var(--pill);
+      background: var(--ink); color: var(--white);
+      border: none; font-family: 'Outfit', sans-serif;
+      font-size: .9rem; font-weight: 700; cursor: pointer;
+      transition: background .18s, transform .14s, box-shadow .18s;
     }
-    .submit-btn:hover:not(:disabled) { background: var(--accent); transform: translateY(-1px); box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 25%, transparent); }
-    .submit-btn:disabled { opacity: .45; cursor: not-allowed; }
-    .form-note { font-size: .74rem; color: var(--ink3); text-align: center; margin-top: .75rem; line-height: 1.5; }
-    .err {
-      background: color-mix(in srgb, var(--accent) 8%, var(--bg));
-      border: 1.5px solid color-mix(in srgb, var(--accent) 30%, transparent);
-      border-radius: var(--r); padding: .7rem .95rem;
-      font-size: .83rem; color: var(--accent); margin-top: .75rem; display: none;
-    }
+    .submit-btn:hover:not(:disabled) { background: var(--blue); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(29,78,216,.22); }
+    .submit-btn:disabled { background: #bbb; cursor: not-allowed; }
+    .form-note { font-size: .775rem; color: var(--mid); text-align: center; margin-top: .75rem; }
+    .err { background: #fef2f2; border: 1.5px solid #fecaca; border-radius: var(--r); padding: .7rem .95rem; font-size: .84rem; color: var(--red); margin-top: .75rem; display: none; }
 
-    .success-box { display: none; text-align: center; padding: 3.5rem 1rem; }
-    .success-icon { width: 52px; height: 52px; border-radius: 50%; background: color-mix(in srgb, var(--green) 15%, var(--bg)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
-    .success-icon svg { width: 24px; height: 24px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; }
-    .success-box h3 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; margin-bottom: .5rem; }
-    .success-box p { color: var(--ink2); font-size: .9rem; }
+    /* success */
+    .success-box { display: none; text-align: center; padding: 3rem 1rem; }
+    .success-box .ico { font-size: 3.5rem; margin-bottom: 1rem; }
+    .success-box h3 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; margin-bottom: .5rem; }
+    .success-box p { color: var(--dim); font-size: .9rem; }
 
-    /* ─── FOOTER ─── */
+    /* ─────────────────────────── FOOTER */
     footer {
-      background: var(--ink); color: var(--ink3);
-      padding: 2.5rem clamp(1.5rem, 5vw, 4.5rem);
+      background: var(--ink); color: #666;
+      padding: 2.5rem clamp(1.25rem, 5vw, 4rem);
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 1rem;
-      border-top: 1px solid var(--border);
-      transition: background var(--transition), color var(--transition);
     }
-    [data-theme="dark"] footer { background: var(--surface); }
-    .flogo { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--bg); }
-    [data-theme="dark"] .flogo { color: var(--ink); }
-    .flogo em { font-style: italic; color: var(--accent); }
-    footer p { font-size: .8rem; color: #555; }
-    [data-theme="dark"] footer p { color: var(--ink3); }
-    footer a { color: #666; text-decoration: none; transition: color var(--transition); }
-    footer a:hover { color: var(--accent); }
-    [data-theme="dark"] footer a { color: var(--ink3); }
+    .flogo { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.2rem; color: var(--white); }
+    .flogo b { color: var(--blue); font-weight: 400; }
+    footer p { font-size: .8rem; }
+    footer a { color: #666; text-decoration: none; transition: color .18s; }
+    footer a:hover { color: var(--white); }
 
-    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 1024px) {
-      .how-inner, .pricing-inner, .ex-inner, .book-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .steps-list { margin-top: 0; }
-      .ex-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 860px) {
+    /* ─────────────────────────── RESPONSIVE */
+    @media (max-width: 960px) {
       .hero { grid-template-columns: 1fr; }
-      .hero::before { display: none; }
       .hero-right { display: none; }
-      .ex-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .step:nth-child(3), .step:nth-child(4) { border-top: 1.5px solid var(--border); }
+      .step:nth-child(3) { border-left: none; }
+      .price-grid, .ex-grid { grid-template-columns: 1fr; }
+      .book-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .f2 { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
-    @media (max-width: 540px) {
-      .f2 { grid-template-columns: 1fr; }
-      .price-grid { gap: .75rem; }
+    @media (max-width: 500px) {
+      .steps { grid-template-columns: 1fr; }
+      .step + .step { border-left: none; border-top: 1.5px solid var(--border); }
     }
   </style>
 </head>
@@ -510,35 +409,26 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">Liam's<em>.</em></a>
+  <a href="#" class="logo">Liam's<b>.</b></a>
   <ul class="nav-links">
     <li><a href="#how">Process</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#examples">Examples</a></li>
     <li><a href="#book">Book</a></li>
   </ul>
-  <div class="nav-right">
-    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-      <!-- sun -->
-      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
-      <!-- moon -->
-      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-    </button>
-    <a href="#book" class="nav-cta">Get Started</a>
-  </div>
+  <a href="#book" class="nav-cta">Get a Site →</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="eyebrow"><span class="dot-live"></span>Taking new clients now</div>
-    <h1>Your business.<br/>A real <i>website.</i><br/>Under $200.</h1>
-    <p class="hero-sub">Clean, professional websites for any business — restaurant, salon, contractor, freelancer — starting at just $50. No templates. No fluff.</p>
+    <div class="badge"><span class="badge-dot"></span>Taking new clients now</div>
+    <h1>Your business.<br/>A real <span class="accent">website.</span><br/>Under $200.</h1>
+    <p class="hero-sub">I build clean, professional websites for any business — restaurant, salon, contractor, freelancer — starting at just $50. No templates. No fluff.</p>
     <div class="hero-actions">
-      <a href="#book" class="btn btn-solid">Book Your Site &rarr;</a>
-      <a href="#pricing" class="btn btn-outline">See Pricing</a>
+      <a href="#book" class="btn btn-solid">Book Your Site →</a>
+      <a href="#pricing" class="btn btn-ghost">See Pricing</a>
     </div>
-    <div class="hero-divider"></div>
     <div class="hero-stats">
       <div><div class="hstat-v">$50</div><div class="hstat-l">Starting price</div></div>
       <div><div class="hstat-v">&lt;7d</div><div class="hstat-l">Delivery time</div></div>
@@ -546,215 +436,131 @@
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-panel">
-      <div class="hp-header">
-        <span class="hp-title">What you get</span>
-        <span class="hp-range">$50–$200</span>
+    <div class="hero-card">
+      <div class="hcard-head">
+        <span class="hcard-lbl">What you get</span>
+        <span class="hcard-price">$50–$200</span>
       </div>
-      <div class="hp-row">
-        <div class="hp-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-        </div>
-        <div><div class="hp-label">Custom design</div><div class="hp-sub">Built just for your brand</div></div>
+      <div class="hcard-row">
+        <span>🎨</span>
+        <div><div>Custom design</div><div class="hcard-row-sub">Built just for your brand</div></div>
       </div>
-      <div class="hp-row">
-        <div class="hp-icon">
-          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-        </div>
-        <div><div class="hp-label">Mobile ready</div><div class="hp-sub">Looks great everywhere</div></div>
+      <div class="hcard-row">
+        <span>📱</span>
+        <div><div>Mobile ready</div><div class="hcard-row-sub">Looks great everywhere</div></div>
       </div>
-      <div class="hp-row">
-        <div class="hp-icon">
-          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        <div><div class="hp-label">Fast delivery</div><div class="hp-sub">Live in under a week</div></div>
+      <div class="hcard-row">
+        <span>⚡</span>
+        <div><div>Fast delivery</div><div class="hcard-row-sub">Live in under a week</div></div>
       </div>
-      <div class="hp-row">
-        <div class="hp-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div><div class="hp-label">One flat price</div><div class="hp-sub">No hidden fees, ever</div></div>
+      <div class="hcard-row">
+        <span>🔒</span>
+        <div><div>One flat price</div><div class="hcard-row-sub">No hidden fees, ever</div></div>
       </div>
-      <button class="hp-btn" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Start My Project &rarr;</button>
+      <button class="hcard-btn" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Start My Project</button>
     </div>
   </div>
 </section>
 
 <!-- PROCESS -->
 <section id="how">
-  <div class="how-inner">
-    <div>
-      <div class="sec-eyebrow">Process</div>
-      <h2 class="sec-h">From idea to live.</h2>
-      <p class="sec-sub">No confusing contracts. No back-and-forth. A clean simple process from brief to launch.</p>
-    </div>
-    <div class="steps-list">
-      <div class="step">
-        <div class="step-n">01</div>
-        <div><h3>Fill out the form</h3><p>Tell me about your business and what you need. Set your budget anywhere from $50–$200.</p></div>
-      </div>
-      <div class="step">
-        <div class="step-n">02</div>
-        <div><h3>I get to work</h3><p>I'll reply within 24 hours and start building your custom site immediately.</p></div>
-      </div>
-      <div class="step">
-        <div class="step-n">03</div>
-        <div><h3>Review &amp; launch</h3><p>You review the site, request any changes, and you're live — all within a week.</p></div>
-      </div>
-      <div class="step">
-        <div class="step-n">04</div>
-        <div><h3>It's yours forever</h3><p>One flat payment. No monthly fees from me. The site belongs to you, always.</p></div>
-      </div>
-    </div>
+  <div class="sec-lbl">Process</div>
+  <h2 class="sec-h">Three steps to launch.</h2>
+  <p class="sec-sub">No confusing contracts. No back-and-forth. Just a clean simple process from idea to live site.</p>
+  <div class="steps">
+    <div class="step"><div class="step-n">01</div><h3>Fill out the form</h3><p>Tell me about your business and what you need. Set your budget anywhere from $50–$200.</p></div>
+    <div class="step"><div class="step-n">02</div><h3>I get to work</h3><p>I'll reply within 24 hours and start building your custom site immediately.</p></div>
+    <div class="step"><div class="step-n">03</div><h3>Review & launch</h3><p>You review the site, request any changes, and you're live — all within a week.</p></div>
+    <div class="step"><div class="step-n">04</div><h3>It's yours forever</h3><p>One flat payment. No monthly fees from me. The site belongs to you, always.</p></div>
   </div>
 </section>
 
 <!-- PRICING -->
 <section id="pricing">
-  <div class="pricing-inner">
-    <div>
-      <div class="sec-eyebrow">Pricing</div>
-      <h2 class="sec-h">Always under $200.</h2>
-      <p class="sec-sub">Pick a tier or use the slider on the booking form to set your own exact budget.</p>
+  <div class="sec-lbl">Pricing</div>
+  <h2 class="sec-h">Always under $200.</h2>
+  <p class="sec-sub">Pick a tier or use the slider on the booking form to set your own exact budget.</p>
+  <div class="price-grid">
+    <div class="pcard">
+      <div class="ptier">Starter</div>
+      <div class="pamount"><sup>$</sup>50</div>
+      <div class="pdesc">Get online fast with a clean, simple site.</div>
+      <ul class="pfeats">
+        <li class="pfeat">1–2 page website</li>
+        <li class="pfeat">Mobile responsive</li>
+        <li class="pfeat">Contact section</li>
+        <li class="pfeat">1 revision round</li>
+      </ul>
+      <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Starter</button>
     </div>
-    <div class="price-grid">
-      <div class="pcard">
-        <div class="pcard-top">
-          <div class="ptier">Starter</div>
-          <div class="pamount"><sup>$</sup>50</div>
-        </div>
-        <div class="pdesc">Get online fast with a clean, simple site.</div>
-        <ul class="pfeats">
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>1–2 pages</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Mobile ready</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Contact section</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>1 revision round</li>
-        </ul>
-        <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Starter</button>
-      </div>
-      <div class="pcard hot">
-        <div class="pbadge">Most Popular</div>
-        <div class="pcard-top">
-          <div class="ptier">Standard</div>
-          <div class="pamount"><sup>$</sup>120</div>
-        </div>
-        <div class="pdesc">The sweet spot for most businesses.</div>
-        <ul class="pfeats">
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>3–5 pages</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Mobile ready</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Contact form</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Basic SEO</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>3 revision rounds</li>
-        </ul>
-        <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Standard</button>
-      </div>
-      <div class="pcard">
-        <div class="pcard-top">
-          <div class="ptier">Pro</div>
-          <div class="pamount"><sup>$</sup>200</div>
-        </div>
-        <div class="pdesc">Full-featured for serious businesses.</div>
-        <ul class="pfeats">
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>5–8 pages</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Mobile ready</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Form + booking</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Full SEO</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Maps + socials</li>
-          <li class="pfeat"><svg class="pfeat-check" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>Unlimited revisions</li>
-        </ul>
-        <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Pro</button>
-      </div>
+    <div class="pcard hot">
+      <div class="pbadge">Most Popular</div>
+      <div class="ptier">Standard</div>
+      <div class="pamount"><sup>$</sup>120</div>
+      <div class="pdesc">The sweet spot for most businesses.</div>
+      <ul class="pfeats">
+        <li class="pfeat">3–5 pages</li>
+        <li class="pfeat">Mobile responsive</li>
+        <li class="pfeat">Contact form</li>
+        <li class="pfeat">Basic SEO setup</li>
+        <li class="pfeat">3 revision rounds</li>
+      </ul>
+      <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Standard</button>
+    </div>
+    <div class="pcard">
+      <div class="ptier">Pro</div>
+      <div class="pamount"><sup>$</sup>200</div>
+      <div class="pdesc">Full-featured for serious businesses.</div>
+      <ul class="pfeats">
+        <li class="pfeat">5–8 pages</li>
+        <li class="pfeat">Mobile responsive</li>
+        <li class="pfeat">Contact form + booking</li>
+        <li class="pfeat">Full SEO setup</li>
+        <li class="pfeat">Google Maps & socials</li>
+        <li class="pfeat">Unlimited revisions</li>
+      </ul>
+      <button class="pcta" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Pro</button>
     </div>
   </div>
 </section>
 
 <!-- EXAMPLES -->
 <section id="examples">
-  <div class="ex-inner">
-    <div>
-      <div class="sec-eyebrow">Examples</div>
-      <h2 class="sec-h">Built for every business.</h2>
-      <p class="sec-sub">Restaurants, trades, studios, shops — if you run it, I can build it.</p>
-    </div>
-    <div class="ex-grid">
-      <div class="excard">
-        <div class="exthumb a">
-          <!-- fork & knife -->
-          <svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><line x1="7" y1="2" x2="7" y2="22"/><path d="M21 15V2s-5 2-5 7v6"/><line x1="16" y1="15" x2="21" y2="15"/><line x1="18.5" y1="15" x2="18.5" y2="22"/></svg>
-        </div>
-        <div class="exbody">
-          <h3>Restaurant / Café</h3>
-          <p>Menu, hours, location &amp; online presence</p>
-          <span class="extag">Food &amp; Drink</span>
-        </div>
-      </div>
-      <div class="excard">
-        <div class="exthumb b">
-          <!-- scissors -->
-          <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-        </div>
-        <div class="exbody">
-          <h3>Barbershop / Salon</h3>
-          <p>Services, gallery &amp; booking links</p>
-          <span class="extag">Beauty &amp; Wellness</span>
-        </div>
-      </div>
-      <div class="excard">
-        <div class="exthumb c">
-          <!-- home/wrench -->
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <div class="exbody">
-          <h3>Contractor / Trades</h3>
-          <p>Portfolio, services &amp; lead generation</p>
-          <span class="extag">Home Services</span>
-        </div>
-      </div>
-    </div>
+  <div class="sec-lbl">Examples</div>
+  <h2 class="sec-h">Built for every business.</h2>
+  <p class="sec-sub">Restaurants, trades, studios, shops — if you run it, I can build it.</p>
+  <div class="ex-grid">
+    <div class="excard"><div class="exthumb a">🍕</div><div class="exbody"><h3>Restaurant / Café</h3><p>Menu, hours, location & online presence</p><span class="extag">Food & Drink</span></div></div>
+    <div class="excard"><div class="exthumb b">💈</div><div class="exbody"><h3>Barbershop / Salon</h3><p>Services, gallery & booking links</p><span class="extag">Beauty & Wellness</span></div></div>
+    <div class="excard"><div class="exthumb c">🏠</div><div class="exbody"><h3>Contractor / Trades</h3><p>Portfolio, services & lead generation</p><span class="extag">Home Services</span></div></div>
   </div>
 </section>
 
 <!-- BOOKING -->
 <section id="book">
-  <div class="book-inner">
+  <div class="book-grid">
+    <!-- left -->
     <div class="book-copy">
-      <div class="sec-eyebrow">Book Now</div>
+      <div class="sec-lbl">Book Now</div>
       <h2 class="sec-h">Let's build your site.</h2>
       <p>Fill out the form and I'll be in touch within 24 hours. Sign in with Google so your booking is actually delivered to my email.</p>
       <div class="trust-list">
-        <div class="titem">
-          <div class="ticon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-          <div><h4>Fast turnaround</h4><p>Most sites delivered in under 7 days.</p></div>
-        </div>
-        <div class="titem">
-          <div class="ticon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-          <div><h4>Direct communication</h4><p>You work directly with me, not a team.</p></div>
-        </div>
-        <div class="titem">
-          <div class="ticon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div><h4>No hidden fees</h4><p>One flat price. No subscriptions.</p></div>
-        </div>
-        <div class="titem">
-          <div class="ticon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
-          <div><h4>Any business, any idea</h4><p>If you can describe it, I can build it.</p></div>
-        </div>
+        <div class="titem"><div class="ticon">⚡</div><div><h4>Fast turnaround</h4><p>Most sites delivered in under 7 days.</p></div></div>
+        <div class="titem"><div class="ticon">💬</div><div><h4>Direct communication</h4><p>You work directly with me, not a team.</p></div></div>
+        <div class="titem"><div class="ticon">🔒</div><div><h4>No hidden fees</h4><p>One flat price. No subscriptions.</p></div></div>
+        <div class="titem"><div class="ticon">✏️</div><div><h4>Any business, any idea</h4><p>If you can describe it, I can build it.</p></div></div>
       </div>
     </div>
 
+    <!-- right -->
     <div>
-      <div class="auth-bar warn" id="warnBar">
-        <svg class="auth-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        Sign in with Google first — it's how your booking reaches me.
-      </div>
-      <div class="auth-bar ok" id="okBar">
-        <svg class="auth-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        <span id="signedInAs">Signed in</span> — ready to send!
-      </div>
+      <div class="auth-bar warn" id="warnBar">🔐 &nbsp;Sign in with Google first — it's how your booking reaches me.</div>
+      <div class="auth-bar ok"  id="okBar">✅ &nbsp;<span id="signedInAs">Signed in</span> — ready to send!</div>
 
       <div class="form-wrap">
         <div id="gSignArea">
           <button class="gmail-btn" onclick="doGoogleSignIn()">
-            <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
               <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
@@ -774,8 +580,8 @@
           <div class="fg">
             <label for="btype">Type of Business *</label>
             <select id="btype" required>
-              <option value="" disabled selected>Select a category&hellip;</option>
-              <option>Restaurant / Food &amp; Drink</option>
+              <option value="" disabled selected>Select a category…</option>
+              <option>Restaurant / Food & Drink</option>
               <option>Retail / Shop</option>
               <option>Beauty / Salon / Barbershop</option>
               <option>Contractor / Home Services</option>
@@ -790,21 +596,19 @@
           <div class="fg">
             <div class="sl-row"><label>Your Budget</label><span class="sl-val" id="slVal">$120</span></div>
             <input type="range" id="budgetSlider" min="50" max="200" step="5" value="120" />
-            <div class="sl-ends"><span>$50 &mdash; Starter</span><span>$200 &mdash; Pro</span></div>
+            <div class="sl-ends"><span>$50 — Starter</span><span>$200 — Pro</span></div>
           </div>
           <div class="fg">
             <label for="notes">Tell me about your project *</label>
             <textarea id="notes" required placeholder="What does your business do? What pages do you want? Any features, colors, or inspiration? The more detail the better!"></textarea>
           </div>
-          <button type="submit" class="submit-btn" id="subBtn" disabled>Sign in with Google first &uarr;</button>
+          <button type="submit" class="submit-btn" id="subBtn" disabled>Sign in with Google first ↑</button>
           <p class="form-note">Your booking goes directly to LiamsSites@proton.me. You'll also get a confirmation at your email.</p>
           <div class="err" id="errBox"></div>
         </form>
 
         <div class="success-box" id="successBox">
-          <div class="success-icon">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
+          <div class="ico">🎉</div>
           <h3>Booking sent!</h3>
           <p>I'll be in touch at your email within 24 hours. Talk soon!</p>
         </div>
@@ -815,19 +619,15 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="flogo">Liam's<em>.</em></div>
-  <p>Professional websites for any business &mdash; always under $200.</p>
+  <div class="flogo">Liam's<b>.</b></div>
+  <p>Professional websites for any business — always under $200.</p>
   <p><a href="mailto:LiamsSites@proton.me">LiamsSites@proton.me</a></p>
 </footer>
 
+<!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script>
-  /* ── Theme toggle ── */
-  function toggleTheme() {
-    const html = document.documentElement;
-    html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-  }
 
+<script>
   /* ── Slider ── */
   const sl = document.getElementById('budgetSlider');
   const sv = document.getElementById('slVal');
@@ -837,6 +637,7 @@
   let gToken = null, senderEmail = null;
 
   function doGoogleSignIn() {
+    // Fetch the client ID from our server then open the OAuth popup
     fetch('/google-client-id')
       .then(r => r.json())
       .then(({ clientId }) => {
@@ -859,7 +660,7 @@
               document.getElementById('gSignArea').style.display = 'none';
               const btn = document.getElementById('subBtn');
               btn.disabled = false;
-              btn.textContent = 'Send Booking Request \u2192';
+              btn.textContent = 'Send Booking Request →';
               if (!document.getElementById('em').value) {
                 document.getElementById('em').value = senderEmail;
               }
@@ -871,6 +672,7 @@
       .catch(() => alert('Could not connect to server. Make sure the server is running.'));
   }
 
+  /* ── Build RFC 2822 email encoded as base64url ── */
   function buildRaw(to, subject, html, from, replyTo) {
     const msg =
       'From: ' + from + '\r\n' +
@@ -893,6 +695,7 @@
     if (!r.ok) throw new Error('Gmail API ' + r.status);
   }
 
+  /* ── Form submit ── */
   document.getElementById('bookForm').addEventListener('submit', async e => {
     e.preventDefault();
     const btn = document.getElementById('subBtn');
@@ -912,21 +715,22 @@
     const budget= sl.value;
     const notes = document.getElementById('notes').value.trim();
 
-    btn.disabled = true; btn.textContent = 'Sending\u2026';
+    btn.disabled = true; btn.textContent = 'Sending…';
 
     try {
+      // Email to Liam
       await gmailSend(buildRaw(
         'LiamsSites@proton.me',
-        'New Booking \u2014 ' + biz + ' ($' + budget + ')',
+        '🌐 New Booking — ' + biz + ' ($' + budget + ')',
         `<div style="font-family:sans-serif;max-width:600px;margin:auto;padding:32px;color:#111;">
           <h2 style="margin:0 0 6px;font-size:22px;">New Website Booking</h2>
           <p style="color:#888;font-size:14px;margin:0 0 24px;">Submitted via Liam's Websites</p>
           <table style="width:100%;border-collapse:collapse;font-size:15px;">
             <tr><td style="padding:10px 0;color:#888;width:130px;border-top:1px solid #f0f0f0;">Name</td><td style="padding:10px 0;font-weight:600;border-top:1px solid #f0f0f0;">${fn} ${ln}</td></tr>
             <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Email</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;"><a href="mailto:${email}">${email}</a></td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Business</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;font-weight:600;">${biz}</td></div></td></tr>
+            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Business</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;font-weight:600;">${biz}</td></tr>
             <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Type</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;">${btype}</td></tr>
-            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Budget</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;font-weight:700;color:#c9472b;">$${budget}</td></tr>
+            <tr><td style="padding:10px 0;color:#888;border-top:1px solid #f0f0f0;">Budget</td><td style="padding:10px 0;border-top:1px solid #f0f0f0;font-weight:700;color:#1d4ed8;">$${budget}</td></tr>
           </table>
           <div style="margin-top:24px;">
             <p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Project Notes</p>
@@ -934,14 +738,16 @@
           </div>
           <p style="margin-top:24px;font-size:13px;color:#aaa;">Reply to this email to contact ${fn} directly.</p>
         </div>`,
-        senderEmail, email
+        senderEmail,
+        email
       ));
 
+      // Confirmation to client
       await gmailSend(buildRaw(
         email,
-        'Got your request, ' + fn + '!',
+        'Got your request, ' + fn + '! 🎉',
         `<div style="font-family:sans-serif;max-width:560px;margin:auto;padding:32px;color:#111;">
-          <h2 style="margin:0 0 8px;">You're all set, ${fn}!</h2>
+          <h2 style="margin:0 0 8px;">You're all set, ${fn}! 🎉</h2>
           <p style="color:#555;font-size:15px;line-height:1.7;margin-bottom:20px;">
             Thanks for reaching out about <strong>${biz}</strong>. I've received your booking and will be in touch within <strong>24 hours</strong>.
           </p>
@@ -949,16 +755,17 @@
             <strong>Your summary</strong><br/><br/>
             Business: <strong>${biz}</strong><br/>
             Type: ${btype}<br/>
-            Budget: <strong style="color:#c9472b;">$${budget}</strong><br/><br/>
+            Budget: <strong style="color:#1d4ed8;">$${budget}</strong><br/><br/>
             <em style="color:#888;">Notes: ${notes}</em>
           </div>
           <p style="color:#555;font-size:14px;line-height:1.7;">
             Have more details or files to share? Just reply to this email.<br/><br/>
-            &mdash; Liam<br/>
-            <a href="mailto:LiamsSites@proton.me" style="color:#c9472b;">LiamsSites@proton.me</a>
+            — Liam<br/>
+            <a href="mailto:LiamsSites@proton.me" style="color:#1d4ed8;">LiamsSites@proton.me</a>
           </p>
         </div>`,
-        senderEmail, 'LiamsSites@proton.me'
+        senderEmail,
+        'LiamsSites@proton.me'
       ));
 
       document.getElementById('bookForm').style.display = 'none';
@@ -968,9 +775,10 @@
       err.textContent = 'Failed to send. Please email LiamsSites@proton.me directly. (' + ex.message + ')';
       err.style.display = 'block';
       btn.disabled = false;
-      btn.textContent = 'Send Booking Request \u2192';
+      btn.textContent = 'Send Booking Request →';
     }
   });
 </script>
+
 </body>
 </html>
